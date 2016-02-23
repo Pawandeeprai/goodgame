@@ -111,6 +111,7 @@ user interface.  You can search for games and add them to your shelves.
 
 ### Bonus Features (TBD)
 - [ ] Users have friends and can see what's in their friend's shelves
+- [ ] Users can favorite games
 
 
 [phase-one]: ./docs/phases/phase1.md
