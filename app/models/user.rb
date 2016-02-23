@@ -25,13 +25,15 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_credentials(username, password)
+    print "HEY HEY HEY I AM HERE"
+    print username
     @user = User.find_by(username: username)
     return nil unless @user && @user.valid_password?(password)
     @user
   end
 
   def valid_password?(password)
-    BCryptd::Password.new(self.password_digest).is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   def reset_token!

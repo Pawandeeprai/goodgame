@@ -4,7 +4,6 @@ class Api::SessionsController < ApplicationController
     sessions_params[:username],
     sessions_params[:password]
     )
-
     if @user == nil
       render json: ["Wrong username/password combo"], status: 401
     else
@@ -19,7 +18,6 @@ class Api::SessionsController < ApplicationController
   end
 
   def sessions_params
-    print "HEY HEY HEY I AM HERE"
     params.require(:user).permit(:username, :password)
   end
 end

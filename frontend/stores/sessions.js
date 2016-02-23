@@ -6,6 +6,7 @@ var _currentUser = {};
 
 var updateCurrentUser = function(user){
   _currentUser = user;
+
 };
 
 SessionsStore.all = function(){
@@ -13,11 +14,10 @@ SessionsStore.all = function(){
 };
 
 SessionsStore.__onDispatch = function(payload){
-  debugger;
   switch(payload.actionType){
     case "CURRENT_USER":
       updateCurrentUser(payload.user);
-      SessionsStore.emitChange();
+      SessionsStore.__emitChange();
       break;
   }
 };
