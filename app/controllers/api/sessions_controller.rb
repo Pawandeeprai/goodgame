@@ -1,12 +1,12 @@
-class SessionsController < ApplicationController
+class Api::SessionsController < ApplicationController
   def create
     @user = User.find_by_credentials(
-    params[:username],
-    params[:password]
+    sessions_params[:username],
+    sessions_params[:password]
     )
 
     if @user == nil
-      render json: ["Wrong username/password combo!"], status: 401
+      render json: ["Wrong username/password combo"], status: 401
     else
       sign_in(@user)
       render "api/users/show"
@@ -16,5 +16,10 @@ class SessionsController < ApplicationController
   def destroy
     sign_out!
     render json: {}
+  end
+
+  def sessions_params
+    print "HEY HEY HEY I AM HERE"
+    params.require(:user).permit(:username, :password)
   end
 end

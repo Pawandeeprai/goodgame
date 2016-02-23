@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'annotate'
 
-
+gem 'pry-rails'
 gem 'better_errors'
 gem 'bcrypt'
 gem 'rails', '4.2.5'

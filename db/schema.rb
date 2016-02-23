@@ -17,12 +17,13 @@ ActiveRecord::Schema.define(version: 20160223040645) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "name",            null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "username",                                                                                           null: false
+    t.string   "name",                                                                                               null: false
+    t.string   "picture_url",     default: "http://icons.iconarchive.com/icons/treetog/i/128/Floppy-Small-icon.png"
+    t.string   "password_digest",                                                                                    null: false
+    t.string   "session_token",                                                                                      null: false
+    t.datetime "created_at",                                                                                         null: false
+    t.datetime "updated_at",                                                                                         null: false
   end
 
 end

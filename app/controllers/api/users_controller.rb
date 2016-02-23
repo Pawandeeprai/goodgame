@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
   def new
     @user = User.new
   end
@@ -10,14 +10,18 @@ class UsersController < ApplicationController
       sign_in(@user)
       render 'api/users/show'
     else
-      flash.now[:errors] = @user.errors.full_messages
-      redirect_to '/'
+      render json: {message: "invalid credentials"}, status: 401
     end
   end
 
   def show
     @user = User.find_by_id(params[:id])
     @current_user = current_user
+  end
+
+  def index
+    @users = User.all
+    render :index
   end
 
   private
