@@ -21,9 +21,11 @@ var App = React.createClass({
   },
 
   _onChange: function(){
-    // debugger;
-    if (SessionsStore.isCurrentUser() && this.state.loggedIn === false){
+    debugger;
+    if (SessionsStore.isCurrentUser() ){
       this.setState({loggedIn: true});
+    } else {
+      this.setState({loggedIn: false});
     }
   },
 
