@@ -36,7 +36,12 @@ var App = React.createClass({
           <CurrentUser/>
       );
     } else {
-      things = <NewSessionsForm/>;
+      things = (
+        <div>
+          <NewUserForm/>
+          <NewSessionsForm/>;
+        </div>
+      );
     }
 
     return (

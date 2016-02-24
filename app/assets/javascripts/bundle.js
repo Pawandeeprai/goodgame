@@ -54,11 +54,11 @@
 	
 	var App = __webpack_require__(166);
 	
-	var NewUsersForm = __webpack_require__(167);
-	var NewSessionForm = __webpack_require__(172);
-	var CurrentUser = __webpack_require__(173);
+	var NewUsersForm = __webpack_require__(185);
+	var NewSessionForm = __webpack_require__(190);
+	var CurrentUser = __webpack_require__(191);
 	
-	var SessionsStore = __webpack_require__(174);
+	var SessionsStore = __webpack_require__(167);
 	
 	document.addEventListener("DOMContentLoaded", function () {
 	  var content = document.querySelector("#content");
@@ -20088,12 +20088,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SessionsStore = __webpack_require__(174);
+	var SessionsStore = __webpack_require__(167);
 	var SessionsUtil = __webpack_require__(165);
 	
-	var NewUserForm = __webpack_require__(167);
-	var NewSessionsForm = __webpack_require__(172);
-	var CurrentUser = __webpack_require__(173);
+	var NewUserForm = __webpack_require__(185);
+	var NewSessionsForm = __webpack_require__(190);
+	var CurrentUser = __webpack_require__(191);
 	var Logout = __webpack_require__(192);
 	
 	var App = React.createClass({
@@ -20125,7 +20125,13 @@
 	    if (this.state.loggedIn) {
 	      things = React.createElement(CurrentUser, null);
 	    } else {
-	      things = React.createElement(NewSessionsForm, null);
+	      things = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(NewUserForm, null),
+	        React.createElement(NewSessionsForm, null),
+	        ';'
+	      );
 	    }
 	
 	    return React.createElement(
@@ -20142,397 +20148,7 @@
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var UsersUtil = __webpack_require__(163);
-	var LinkedStateMixin = __webpack_require__(168);
-	
-	var NewUserForm = React.createClass({
-	  displayName: 'NewUserForm',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      username: '',
-	      name: '',
-	      password: ''
-	    };
-	  },
-	
-	  createUser: function (e) {
-	    e.preventDefault();
-	    var user = this.state;
-	    UsersUtil.createUser(user);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.createUser },
-	        React.createElement(
-	          'label',
-	          null,
-	          'Username:'
-	        ),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Name:'
-	        ),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('name') }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Password:'
-	        ),
-	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create New User' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = NewUserForm;
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(169);
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule LinkedStateMixin
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	var ReactLink = __webpack_require__(170);
-	var ReactStateSetters = __webpack_require__(171);
-	
-	/**
-	 * A simple mixin around ReactLink.forState().
-	 */
-	var LinkedStateMixin = {
-	  /**
-	   * Create a ReactLink that's linked to part of this component's state. The
-	   * ReactLink will have the current value of this.state[key] and will call
-	   * setState() when a change is requested.
-	   *
-	   * @param {string} key state key to update. Note: you may want to use keyOf()
-	   * if you're using Google Closure Compiler advanced mode.
-	   * @return {ReactLink} ReactLink instance linking to the state.
-	   */
-	  linkState: function (key) {
-	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
-	  }
-	};
-	
-	module.exports = LinkedStateMixin;
-
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactLink
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	/**
-	 * ReactLink encapsulates a common pattern in which a component wants to modify
-	 * a prop received from its parent. ReactLink allows the parent to pass down a
-	 * value coupled with a callback that, when invoked, expresses an intent to
-	 * modify that value. For example:
-	 *
-	 * React.createClass({
-	 *   getInitialState: function() {
-	 *     return {value: ''};
-	 *   },
-	 *   render: function() {
-	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
-	 *     return <input valueLink={valueLink} />;
-	 *   },
-	 *   _handleValueChange: function(newValue) {
-	 *     this.setState({value: newValue});
-	 *   }
-	 * });
-	 *
-	 * We have provided some sugary mixins to make the creation and
-	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
-	 */
-	
-	var React = __webpack_require__(2);
-	
-	/**
-	 * @param {*} value current value of the link
-	 * @param {function} requestChange callback to request a change
-	 */
-	function ReactLink(value, requestChange) {
-	  this.value = value;
-	  this.requestChange = requestChange;
-	}
-	
-	/**
-	 * Creates a PropType that enforces the ReactLink API and optionally checks the
-	 * type of the value being passed inside the link. Example:
-	 *
-	 * MyComponent.propTypes = {
-	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
-	 * }
-	 */
-	function createLinkTypeChecker(linkType) {
-	  var shapes = {
-	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
-	    requestChange: React.PropTypes.func.isRequired
-	  };
-	  return React.PropTypes.shape(shapes);
-	}
-	
-	ReactLink.PropTypes = {
-	  link: createLinkTypeChecker
-	};
-	
-	module.exports = ReactLink;
-
-/***/ },
-/* 171 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactStateSetters
-	 */
-	
-	'use strict';
-	
-	var ReactStateSetters = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (component, funcReturningState) {
-	    return function (a, b, c, d, e, f) {
-	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
-	      if (partialState) {
-	        component.setState(partialState);
-	      }
-	    };
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (component, key) {
-	    // Memoize the setters.
-	    var cache = component.__keySetters || (component.__keySetters = {});
-	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
-	  }
-	};
-	
-	function createStateKeySetter(component, key) {
-	  // Partial state is allocated outside of the function closure so it can be
-	  // reused with every call, avoiding memory allocation when this function
-	  // is called.
-	  var partialState = {};
-	  return function stateKeySetter(value) {
-	    partialState[key] = value;
-	    component.setState(partialState);
-	  };
-	}
-	
-	ReactStateSetters.Mixin = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateSetter(function(xValue) {
-	   *     return {x: xValue};
-	   *   })(1);
-	   *
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (funcReturningState) {
-	    return ReactStateSetters.createStateSetter(this, funcReturningState);
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateKeySetter('x')(1);
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (key) {
-	    return ReactStateSetters.createStateKeySetter(this, key);
-	  }
-	};
-	
-	module.exports = ReactStateSetters;
-
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SessionsUtil = __webpack_require__(165);
-	var LinkedStateMixin = __webpack_require__(168);
-	
-	var NewSessionForm = React.createClass({
-	  displayName: 'NewSessionForm',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      username: '',
-	      password: ''
-	    };
-	  },
-	
-	  createUser: function (e) {
-	    e.preventDefault();
-	    var user = this.state;
-	    SessionsUtil.createSession(user);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.createUser },
-	        React.createElement(
-	          'label',
-	          null,
-	          'Username:'
-	        ),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Password:'
-	        ),
-	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Sign In' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = NewSessionForm;
-
-/***/ },
-/* 173 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SessionsStore = __webpack_require__(174);
-	var Logout = __webpack_require__(192);
-	
-	var CurrentUser = React.createClass({
-	  displayName: 'CurrentUser',
-	
-	  getInitialState: function () {
-	    return { user: SessionsStore.all() };
-	  },
-	
-	  getStateFromStore: function () {
-	    return { user: SessionsStore.all() };
-	  },
-	
-	  _onChange: function () {
-	    this.setState(this.getStateFromStore);
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = SessionsStore.addListener(this._onChange);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      this.state.user.username,
-	      React.createElement('img', { src: this.state.user.picture_url }),
-	      React.createElement(Logout, { userid: this.state.user.id })
-	    );
-	  }
-	});
-	
-	module.exports = CurrentUser;
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(175).Store;
+	var Store = __webpack_require__(168).Store;
 	var AppDispatcher = __webpack_require__(159);
 	var SessionsUtil = __webpack_require__(165);
 	
@@ -20576,7 +20192,7 @@
 	module.exports = SessionsStore;
 
 /***/ },
-/* 175 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20588,15 +20204,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(176);
-	module.exports.MapStore = __webpack_require__(179);
-	module.exports.Mixin = __webpack_require__(191);
-	module.exports.ReduceStore = __webpack_require__(180);
-	module.exports.Store = __webpack_require__(181);
+	module.exports.Container = __webpack_require__(169);
+	module.exports.MapStore = __webpack_require__(172);
+	module.exports.Mixin = __webpack_require__(184);
+	module.exports.ReduceStore = __webpack_require__(173);
+	module.exports.Store = __webpack_require__(174);
 
 
 /***/ },
-/* 176 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20618,10 +20234,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(177);
+	var FluxStoreGroup = __webpack_require__(170);
 	
 	var invariant = __webpack_require__(162);
-	var shallowEqual = __webpack_require__(178);
+	var shallowEqual = __webpack_require__(171);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -20779,7 +20395,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 177 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20860,7 +20476,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 178 */
+/* 171 */
 /***/ function(module, exports) {
 
 	/**
@@ -20915,7 +20531,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 179 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20936,8 +20552,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(180);
-	var Immutable = __webpack_require__(190);
+	var FluxReduceStore = __webpack_require__(173);
+	var Immutable = __webpack_require__(183);
 	
 	var invariant = __webpack_require__(162);
 	
@@ -21065,7 +20681,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 180 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21086,9 +20702,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(181);
+	var FluxStore = __webpack_require__(174);
 	
-	var abstractMethod = __webpack_require__(189);
+	var abstractMethod = __webpack_require__(182);
 	var invariant = __webpack_require__(162);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -21172,7 +20788,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 181 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21191,7 +20807,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(182);
+	var _require = __webpack_require__(175);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -21355,7 +20971,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 182 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21368,14 +20984,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(183)
+	  EventEmitter: __webpack_require__(176)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 183 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21394,11 +21010,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(184);
-	var EventSubscriptionVendor = __webpack_require__(186);
+	var EmitterSubscription = __webpack_require__(177);
+	var EventSubscriptionVendor = __webpack_require__(179);
 	
-	var emptyFunction = __webpack_require__(188);
-	var invariant = __webpack_require__(187);
+	var emptyFunction = __webpack_require__(181);
+	var invariant = __webpack_require__(180);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -21572,7 +21188,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 184 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21593,7 +21209,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(185);
+	var EventSubscription = __webpack_require__(178);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -21625,7 +21241,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 185 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -21679,7 +21295,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 186 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21698,7 +21314,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(187);
+	var invariant = __webpack_require__(180);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -21788,7 +21404,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 187 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21843,7 +21459,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 188 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -21885,7 +21501,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 189 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21912,7 +21528,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 190 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26899,7 +26515,7 @@
 	}));
 
 /***/ },
-/* 191 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26916,7 +26532,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(177);
+	var FluxStoreGroup = __webpack_require__(170);
 	
 	var invariant = __webpack_require__(162);
 	
@@ -27020,6 +26636,406 @@
 	
 	module.exports = FluxMixinLegacy;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UsersUtil = __webpack_require__(163);
+	var LinkedStateMixin = __webpack_require__(186);
+	
+	var NewUserForm = React.createClass({
+	  displayName: 'NewUserForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      username: '',
+	      name: '',
+	      password: ''
+	    };
+	  },
+	
+	  createUser: function (e) {
+	    e.preventDefault();
+	    var user = this.state;
+	    UsersUtil.createUser(user);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'new-user-form' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Sign Up'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.createUser },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Username:'
+	        ),
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Name:'
+	        ),
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('name') }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Password:'
+	        ),
+	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = NewUserForm;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(187);
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	var ReactLink = __webpack_require__(188);
+	var ReactStateSetters = __webpack_require__(189);
+	
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+	
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+	
+	var React = __webpack_require__(2);
+	
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+	
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+	
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+	
+	module.exports = ReactLink;
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+	
+	'use strict';
+	
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+	
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+	
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+	
+	module.exports = ReactStateSetters;
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsUtil = __webpack_require__(165);
+	var LinkedStateMixin = __webpack_require__(186);
+	
+	var NewSessionForm = React.createClass({
+	  displayName: 'NewSessionForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      username: '',
+	      password: ''
+	    };
+	  },
+	
+	  createUser: function (e) {
+	    e.preventDefault();
+	    var user = this.state;
+	    SessionsUtil.createSession(user);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Sign In'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.createUser },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Username:'
+	        ),
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Password:'
+	        ),
+	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Sign In' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = NewSessionForm;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsStore = __webpack_require__(167);
+	var Logout = __webpack_require__(192);
+	
+	var CurrentUser = React.createClass({
+	  displayName: 'CurrentUser',
+	
+	  getInitialState: function () {
+	    return { user: SessionsStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { user: SessionsStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore);
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = SessionsStore.addListener(this._onChange);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.state.user.username,
+	      React.createElement('img', { src: this.state.user.picture_url }),
+	      React.createElement(Logout, { userid: this.state.user.id })
+	    );
+	  }
+	});
+	
+	module.exports = CurrentUser;
 
 /***/ },
 /* 192 */

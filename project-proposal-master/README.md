@@ -12,8 +12,8 @@ and React.js. goodGame allows users to:
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account
-- [ ] Log in / Log out
+- [x] Create an account
+- [X] Log in / Log out
 - [ ] Users can create shelves
 - [ ] Users can add games to shelves
 - [ ] Users can move games from one shelf to another
@@ -40,9 +40,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] create new project
 - [x] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
-- [ ] blank landing page after signin
+- [X] authentication
+- [X] user signup/signin pages
+- [X] blank landing page after signin
 
 ### Phase 2: shelves model, game model, API, and basic APIUtil (2 days)
 
