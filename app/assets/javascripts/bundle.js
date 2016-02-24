@@ -20066,6 +20066,9 @@
 	      type: "GET",
 	      success: function (user) {
 	        SessionsActions.receiveCurrentUser(user);
+	      },
+	      error: function (responce) {
+	        // debugger;
 	      }
 	    });
 	  },
@@ -20112,7 +20115,6 @@
 	  },
 	
 	  _onChange: function () {
-	    debugger;
 	    if (SessionsStore.isCurrentUser()) {
 	      this.setState({ loggedIn: true });
 	    } else {
@@ -20129,8 +20131,7 @@
 	        'div',
 	        null,
 	        React.createElement(NewUserForm, null),
-	        React.createElement(NewSessionsForm, null),
-	        ';'
+	        React.createElement(NewSessionsForm, null)
 	      );
 	    }
 	
@@ -27022,6 +27023,10 @@
 	
 	  componentDidMount: function () {
 	    this.Listener = SessionsStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    // remove Listener
 	  },
 	
 	  render: function () {

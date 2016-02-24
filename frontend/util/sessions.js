@@ -18,6 +18,9 @@ var SessionsUtil = {
       type: "GET",
       success: function (user) {
         SessionsActions.receiveCurrentUser(user);
+      },
+      error: function(responce){
+        // debugger;
       }
     });
   },

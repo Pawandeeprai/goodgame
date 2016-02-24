@@ -21,7 +21,6 @@ var App = React.createClass({
   },
 
   _onChange: function(){
-    debugger;
     if (SessionsStore.isCurrentUser() ){
       this.setState({loggedIn: true});
     } else {
@@ -39,7 +38,7 @@ var App = React.createClass({
       things = (
         <div>
           <NewUserForm/>
-          <NewSessionsForm/>;
+          <NewSessionsForm/>
         </div>
       );
     }

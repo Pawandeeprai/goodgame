@@ -20,6 +20,10 @@ var CurrentUser = React.createClass({
   this.Listener = SessionsStore.addListener(this._onChange);
   },
 
+  componentWillUnmount: function(){
+    // remove Listener
+  },
+
   render: function(){
     return (
       <div>{this.state.user.username}

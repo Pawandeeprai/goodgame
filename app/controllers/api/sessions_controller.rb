@@ -13,8 +13,13 @@ class Api::SessionsController < ApplicationController
   end
 
   def index
-    @current_user = current_user
-    render 'api/users/show'
+
+    if current_user
+      @current_user = current_user
+      render 'api/users/show'
+    else
+      render json: { status: "not logged in" }, status: 401
+    end
   end
 
   def destroy
