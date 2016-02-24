@@ -1,10 +1,11 @@
 var React = require('react');
 var SessionsStore = require('../../stores/sessions');
+var Logout = require('../sessions/logout');
 
 
 var CurrentUser = React.createClass({
   getInitialState: function(){
-    return {user: "empty"};
+    return {user: SessionsStore.all()};
   },
 
   getStateFromStore: function () {
@@ -23,6 +24,7 @@ var CurrentUser = React.createClass({
     return (
       <div>{this.state.user.username}
         <img src={this.state.user.picture_url}/>
+        <Logout userid={this.state.user.id}/>
       </div>
     );
   }

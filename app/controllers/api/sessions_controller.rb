@@ -12,6 +12,11 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def index
+    @current_user = current_user
+    render 'api/users/show'
+  end
+
   def destroy
     sign_out!
     render json: {}

@@ -10,6 +10,26 @@ var SessionsUtil = {
         SessionsActions.receiveCurrentUser(user);
       }
     });
+  },
+
+  fetchCurrentUser: function(){
+    $.ajax({
+      url: "api/sessions",
+      type: "GET",
+      success: function (user) {
+        SessionsActions.receiveCurrentUser(user);
+      }
+    });
+  },
+
+  logoutCurrentUser: function(id){
+    $.ajax({
+      url: "api/sessions" + "/" + id,
+      type: "DELETE",
+      success: function(){
+        SessionsActions.logoutCurrentUser();
+      }
+    });
   }
 };
 

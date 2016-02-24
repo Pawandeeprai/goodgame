@@ -7,6 +7,12 @@ var SessionsActions = {
       actionType: "CURRENT_USER",
       user: user
     });
+  },
+
+  logoutCurrentUser: function(){
+    AppDispatcher.dispatch({
+      actionType: "LOGOUT_USER"
+    });
   }
 };
 

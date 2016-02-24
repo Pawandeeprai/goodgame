@@ -6,6 +6,8 @@ var AppDispatcher = require('./dispatcher/dispatcher');
 var UsersUtil = require('./util/users');
 var SessionsUtil = require('./util/sessions');
 
+var App = require('./components/app');
+
 var NewUsersForm = require('./components/users/form');
 var NewSessionForm = require('./components/sessions/form');
 var CurrentUser = require('./components/users/current_user');
@@ -18,9 +20,7 @@ document.addEventListener("DOMContentLoaded",
     var content = document.querySelector("#content");
     ReactDOM.render(
     <div>
-      <NewUsersForm/>
-      <NewSessionForm/>
-      <CurrentUser/>
+      <App/>
     </div>, content);
   }
 );
