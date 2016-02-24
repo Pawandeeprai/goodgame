@@ -8,6 +8,7 @@ var NewSessionsForm = require('./sessions/form');
 var CurrentUser = require('./users/current_user');
 var Logout = require('./sessions/logout');
 var Games = require('./games/games');
+var Shelves = require('./shelves/shelves');
 
 var App = React.createClass({
 
@@ -36,6 +37,7 @@ var App = React.createClass({
       things = (
         <div>
           <CurrentUser/>
+          <Shelves/>
           <Games/>
         </div>
       );

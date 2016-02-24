@@ -52,6 +52,7 @@
 	var UsersUtil = __webpack_require__(163);
 	var SessionsUtil = __webpack_require__(165);
 	var GamesUtil = __webpack_require__(193);
+	var ShelvesUtil = __webpack_require__(197);
 	
 	var App = __webpack_require__(166);
 	
@@ -59,8 +60,10 @@
 	var NewSessionForm = __webpack_require__(190);
 	var CurrentUser = __webpack_require__(191);
 	var Games = __webpack_require__(195);
+	var Shelves = __webpack_require__(200);
 	
 	var SessionsStore = __webpack_require__(167);
+	var ShelvesStore = __webpack_require__(199);
 	
 	document.addEventListener("DOMContentLoaded", function () {
 	  var content = document.querySelector("#content");
@@ -20101,6 +20104,7 @@
 	var CurrentUser = __webpack_require__(191);
 	var Logout = __webpack_require__(192);
 	var Games = __webpack_require__(195);
+	var Shelves = __webpack_require__(200);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -20132,6 +20136,7 @@
 	        'div',
 	        null,
 	        React.createElement(CurrentUser, null),
+	        React.createElement(Shelves, null),
 	        React.createElement(Games, null)
 	      );
 	    } else {
@@ -27215,6 +27220,131 @@
 	};
 	
 	module.exports = GamesStore;
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ShelvesActions = __webpack_require__(198);
+	
+	var ShelvesUtil = {
+	  fetchShelves: function () {
+	    $.ajax({
+	      url: "api/users/1/shelves",
+	      type: "GET",
+	      success: function (shelves) {
+	        ShelvesActions.receiveAllShelves(shelves);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = ShelvesUtil;
+	window.ShelvesUtil = ShelvesUtil;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(159);
+	
+	var ShelvesActions = {
+	  receiveAllShelves: function (shelves) {
+	    AppDispatcher.dispatch({
+	      actionType: "ALL_SHELVES",
+	      shelves: shelves
+	    });
+	  }
+	};
+	
+	module.exports = ShelvesActions;
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(168).Store;
+	var AppDispatcher = __webpack_require__(159);
+	
+	var ShelvesStore = new Store(AppDispatcher);
+	
+	var _shelves = [];
+	
+	var updateShelves = function (shelves) {
+	  _shelves = shelves;
+	};
+	
+	ShelvesStore.all = function () {
+	  return _shelves;
+	};
+	
+	ShelvesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ALL_SHELVES":
+	      updateShelves(payload.shelves);
+	      ShelvesStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	
+	module.exports = ShelvesStore;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(199);
+	var ShelvesUtil = __webpack_require__(197);
+	
+	var Shelves = React.createClass({
+	  displayName: 'Shelves',
+	
+	
+	  getInitialState: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display = this.state.shelves.map(function (shelf) {
+	      return React.createElement(
+	        'div',
+	        { key: shelf.id },
+	        shelf.title
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Shelves'
+	      ),
+	      display
+	    );
+	  }
+	});
+	
+	module.exports = Shelves;
 
 /***/ }
 /******/ ]);

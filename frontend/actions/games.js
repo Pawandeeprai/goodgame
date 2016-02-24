@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/dispatcher');
 
-var GamesActions ={
+var GamesActions = {
   receiveAllGames: function(games){
     AppDispatcher.dispatch({
       actionType: "ALL_GAMES",

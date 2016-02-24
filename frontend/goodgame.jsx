@@ -6,6 +6,7 @@ var AppDispatcher = require('./dispatcher/dispatcher');
 var UsersUtil = require('./util/users');
 var SessionsUtil = require('./util/sessions');
 var GamesUtil = require('./util/games');
+var ShelvesUtil = require('./util/shelves');
 
 var App = require('./components/app');
 
@@ -13,8 +14,10 @@ var NewUsersForm = require('./components/users/form');
 var NewSessionForm = require('./components/sessions/form');
 var CurrentUser = require('./components/users/current_user');
 var Games = require('./components/games/games');
+var Shelves = require('./components/shelves/shelves');
 
 var SessionsStore = require('./stores/sessions');
+var ShelvesStore = require('./stores/shelves');
 
 
 document.addEventListener("DOMContentLoaded",
