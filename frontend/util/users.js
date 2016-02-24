@@ -23,4 +23,3 @@ var UsersUtil = {
 };
 
 module.exports = UsersUtil;
-window.UsersUtil = UsersUtil;

@@ -5,6 +5,7 @@ var AppDispatcher = require('./dispatcher/dispatcher');
 
 var UsersUtil = require('./util/users');
 var SessionsUtil = require('./util/sessions');
+var GamesUtil = require('./util/games');
 
 var App = require('./components/app');
 

@@ -51,6 +51,7 @@
 	
 	var UsersUtil = __webpack_require__(163);
 	var SessionsUtil = __webpack_require__(165);
+	var GamesUtil = __webpack_require__(193);
 	
 	var App = __webpack_require__(166);
 	
@@ -20016,7 +20017,6 @@
 	};
 	
 	module.exports = UsersUtil;
-	window.UsersUtil = UsersUtil;
 
 /***/ },
 /* 164 */
@@ -27072,6 +27072,44 @@
 	});
 	
 	module.exports = Logout;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GamesActions = __webpack_require__(194);
+	
+	var GamesUtil = {
+	  fetchGames: function () {
+	    $.ajax({
+	      url: "api/games",
+	      type: "GET",
+	      success: function (games) {
+	        console.log(games);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = GamesUtil;
+	window.GamesUtil = GamesUtil;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(159);
+	
+	var GamesActions = {
+	  receiveAllGames: function (games) {
+	    AppDispatcher.dispatch({
+	      actionType: "ALL_GAMES",
+	      games: games
+	    });
+	  }
+	};
+	
+	module.exports = GamesActions;
 
 /***/ }
 /******/ ]);
