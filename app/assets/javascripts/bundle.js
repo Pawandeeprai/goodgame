@@ -58,6 +58,7 @@
 	var NewUsersForm = __webpack_require__(185);
 	var NewSessionForm = __webpack_require__(190);
 	var CurrentUser = __webpack_require__(191);
+	var Games = __webpack_require__(195);
 	
 	var SessionsStore = __webpack_require__(167);
 	
@@ -20096,8 +20097,10 @@
 	
 	var NewUserForm = __webpack_require__(185);
 	var NewSessionsForm = __webpack_require__(190);
+	
 	var CurrentUser = __webpack_require__(191);
 	var Logout = __webpack_require__(192);
+	var Games = __webpack_require__(195);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -20125,7 +20128,12 @@
 	  render: function () {
 	    var things;
 	    if (this.state.loggedIn) {
-	      things = React.createElement(CurrentUser, null);
+	      things = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(CurrentUser, null),
+	        React.createElement(Games, null)
+	      );
 	    } else {
 	      things = React.createElement(
 	        'div',
@@ -27018,7 +27026,7 @@
 	  },
 	
 	  _onChange: function () {
-	    this.setState(this.getStateFromStore);
+	    this.setState(this.getStateFromStore());
 	  },
 	
 	  componentDidMount: function () {
@@ -27027,6 +27035,7 @@
 	
 	  componentWillUnmount: function () {
 	    // remove Listener
+	    this.Listener.remove();
 	  },
 	
 	  render: function () {
@@ -27085,7 +27094,7 @@
 	      url: "api/games",
 	      type: "GET",
 	      success: function (games) {
-	        console.log(games);
+	        GamesActions.receiveAllGames(games);
 	      }
 	    });
 	  }
@@ -27110,6 +27119,103 @@
 	};
 	
 	module.exports = GamesActions;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var GamesStore = __webpack_require__(196);
+	var GamesUtil = __webpack_require__(193);
+	
+	var Games = React.createClass({
+	  displayName: 'Games',
+	
+	  getInitialState: function () {
+	    return { games: GamesStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { games: GamesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	  componentDidMount: function () {
+	    GamesUtil.fetchGames();
+	    this.Listener = GamesStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display;
+	
+	    if (this.state.games.length === 0) {
+	      display = "Snippy sandwich";
+	    } else {
+	      display = this.state.games.map(function (game) {
+	        console.log(game.coverimg_url);
+	        return React.createElement(
+	          'div',
+	          null,
+	          React.createElement('img', { src: game.coverimg_url }),
+	          React.createElement(
+	            'div',
+	            null,
+	            game.title
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            game.description
+	          )
+	        );
+	      });
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      display
+	    );
+	  }
+	});
+	
+	module.exports = Games;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(168).Store;
+	var AppDispatcher = __webpack_require__(159);
+	
+	var GamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	GamesStore.all = function () {
+	  return _games;
+	};
+	
+	GamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ALL_GAMES":
+	      updateGames(payload.games);
+	      GamesStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	
+	module.exports = GamesStore;
 
 /***/ }
 /******/ ]);

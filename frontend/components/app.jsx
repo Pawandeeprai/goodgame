@@ -4,8 +4,10 @@ var SessionsUtil = require('../util/sessions');
 
 var NewUserForm = require('./users/form');
 var NewSessionsForm = require('./sessions/form');
+
 var CurrentUser = require('./users/current_user');
 var Logout = require('./sessions/logout');
+var Games = require('./games/games');
 
 var App = React.createClass({
 
@@ -32,7 +34,10 @@ var App = React.createClass({
     var things;
     if (this.state.loggedIn){
       things = (
+        <div>
           <CurrentUser/>
+          <Games/>
+        </div>
       );
     } else {
       things = (

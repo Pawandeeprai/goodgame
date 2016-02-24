@@ -6,7 +6,7 @@ var GamesUtil = {
       url: "api/games",
       type: "GET",
       success: function (games) {
-        console.log(games);
+        GamesActions.receiveAllGames(games);
       }
     });
   }

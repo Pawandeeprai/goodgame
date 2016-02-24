@@ -13,7 +13,7 @@ var CurrentUser = React.createClass({
   },
 
   _onChange: function(){
-    this.setState(this.getStateFromStore);
+    this.setState(this.getStateFromStore());
   },
 
   componentDidMount: function () {
@@ -22,6 +22,7 @@ var CurrentUser = React.createClass({
 
   componentWillUnmount: function(){
     // remove Listener
+    this.Listener.remove();
   },
 
   render: function(){
