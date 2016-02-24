@@ -27159,18 +27159,17 @@
 	      display = "Snippy sandwich";
 	    } else {
 	      display = this.state.games.map(function (game) {
-	        console.log(game.coverimg_url);
 	        return React.createElement(
 	          'div',
-	          null,
+	          { key: game.id },
 	          React.createElement('img', { src: game.coverimg_url }),
 	          React.createElement(
-	            'div',
+	            'h3',
 	            null,
 	            game.title
 	          ),
 	          React.createElement(
-	            'div',
+	            'p',
 	            null,
 	            game.description
 	          )
