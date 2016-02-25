@@ -20,16 +20,16 @@ var NewSessionForm = React.createClass({
 
   render: function(){
     return(
-      <div>
-        <h1>Sign In</h1>
+      <div className="signin-form">
+        <h1 className="form-header">Sign In</h1>
         <form onSubmit={this.createUser}>
-          <label>Username:</label>
+          <label className="form-text">Username:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
           <br/>
-          <label>Password:</label>
+          <label className="form-text">Password:</label><br/>
           <input type="password" valueLink={this.linkState('password')}/>
           <br/>
-          <input type="submit" value="Sign In"/>
+          <input className="button" type="submit" value="Sign In"/>
         </form>
       </div>
     );

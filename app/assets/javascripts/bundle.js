@@ -20142,7 +20142,7 @@
 	    } else {
 	      things = React.createElement(
 	        'div',
-	        null,
+	        { className: 'new-user-forms' },
 	        React.createElement(NewUserForm, null),
 	        React.createElement(NewSessionsForm, null)
 	      );
@@ -26684,7 +26684,7 @@
 	      { className: 'new-user-form' },
 	      React.createElement(
 	        'h1',
-	        null,
+	        { className: 'form-header' },
 	        'Sign Up'
 	      ),
 	      React.createElement(
@@ -26692,26 +26692,29 @@
 	        { onSubmit: this.createUser },
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'form-text' },
 	          'Username:'
 	        ),
+	        React.createElement('br', null),
 	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'form-text' },
 	          'Name:'
 	        ),
+	        React.createElement('br', null),
 	        React.createElement('input', { type: 'text', valueLink: this.linkState('name') }),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'form-text' },
 	          'Password:'
 	        ),
+	        React.createElement('br', null),
 	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'Sign Up' })
 	      )
 	    );
 	  }
@@ -26979,10 +26982,10 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'signin-form' },
 	      React.createElement(
 	        'h1',
-	        null,
+	        { className: 'form-header' },
 	        'Sign In'
 	      ),
 	      React.createElement(
@@ -26990,19 +26993,21 @@
 	        { onSubmit: this.createUser },
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'form-text' },
 	          'Username:'
 	        ),
+	        React.createElement('br', null),
 	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
-	          null,
+	          { className: 'form-text' },
 	          'Password:'
 	        ),
+	        React.createElement('br', null),
 	        React.createElement('input', { type: 'password', valueLink: this.linkState('password') }),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Sign In' })
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'Sign In' })
 	      )
 	    );
 	  }
@@ -27167,7 +27172,7 @@
 	        return React.createElement(
 	          'div',
 	          { key: game.id },
-	          React.createElement('img', { src: game.coverimg_url }),
+	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
 	          React.createElement(
 	            'h3',
 	            null,

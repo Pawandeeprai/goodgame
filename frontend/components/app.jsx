@@ -43,7 +43,7 @@ var App = React.createClass({
       );
     } else {
       things = (
-        <div>
+        <div className="new-user-forms">
           <NewUserForm/>
           <NewSessionsForm/>
         </div>

@@ -37,7 +37,7 @@ var Games = React.createClass({
             function(game){
               return (
                 <div key={game.id}>
-                  <img src={game.coverimg_url}/>
+                  <img className="game-image" src={game.coverimg_url}/>
                   <h3>{game.title}</h3>
                   <p>{game.description}</p>
                 </div>

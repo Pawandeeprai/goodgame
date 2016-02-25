@@ -22,18 +22,18 @@ var NewUserForm = React.createClass({
   render: function(){
     return(
       <div className ="new-user-form">
-        <h1>Sign Up</h1>
+        <h1 className="form-header">Sign Up</h1>
         <form onSubmit={this.createUser}>
-          <label>Username:</label>
+          <label className="form-text">Username:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
           <br/>
-          <label>Name:</label>
+          <label className="form-text">Name:</label><br/>
           <input type="text" valueLink={this.linkState('name')}/>
           <br/>
-          <label>Password:</label>
+          <label className="form-text">Password:</label><br/>
           <input type="password" valueLink={this.linkState('password')}/>
           <br/>
-          <input type="submit" value="Sign Up"/>
+          <input className="button" type="submit" value="Sign Up"/>
         </form>
       </div>
     );
