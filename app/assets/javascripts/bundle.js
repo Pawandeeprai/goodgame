@@ -20138,7 +20138,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'logo-div' },
-	          React.createElement('img', { className: 'logo', src: 'assets/goodGame-logo.png' })
+	          React.createElement('img', { className: 'logo', src: 'assets/goodgamewhitelogo.png' })
 	        ),
 	        React.createElement(
 	          'div',
@@ -20155,7 +20155,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'logo-div' },
-	          React.createElement('img', { className: 'logo', src: 'assets/goodGame-logo.png' })
+	          React.createElement('img', { className: 'logo', src: 'assets/goodgamewhitelogo.png' })
 	        ),
 	        React.createElement(
 	          'div',
@@ -27197,16 +27197,17 @@
 	      display = this.state.games.map(function (game) {
 	        return React.createElement(
 	          'div',
-	          { key: game.id },
-	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
+	          { className: 'game-div', key: game.id },
 	          React.createElement(
 	            'h3',
-	            null,
+	            { className: 'game-title' },
 	            game.title
 	          ),
+	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
+	          React.createElement('img', { className: 'console-logo', src: game.console }),
 	          React.createElement(
 	            'p',
-	            null,
+	            { className: 'game-description' },
 	            game.description
 	          )
 	        );
@@ -27358,7 +27359,7 @@
 	    var display = this.state.shelves.map(function (shelf) {
 	      return React.createElement(
 	        'div',
-	        { key: shelf.id },
+	        { className: 'shelf-div', key: shelf.id },
 	        shelf.title
 	      );
 	    });
@@ -27367,10 +27368,14 @@
 	      null,
 	      React.createElement(
 	        'h2',
-	        null,
+	        { className: 'shelves-header' },
 	        'Shelves'
 	      ),
-	      display
+	      React.createElement(
+	        'div',
+	        { className: 'shelf-names-div' },
+	        display
+	      )
 	    );
 	  }
 	});

@@ -36,10 +36,11 @@ var Games = React.createClass({
           this.state.games.map(
             function(game){
               return (
-                <div key={game.id}>
+                <div className="game-div" key={game.id}>
+                  <h3 className="game-title">{game.title}</h3>
                   <img className="game-image" src={game.coverimg_url}/>
-                  <h3>{game.title}</h3>
-                  <p>{game.description}</p>
+                  <img className="console-logo" src={game.console}/>
+                  <p className="game-description">{game.description}</p>
                 </div>
               );
             }

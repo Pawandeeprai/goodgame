@@ -1,3 +1,41 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.game-div {
+  border: 1px solid #8b9dc3;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+}
+
+.game-image {
+  margin-right: 20px;
+  float: left;
+  display: inline-block;
+  width: 100px;
+  height: auto;
+}
+.game-title {
+  background-color: #3b5998;
+  float: left;
+  display: inline-block;
+  width: 100%;
+  border: 0px;
+  margin: 0px;
+  padding-bottom: 5px;
+  padding-top: 3px;
+  color: white;
+}
+
+.game-description {
+  float: left;
+}
+
+.console-logo{
+  width: 40px;
+  height: auto;
+  bottom: 10px;
+  right: 85%;
+  position: absolute;
+}

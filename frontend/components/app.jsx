@@ -37,7 +37,7 @@ var App = React.createClass({
       things = (
         <div>
           <div className="logo-div">
-            <img className="logo" src="assets/goodGame-logo.png"/>
+            <img className="logo" src="assets/goodgamewhitelogo.png"/>
           </div>
           <div className="current-user-div">
             <CurrentUser/>
@@ -50,7 +50,7 @@ var App = React.createClass({
       things = (
         <div>
           <div className="logo-div">
-            <img className="logo" src="assets/goodGame-logo.png"/>
+            <img className="logo" src="assets/goodgamewhitelogo.png"/>
           </div>
           <div className="new-user-forms">
             <NewUserForm/>

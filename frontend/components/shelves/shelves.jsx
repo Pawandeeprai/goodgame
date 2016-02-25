@@ -30,7 +30,7 @@ var Shelves = React.createClass({
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <div key={shelf.id}>
+          <div className="shelf-div" key={shelf.id}>
             {shelf.title}
           </div>
         );
@@ -38,8 +38,10 @@ var Shelves = React.createClass({
     );
     return (
     <div>
-      <h2>Shelves</h2>
-      {display}
+      <h2 className="shelves-header">Shelves</h2>
+      <div className="shelf-names-div">
+        {display}
+      </div>
     </div>);
   }
 });
