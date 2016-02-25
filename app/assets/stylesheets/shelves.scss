@@ -1,14 +1,19 @@
 // Place all the styles related to the shelves controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.shelf-div{
 
+
+.shelves-div {
   display: inline-block;
-  margin-left: 5%;
+  height: 200px;
+  width: 1000px;
 }
 
-// .shelf-names-div{
-//   border: 2px;
-// border-top: 1px black;
-// }
-// not sure why thats not working
+.shelves-header {
+  background-color: #3b5998;
+  color: white;
+}
+
+.shelf-div:hover {
+  background-color: #8b9dc3;
+}

@@ -39,8 +39,10 @@ var App = React.createClass({
           <div className="logo-div">
             <img className="logo" src="assets/goodgamewhitelogo.png"/>
           </div>
-          <div className="current-user-div">
-            <CurrentUser/>
+          <div className="current-content">
+            <div className="current-user-div">
+              <CurrentUser/>
+            </div>
             <Shelves/>
             <Games/>
           </div>

@@ -20142,8 +20142,12 @@
 	        ),
 	        React.createElement(
 	          'div',
-	          { className: 'current-user-div' },
-	          React.createElement(CurrentUser, null),
+	          { className: 'current-content' },
+	          React.createElement(
+	            'div',
+	            { className: 'current-user-div' },
+	            React.createElement(CurrentUser, null)
+	          ),
 	          React.createElement(Shelves, null),
 	          React.createElement(Games, null)
 	        )
@@ -27069,16 +27073,16 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'current-user-name' },
-	        this.state.user.username
-	      ),
+	      { className: 'current-user-div' },
 	      React.createElement(
 	        'div',
 	        { className: 'current-user-img-div' },
 	        React.createElement('img', { className: 'current-user-img', src: this.state.user.picture_url })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'current-user-name' },
+	        this.state.user.username
 	      ),
 	      React.createElement(Logout, { userid: this.state.user.id })
 	    );
@@ -27365,11 +27369,15 @@
 	    });
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'shelves-div' },
 	      React.createElement(
-	        'h2',
+	        'div',
 	        { className: 'shelves-header' },
-	        'Shelves'
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Shelves'
+	        )
 	      ),
 	      React.createElement(
 	        'div',

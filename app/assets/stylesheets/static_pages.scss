@@ -7,6 +7,11 @@
 
 }
 
+.current-content {
+  width: 1080px;
+  margin-left: 15%;
+}
+
 .logo {
   width: 100px;
   height: auto;
@@ -19,26 +24,29 @@
   margin-top: 0px
 }
 
-.current-user-div {
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 20px;
-}
-
 .current-user-img {
   float: left;
   display: inline-block;
-  width: 80px;
+  width: 120px;
   height: auto;
 }
 
 .current-user-img-div{
   height: 200px;
-  width: 150px;
+  width: 200px;
   display: inline-block;
+  float: left;
 }
 
 .current-user-name {
-  font-size: 20px;
+  width: 600px;
+  float:left;
+  font-size: 25px;
   display: inline-block;
+}
+
+.current-user-div {
+  width: 800px;
+  height: 200px;
+  margin-top: 15px;
 }

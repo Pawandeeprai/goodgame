@@ -37,8 +37,10 @@ var Shelves = React.createClass({
       }
     );
     return (
-    <div>
-      <h2 className="shelves-header">Shelves</h2>
+    <div className="shelves-div">
+      <div className="shelves-header">
+        <h2>Shelves</h2>
+      </div>
       <div className="shelf-names-div">
         {display}
       </div>
