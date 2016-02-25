@@ -12,6 +12,9 @@
 class Shelf < ActiveRecord::Base
   validates :title, :user_id, presence: true
 
+  has_many :game_shelves
+  has_many :games, :through => :game_shelves
+
   def self.generate_shelves(user)
     new_user = User.find_by_username(user.username)
     shelf_one = Shelf.new(user_id: new_user.id, title: "currently playing")
