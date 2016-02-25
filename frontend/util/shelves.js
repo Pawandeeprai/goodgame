@@ -1,4 +1,5 @@
 var ShelvesActions = require('../actions/shelves');
+var GamesActions = require('../actions/games');
 
 var ShelvesUtil = {
   fetchShelves: function(){
@@ -7,6 +8,16 @@ var ShelvesUtil = {
       type: "GET",
       success: function (shelves) {
         ShelvesActions.receiveAllShelves(shelves);
+      }
+    });
+  },
+  fetchShelfGames: function(data){
+    $.ajax({
+      url: "/api/game_shelves",
+      type: "GET",
+      data: {shelf: data},
+      success: function(games){
+        GamesActions.receiveAllGames(games);
       }
     });
   }

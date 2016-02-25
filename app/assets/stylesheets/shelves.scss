@@ -16,4 +16,13 @@
 
 .shelf-div:hover {
   background-color: #8b9dc3;
+  cursor: pointer;
+}
+
+.shelf-div {
+  display: block;
+}
+
+.shelf-label:hover {
+  cursor: pointer;
 }

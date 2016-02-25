@@ -26,12 +26,26 @@ var Shelves = React.createClass({
     this.Listener.remove();
   },
 
+  handleClick: function(e){
+    e.preventDefault();
+    var shelfId = {id: e.currentTarget.id};
+    console.log(shelfId);
+    ShelvesUtil.fetchShelfGames(shelfId);
+
+  },
+
   render: function(){
+    var that = this;
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <div className="shelf-div" key={shelf.id}>
-            {shelf.title}
+          <div onClick={that.handleClick}
+               className="shelf-div"
+               key={shelf.id}
+               id={shelf.id}>
+            <label className="shelf-label">
+              {shelf.title}
+            </label>
           </div>
         );
       }

@@ -27184,7 +27184,7 @@
 	    this.setState(this.getStateFromStore());
 	  },
 	  componentDidMount: function () {
-	    GamesUtil.fetchGames();
+	    // GamesUtil.fetchGames();
 	    this.Listener = GamesStore.addListener(this._onChange);
 	  },
 	
@@ -27262,6 +27262,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ShelvesActions = __webpack_require__(198);
+	var GamesActions = __webpack_require__(194);
 	
 	var ShelvesUtil = {
 	  fetchShelves: function () {
@@ -27270,6 +27271,16 @@
 	      type: "GET",
 	      success: function (shelves) {
 	        ShelvesActions.receiveAllShelves(shelves);
+	      }
+	    });
+	  },
+	  fetchShelfGames: function (data) {
+	    $.ajax({
+	      url: "/api/game_shelves",
+	      type: "GET",
+	      data: { shelf: data },
+	      success: function (games) {
+	        GamesActions.receiveAllGames(games);
 	      }
 	    });
 	  }
@@ -27359,12 +27370,27 @@
 	    this.Listener.remove();
 	  },
 	
+	  handleClick: function (e) {
+	    e.preventDefault();
+	    var shelfId = { id: e.currentTarget.id };
+	    console.log(shelfId);
+	    ShelvesUtil.fetchShelfGames(shelfId);
+	  },
+	
 	  render: function () {
+	    var that = this;
 	    var display = this.state.shelves.map(function (shelf) {
 	      return React.createElement(
 	        'div',
-	        { className: 'shelf-div', key: shelf.id },
-	        shelf.title
+	        { onClick: that.handleClick,
+	          className: 'shelf-div',
+	          key: shelf.id,
+	          id: shelf.id },
+	        React.createElement(
+	          'label',
+	          { className: 'shelf-label' },
+	          shelf.title
+	        )
 	      );
 	    });
 	    return React.createElement(

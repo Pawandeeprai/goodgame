@@ -17,7 +17,7 @@ var Games = React.createClass({
     this.setState(this.getStateFromStore());
   },
   componentDidMount: function(){
-    GamesUtil.fetchGames();
+    // GamesUtil.fetchGames();
     this.Listener = GamesStore.addListener(this._onChange);
   },
 
