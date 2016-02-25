@@ -4,5 +4,41 @@
 
 .main-class {
   font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
-  
+
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.logo-div {
+  background-color: #f6f6ee;
+  padding: 0px;
+  border-top: 0px;
+  margin-top: 0px
+}
+
+.current-user-div {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 20px;
+}
+
+.current-user-img {
+  float: left;
+  display: inline-block;
+  width: 80px;
+  height: auto;
+}
+
+.current-user-img-div{
+  height: 200px;
+  width: 150px;
+  display: inline-block;
+}
+
+.current-user-name {
+  font-size: 20px;
+  display: inline-block;
 }

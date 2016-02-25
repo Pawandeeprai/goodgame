@@ -20135,16 +20135,34 @@
 	      things = React.createElement(
 	        'div',
 	        null,
-	        React.createElement(CurrentUser, null),
-	        React.createElement(Shelves, null),
-	        React.createElement(Games, null)
+	        React.createElement(
+	          'div',
+	          { className: 'logo-div' },
+	          React.createElement('img', { className: 'logo', src: 'assets/goodGame-logo.png' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'current-user-div' },
+	          React.createElement(CurrentUser, null),
+	          React.createElement(Shelves, null),
+	          React.createElement(Games, null)
+	        )
 	      );
 	    } else {
 	      things = React.createElement(
 	        'div',
-	        { className: 'new-user-forms' },
-	        React.createElement(NewUserForm, null),
-	        React.createElement(NewSessionsForm, null)
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'logo-div' },
+	          React.createElement('img', { className: 'logo', src: 'assets/goodGame-logo.png' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'new-user-forms' },
+	          React.createElement(NewUserForm, null),
+	          React.createElement(NewSessionsForm, null)
+	        )
 	      );
 	    }
 	
@@ -26681,7 +26699,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'new-user-form' },
+	      { className: 'new-user-form-div' },
 	      React.createElement(
 	        'h1',
 	        { className: 'form-header' },
@@ -26982,7 +27000,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'signin-form' },
+	      { className: 'signin-form-div' },
 	      React.createElement(
 	        'h1',
 	        { className: 'form-header' },
@@ -26990,7 +27008,7 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.createUser },
+	        { className: 'signin-form', onSubmit: this.createUser },
 	        React.createElement(
 	          'label',
 	          { className: 'form-text' },
@@ -27052,8 +27070,16 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      this.state.user.username,
-	      React.createElement('img', { src: this.state.user.picture_url }),
+	      React.createElement(
+	        'div',
+	        { className: 'current-user-name' },
+	        this.state.user.username
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'current-user-img-div' },
+	        React.createElement('img', { className: 'current-user-img', src: this.state.user.picture_url })
+	      ),
 	      React.createElement(Logout, { userid: this.state.user.id })
 	    );
 	  }

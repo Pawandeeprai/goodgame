@@ -27,8 +27,13 @@ var CurrentUser = React.createClass({
 
   render: function(){
     return (
-      <div>{this.state.user.username}
-        <img src={this.state.user.picture_url}/>
+      <div>
+        <div className="current-user-name">
+          {this.state.user.username}
+        </div >
+        <div className="current-user-img-div">
+          <img className="current-user-img" src={this.state.user.picture_url}/>
+        </div>
         <Logout userid={this.state.user.id}/>
       </div>
     );

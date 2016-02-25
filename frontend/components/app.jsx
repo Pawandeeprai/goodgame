@@ -36,16 +36,26 @@ var App = React.createClass({
     if (this.state.loggedIn){
       things = (
         <div>
-          <CurrentUser/>
-          <Shelves/>
-          <Games/>
+          <div className="logo-div">
+            <img className="logo" src="assets/goodGame-logo.png"/>
+          </div>
+          <div className="current-user-div">
+            <CurrentUser/>
+            <Shelves/>
+            <Games/>
+          </div>
         </div>
       );
     } else {
       things = (
-        <div className="new-user-forms">
-          <NewUserForm/>
-          <NewSessionsForm/>
+        <div>
+          <div className="logo-div">
+            <img className="logo" src="assets/goodGame-logo.png"/>
+          </div>
+          <div className="new-user-forms">
+            <NewUserForm/>
+            <NewSessionsForm/>
+          </div>
         </div>
       );
     }

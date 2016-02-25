@@ -9,6 +9,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       render 'api/users/show'
+      Shelf.generate_shelves(@user)
     else
       render json: {message: "invalid credentials"}, status: 401
     end
