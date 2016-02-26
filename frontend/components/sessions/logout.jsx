@@ -10,8 +10,8 @@ var Logout = React.createClass({
   render: function(){
     console.log(this.props);
     return (
-      <div>
-        <form onSubmit={this.logout}>
+      <div className="navbar-logout">
+        <form className="logout-button" onSubmit={this.logout}>
           <input type="submit" value="Logout" />
         </form>
       </div>

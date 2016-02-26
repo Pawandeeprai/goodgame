@@ -2,6 +2,7 @@ var React = require('react');
 var ShelvesStore = require('../../stores/shelves');
 var ShelvesUtil = require('../../util/shelves');
 var Shelf = require('./shelf');
+var NewShelfForm = require('./new_shelf_form');
 var Link = require('react-router').Link;
 
 
@@ -45,6 +46,7 @@ var Shelves = React.createClass({
       </div>
       <div className="shelf-names-div">
         {display}
+        <NewShelfForm/>
       </div>
     </div>);
   }

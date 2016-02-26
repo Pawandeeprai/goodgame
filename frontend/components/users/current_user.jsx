@@ -1,6 +1,7 @@
 var React = require('react');
 var SessionsStore = require('../../stores/sessions');
 var Logout = require('../sessions/logout');
+var Shelves = require('../shelves/shelves');
 
 
 var CurrentUser = React.createClass({
@@ -34,6 +35,7 @@ var CurrentUser = React.createClass({
         <div className="current-user-name">
           {this.state.user.username}
         </div >
+        <Shelves/>
         <Logout userid={this.state.user.id}/>
       </div>
     );

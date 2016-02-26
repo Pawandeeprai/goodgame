@@ -48,6 +48,7 @@
 	var ReactDOM = __webpack_require__(158);
 	var Router = __webpack_require__(204).Router;
 	var Route = __webpack_require__(204).Route;
+	var IndexRoute = __webpack_require__(204).IndexRoute;
 	
 	var AppDispatcher = __webpack_require__(159);
 	
@@ -74,6 +75,8 @@
 	  Route,
 	  { component: App, path: '/' },
 	  '// TODO add index route',
+	  React.createElement(IndexRoute, { component: CurrentUser }),
+	  React.createElement(Route, { component: CurrentUser, path: '/user' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
 	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' })
 	);
@@ -20106,6 +20109,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Link = __webpack_require__(204).Link;
 	
 	var SessionsStore = __webpack_require__(167);
 	var SessionsUtil = __webpack_require__(165);
@@ -20118,6 +20122,7 @@
 	var Logout = __webpack_require__(192);
 	var Games = __webpack_require__(195);
 	var Shelves = __webpack_require__(200);
+	var NavBar = __webpack_require__(263);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -20148,23 +20153,12 @@
 	      things = React.createElement(
 	        'div',
 	        null,
-	        React.createElement(
-	          'div',
-	          { className: 'logo-div' },
-	          React.createElement('img', { className: 'logo', src: 'assets/goodgamewhitelogo.png' })
-	        ),
+	        React.createElement(NavBar, null),
 	        React.createElement(
 	          'div',
 	          { className: 'current-content' },
-	          React.createElement(
-	            'div',
-	            { className: 'current-user-div' },
-	            React.createElement(CurrentUser, null)
-	          ),
-	          React.createElement(Shelves, null),
 	          this.props.children
-	        ),
-	        React.createElement(NewShelfForm, null)
+	        )
 	      );
 	    } else {
 	      things = React.createElement(
@@ -27059,6 +27053,7 @@
 	var React = __webpack_require__(1);
 	var SessionsStore = __webpack_require__(167);
 	var Logout = __webpack_require__(192);
+	var Shelves = __webpack_require__(200);
 	
 	var CurrentUser = React.createClass({
 	  displayName: 'CurrentUser',
@@ -27098,6 +27093,7 @@
 	        { className: 'current-user-name' },
 	        this.state.user.username
 	      ),
+	      React.createElement(Shelves, null),
 	      React.createElement(Logout, { userid: this.state.user.id })
 	    );
 	  }
@@ -27124,10 +27120,10 @@
 	    console.log(this.props);
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'navbar-logout' },
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.logout },
+	        { className: 'logout-button', onSubmit: this.logout },
 	        React.createElement('input', { type: 'submit', value: 'Logout' })
 	      )
 	    );
@@ -27405,6 +27401,7 @@
 	var ShelvesStore = __webpack_require__(199);
 	var ShelvesUtil = __webpack_require__(197);
 	var Shelf = __webpack_require__(261);
+	var NewShelfForm = __webpack_require__(203);
 	var Link = __webpack_require__(204).Link;
 	
 	var Shelves = React.createClass({
@@ -27452,7 +27449,8 @@
 	      React.createElement(
 	        'div',
 	        { className: 'shelf-names-div' },
-	        display
+	        display,
+	        React.createElement(NewShelfForm, null)
 	      )
 	    );
 	  }
@@ -32622,6 +32620,37 @@
 	        )
 	      );
 	    }
+	  }
+	});
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(204).Link;
+	
+	var Logout = __webpack_require__(192);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'logo-div' },
+	      React.createElement(
+	        Link,
+	        { to: '/user' },
+	        React.createElement('img', { className: 'logo', src: 'assets/goodgamewhitelogo.png' })
+	      ),
+	      React.createElement(Logout, { className: 'navbar-logout' }),
+	      React.createElement(
+	        Link,
+	        { className: 'navbar-home', to: '/user' },
+	        'home'
+	      )
+	    );
 	  }
 	});
 

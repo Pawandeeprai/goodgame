@@ -1,4 +1,6 @@
 var React = require('react');
+var Link = require('react-router').Link;
+
 
 var SessionsStore = require('../stores/sessions');
 var SessionsUtil = require('../util/sessions');
@@ -11,6 +13,7 @@ var CurrentUser = require('./users/current_user');
 var Logout = require('./sessions/logout');
 var Games = require('./games/games');
 var Shelves = require('./shelves/shelves');
+var NavBar = require('./navbar');
 
 var App = React.createClass({
 
@@ -38,17 +41,10 @@ var App = React.createClass({
     if (this.state.loggedIn){
       things = (
         <div>
-          <div className="logo-div">
-            <img className="logo" src="assets/goodgamewhitelogo.png"/>
-          </div>
+          <NavBar/>
           <div className="current-content">
-            <div className="current-user-div">
-              <CurrentUser/>
-            </div>
-            <Shelves/>
             {this.props.children}
           </div>
-          <NewShelfForm/>
         </div>
       );
     } else {
