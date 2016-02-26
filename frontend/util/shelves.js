@@ -20,6 +20,16 @@ var ShelvesUtil = {
         GamesActions.receiveAllGames(games);
       }
     });
+  },
+  createShelf: function(data) {
+    $.ajax({
+      url: "api/users/1/shelves",
+      type: "POST",
+      data: {shelf: data},
+      success: function(shelf){
+        ShelvesActions.receiveOneShelf(shelf);
+      }
+    });
   }
 };
 

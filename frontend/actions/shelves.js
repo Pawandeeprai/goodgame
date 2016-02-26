@@ -6,6 +6,12 @@ var ShelvesActions = {
       actionType: "ALL_SHELVES",
       shelves: shelves
     });
+  },
+  receiveOneShelf : function(shelf){
+    AppDispatcher.dispatch({
+      actionType: "ADD_SHELF",
+      shelf: shelf
+    });
   }
 };
 

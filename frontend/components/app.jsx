@@ -4,6 +4,7 @@ var SessionsUtil = require('../util/sessions');
 
 var NewUserForm = require('./users/form');
 var NewSessionsForm = require('./sessions/form');
+var NewShelfForm = require('./shelves/new_shelf_form');
 
 var CurrentUser = require('./users/current_user');
 var Logout = require('./sessions/logout');
@@ -46,6 +47,7 @@ var App = React.createClass({
             <Shelves/>
             <Games/>
           </div>
+          <NewShelfForm/>
         </div>
       );
     } else {

@@ -20,7 +20,6 @@ var SessionsUtil = {
         SessionsActions.receiveCurrentUser(user);
       },
       error: function(responce){
-        // debugger;
       }
     });
   },

@@ -20071,9 +20071,7 @@
 	      success: function (user) {
 	        SessionsActions.receiveCurrentUser(user);
 	      },
-	      error: function (responce) {
-	        // debugger;
-	      }
+	      error: function (responce) {}
 	    });
 	  },
 	
@@ -20100,6 +20098,7 @@
 	
 	var NewUserForm = __webpack_require__(185);
 	var NewSessionsForm = __webpack_require__(190);
+	var NewShelfForm = __webpack_require__(203);
 	
 	var CurrentUser = __webpack_require__(191);
 	var Logout = __webpack_require__(192);
@@ -20150,7 +20149,8 @@
 	          ),
 	          React.createElement(Shelves, null),
 	          React.createElement(Games, null)
-	        )
+	        ),
+	        React.createElement(NewShelfForm, null)
 	      );
 	    } else {
 	      things = React.createElement(
@@ -27283,6 +27283,16 @@
 	        GamesActions.receiveAllGames(games);
 	      }
 	    });
+	  },
+	  createShelf: function (data) {
+	    $.ajax({
+	      url: "api/users/1/shelves",
+	      type: "POST",
+	      data: { shelf: data },
+	      success: function (shelf) {
+	        ShelvesActions.receiveOneShelf(shelf);
+	      }
+	    });
 	  }
 	};
 	
@@ -27300,6 +27310,12 @@
 	    AppDispatcher.dispatch({
 	      actionType: "ALL_SHELVES",
 	      shelves: shelves
+	    });
+	  },
+	  receiveOneShelf: function (shelf) {
+	    AppDispatcher.dispatch({
+	      actionType: "ADD_SHELF",
+	      shelf: shelf
 	    });
 	  }
 	};
@@ -27321,6 +27337,10 @@
 	  _shelves = shelves;
 	};
 	
+	var addShelf = function (shelf) {
+	  _shelves.push(shelf);
+	};
+	
 	ShelvesStore.all = function () {
 	  return _shelves;
 	};
@@ -27331,7 +27351,10 @@
 	      updateShelves(payload.shelves);
 	      ShelvesStore.__emitChange();
 	      break;
-	
+	    case "ADD_SHELF":
+	      addShelf(payload.shelf);
+	      ShelvesStore.__emitChange();
+	      break;
 	  }
 	};
 	
@@ -27415,6 +27438,76 @@
 	});
 	
 	module.exports = Shelves;
+
+/***/ },
+/* 201 */,
+/* 202 */,
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(186);
+	var ShelvesUtil = __webpack_require__(197);
+	
+	var NewShelfForm = React.createClass({
+	  displayName: 'NewShelfForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      clicked: false
+	    };
+	  },
+	
+	  createShelf: function (e) {
+	    e.preventDefault();
+	    var shelf = this.state;
+	    ShelvesUtil.createShelf(shelf);
+	    this.setState(function () {
+	      return { clicked: false };
+	    });
+	  },
+	
+	  clicked: function (e) {
+	    e.preventDefault();
+	    this.setState(function () {
+	      return { clicked: true };
+	    });
+	  },
+	
+	  render: function () {
+	    if (this.state.clicked) {
+	      return React.createElement(
+	        'div',
+	        { className: 'new-shelf-div' },
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.createShelf },
+	          React.createElement(
+	            'label',
+	            { className: 'new-shelf-label' },
+	            'new shelf title:'
+	          ),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('title') }),
+	          React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.clicked },
+	          React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
+	        )
+	      );
+	    }
+	  }
+	});
+	
+	module.exports = NewShelfForm;
 
 /***/ }
 /******/ ]);

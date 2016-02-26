@@ -9,6 +9,10 @@ var updateShelves = function(shelves){
   _shelves = shelves;
 };
 
+var addShelf = function(shelf){
+  _shelves.push(shelf);
+};
+
 ShelvesStore.all = function(){
   return _shelves;
 };
@@ -19,7 +23,10 @@ ShelvesStore.__onDispatch = function(payload){
       updateShelves(payload.shelves);
       ShelvesStore.__emitChange();
       break;
-
+    case "ADD_SHELF":
+      addShelf(payload.shelf);
+      ShelvesStore.__emitChange();
+      break;
   }
 };
 
