@@ -61,9 +61,11 @@
 	var NewUsersForm = __webpack_require__(185);
 	var NewSessionForm = __webpack_require__(190);
 	var CurrentUser = __webpack_require__(191);
+	
 	var Games = __webpack_require__(195);
 	var Shelves = __webpack_require__(200);
 	var Shelf = __webpack_require__(261);
+	var GameFullPage = __webpack_require__(262);
 	
 	var SessionsStore = __webpack_require__(167);
 	var ShelvesStore = __webpack_require__(199);
@@ -71,7 +73,9 @@
 	var routes = React.createElement(
 	  Route,
 	  { component: App, path: '/' },
-	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' })
+	  '// TODO add index route',
+	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
+	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -27179,6 +27183,7 @@
 	var GamesStore = __webpack_require__(196);
 	var GamesUtil = __webpack_require__(193);
 	var ShelvesUtil = __webpack_require__(197);
+	var Link = __webpack_require__(204).Link;
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
@@ -27221,9 +27226,13 @@
 	          'div',
 	          { className: 'game-div', key: game.id },
 	          React.createElement(
-	            'h3',
-	            { className: 'game-title' },
-	            game.title
+	            Link,
+	            { to: "/games/" + game.id },
+	            React.createElement(
+	              'h3',
+	              { className: 'game-title' },
+	              game.title
+	            )
 	          ),
 	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
 	          React.createElement('img', { className: 'console-logo', src: game.console }),
@@ -27261,6 +27270,17 @@
 	
 	GamesStore.all = function () {
 	  return _games;
+	};
+	
+	GamesStore.game = function (id) {
+	  console.log(_games);
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
 	};
 	
 	GamesStore.__onDispatch = function (payload) {
@@ -32552,15 +32572,56 @@
 	      'div',
 	      { className: 'shelf-div' },
 	      React.createElement(
-	        'label',
-	        { className: 'shelf-label' },
-	        React.createElement(
-	          Link,
-	          { to: "/shelves/" + this.props.shelf.id },
-	          this.props.shelf.title
-	        )
+	        Link,
+	        { className: 'shelf-link', to: "/shelves/" + this.props.shelf.id },
+	        this.props.shelf.title
 	      )
 	    );
+	  }
+	});
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GamesStore = __webpack_require__(196);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { game: GamesStore.game(parseInt(this.props.params.game_id)) };
+	  },
+	
+	  render: function () {
+	    if (this.state.game === undefined) {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'game-picture-div' },
+	          React.createElement('img', { src: this.state.game.coverimg_url })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'game-info-div' },
+	          React.createElement(
+	            'h1',
+	            { className: 'game-info-title' },
+	            this.state.game.title
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'game-info-description' },
+	            this.state.game.description
+	          )
+	        )
+	      );
+	    }
 	  }
 	});
 

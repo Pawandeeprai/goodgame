@@ -3,6 +3,8 @@ var React = require('react');
 var GamesStore = require('../../stores/games');
 var GamesUtil = require('../../util/games');
 var ShelvesUtil = require('../../util/shelves');
+var Link = require('react-router').Link;
+
 
 
 var Games = React.createClass({
@@ -45,7 +47,9 @@ var Games = React.createClass({
             function(game){
               return (
                 <div className="game-div" key={game.id}>
-                  <h3 className="game-title">{game.title}</h3>
+                  <Link to={"/games/" + game.id}>
+                    <h3 className="game-title">{game.title}</h3>
+                  </Link>
                   <img className="game-image" src={game.coverimg_url}/>
                   <img className="console-logo" src={game.console}/>
                   <p className="game-description">{game.description}</p>

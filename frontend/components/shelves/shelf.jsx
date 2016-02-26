@@ -8,11 +8,9 @@ module.exports = React.createClass({
   render: function () {
     return (
         <div className="shelf-div">
-          <label className="shelf-label">
-            <Link to={"/shelves/" + this.props.shelf.id}>
-              {this.props.shelf.title}
-            </Link>
-          </label>
+          <Link className="shelf-link" to={"/shelves/" + this.props.shelf.id}>
+            {this.props.shelf.title}
+          </Link>
         </div>
     );
   }
