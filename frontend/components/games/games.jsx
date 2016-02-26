@@ -2,6 +2,7 @@ var React = require('react');
 
 var GamesStore = require('../../stores/games');
 var GamesUtil = require('../../util/games');
+var ShelvesUtil = require('../../util/shelves');
 
 
 var Games = React.createClass({
@@ -13,12 +14,18 @@ var Games = React.createClass({
     return{ games: GamesStore.all()};
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
+  },
+
   _onChange: function(){
     this.setState(this.getStateFromStore());
   },
   componentDidMount: function(){
     // GamesUtil.fetchGames();
     this.Listener = GamesStore.addListener(this._onChange);
+    ShelvesUtil.fetchShelfGames(parseInt(this.props.params.shelf_id));
+    //this gets the shelf id from the router stuff in goodgame.jsx
   },
 
   componentWillUnmount: function(){
@@ -27,6 +34,7 @@ var Games = React.createClass({
 
   render: function(){
     var display;
+    console.log(this.state.games);
 
     if (this.state.games.length === 0 ){
       display = "Snippy sandwich";

@@ -13,9 +13,8 @@ var ShelvesUtil = {
   },
   fetchShelfGames: function(data){
     $.ajax({
-      url: "/api/game_shelves",
+      url: "/api/game_shelves/"+ data ,
       type: "GET",
-      data: {shelf: data},
       success: function(games){
         GamesActions.receiveAllGames(games);
       }

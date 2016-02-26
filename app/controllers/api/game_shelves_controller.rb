@@ -1,9 +1,12 @@
 class Api::GameShelvesController < ApplicationController
   def index
-    @shelf = Shelf.find_by(shelf_params)
+
+  end
+
+  def show
+    @shelf = Shelf.find_by_id(params[:id])
     if @shelf
-      @games = @shelf.games
-      render 'api/games/index'
+      render :show
     else
       render json: {status: "couldn't find that shelf"}, status: 401
     end

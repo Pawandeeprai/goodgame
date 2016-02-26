@@ -15,7 +15,7 @@ GamesStore.all = function(){
 GamesStore.__onDispatch = function(payload){
   switch (payload.actionType) {
     case "ALL_GAMES":
-      updateGames(payload.games);
+      updateGames(payload.shelf.games);
       GamesStore.__emitChange();
       break;
 

@@ -14,7 +14,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] Create an account
 - [X] Log in / Log out
-- [ ] Users can create shelves
+- [X] Users can create shelves
 - [ ] Users can add games to shelves
 - [ ] Users can move games from one shelf to another
 - [ ] Users can review games
@@ -49,15 +49,15 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 **Objective:** Shelves can be created, edited and destroyed through
 the API.
 
-- [ ] create `shelf` model
+- [x] create `shelf` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for shelf (`ShelvesController`)
-- [ ] CRUD API for game (`GamesController`)
-- [ ] jBuilder views for shelves
-- [ ] jBuilder views for games
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] CRUD API for shelf (`ShelvesController`)
+- [x] CRUD API for game (`GamesController`)
+- [x] jBuilder views for shelves
+- [x] jBuilder views for games
+- [x] setup Webpack & Flux scaffold
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (2 days)
 

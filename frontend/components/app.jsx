@@ -1,4 +1,5 @@
 var React = require('react');
+
 var SessionsStore = require('../stores/sessions');
 var SessionsUtil = require('../util/sessions');
 
@@ -45,7 +46,7 @@ var App = React.createClass({
               <CurrentUser/>
             </div>
             <Shelves/>
-            <Games/>
+            {this.props.children}
           </div>
           <NewShelfForm/>
         </div>

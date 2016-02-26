@@ -1,6 +1,8 @@
 var React = require('react');
 var ShelvesStore = require('../../stores/shelves');
 var ShelvesUtil = require('../../util/shelves');
+var Shelf = require('./shelf');
+var Link = require('react-router').Link;
 
 
 var Shelves = React.createClass({
@@ -26,34 +28,20 @@ var Shelves = React.createClass({
     this.Listener.remove();
   },
 
-  handleClick: function(e){
-    e.preventDefault();
-    var shelfId = {id: e.currentTarget.id};
-    console.log(shelfId);
-    ShelvesUtil.fetchShelfGames(shelfId);
-
-  },
 
   render: function(){
     var that = this;
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <div onClick={that.handleClick}
-               className="shelf-div"
-               key={shelf.id}
-               id={shelf.id}>
-            <label className="shelf-label">
-              {shelf.title}
-            </label>
-          </div>
+          <Shelf key={shelf.id} shelf={shelf} />
         );
       }
     );
     return (
     <div className="shelves-div">
       <div className="shelves-header">
-        <h2>Shelves</h2>
+        <h2 className="shelves-header-text">Shelves</h2>
       </div>
       <div className="shelf-names-div">
         {display}

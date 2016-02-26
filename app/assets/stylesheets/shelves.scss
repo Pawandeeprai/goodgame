@@ -9,9 +9,18 @@
   width: 1000px;
 }
 
+.shelves-header-text {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
 .shelves-header {
   background-color: #3b5998;
   color: white;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
 
 .shelf-div:hover {
@@ -20,7 +29,8 @@
 }
 
 .shelf-div {
-  display: block;
+  display: inline-block;
+  width: 333px;
 }
 
 .shelf-label:hover {
