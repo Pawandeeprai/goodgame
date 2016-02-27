@@ -27365,6 +27365,15 @@
 	        ShelvesActions.receiveOneShelf(shelf);
 	      }
 	    });
+	  },
+	  deleteShelf: function (data) {
+	    $.ajax({
+	      url: "api/users/1/shelves/" + data,
+	      type: "DELETE",
+	      success: function (shelves) {
+	        ShelvesActions.receiveAllShelves(shelves);
+	      }
+	    });
 	  }
 	};
 	
@@ -27440,6 +27449,7 @@
 	var ShelvesStore = __webpack_require__(199);
 	var ShelvesUtil = __webpack_require__(197);
 	var Shelf = __webpack_require__(261);
+	var DeleteShelf = __webpack_require__(269);
 	var NewShelfForm = __webpack_require__(203);
 	var Link = __webpack_require__(204).Link;
 	
@@ -27471,7 +27481,12 @@
 	  render: function () {
 	    var that = this;
 	    var display = this.state.shelves.map(function (shelf) {
-	      return React.createElement(Shelf, { key: shelf.id, shelf: shelf });
+	      return React.createElement(
+	        'div',
+	        { key: shelf.id, className: 'shelf-div' },
+	        React.createElement(Shelf, { key: shelf.id, shelf: shelf }),
+	        React.createElement(DeleteShelf, { shelf: shelf })
+	      );
 	    });
 	    return React.createElement(
 	      'div',
@@ -32606,13 +32621,9 @@
 	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'shelf-div' },
-	      React.createElement(
-	        Link,
-	        { className: 'shelf-link', to: "/shelves/" + this.props.shelf.id },
-	        this.props.shelf.title
-	      )
+	      Link,
+	      { className: 'shelf-link', to: "/shelves/" + this.props.shelf.id },
+	      this.props.shelf.title
 	    );
 	  }
 	});
@@ -32781,26 +32792,9 @@
 
 /***/ },
 /* 265 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var React = __webpack_require__(1);
-	
-	module.exports = React.createClass({
-	  displayName: "exports",
-	
-	  render: function () {
-	    return React.createElement(
-	      "form",
-	      null,
-	      React.createElement(StarRating, { name: "airbnb-rating", caption: "Rate your stay!", totalStars: 5 }),
-	      React.createElement(
-	        "button",
-	        { type: "submit", className: "btn btn-submit" },
-	        "Submit Rating"
-	      )
-	    );
-	  }
-	});
+	// get a star rating thing rolling
 
 /***/ },
 /* 266 */,
@@ -32843,7 +32837,7 @@
 	  render: function () {
 	    var that = this;
 	    var display = this.state.shelves.map(function (shelf) {
-	      return React.createElement(Shelf, { key: shelf.id, shelf: shelf });
+	      return React.createElement(Shelf, { className: 'shelf-item-sidebar', key: shelf.id, shelf: shelf });
 	    });
 	    return React.createElement(
 	      'div',
@@ -32864,6 +32858,25 @@
 	        React.createElement(NewShelfForm, null)
 	      )
 	    );
+	  }
+	});
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesUtil = __webpack_require__(197);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  deleteShelf: function () {
+	    ShelvesUtil.deleteShelf(this.props.shelf.id);
+	  },
+	
+	  render: function () {
+	    return React.createElement('img', { onClick: this.deleteShelf, className: 'delete-icon', src: 'assets/delete-2-xxl.png' });
 	  }
 	});
 

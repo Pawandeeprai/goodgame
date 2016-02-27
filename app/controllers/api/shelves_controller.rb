@@ -16,9 +16,26 @@ class Api::ShelvesController < ApplicationController
     end
   end
 
+  def update
+    @shelf = Shelf.find_by_id(params[:id])
+    # lets see what the front end sends to the front
+  end
+
+  def destroy
+    @shelf = Shelf.find_by_id(params[:id])
+
+    if @shelf != nil
+      @shelf.destroy
+      @shelves = Shelf.where(user_id: current_user.id)
+      render "api/shelves/index"
+    else
+      render json: {status: "shelf doesn't exist"}, status: 401
+    end
+  end
+
   private
   def shelf_params
-    params.require(:shelf).permit(:title)
+    params.require(:shelf).permit(:title, :id)
   end
 
 end

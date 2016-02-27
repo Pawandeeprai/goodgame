@@ -29,6 +29,15 @@ var ShelvesUtil = {
         ShelvesActions.receiveOneShelf(shelf);
       }
     });
+  },
+  deleteShelf: function(data) {
+    $.ajax({
+      url: "api/users/1/shelves/" + data,
+      type: "DELETE",
+      success: function(shelves){
+        ShelvesActions.receiveAllShelves(shelves);
+      }
+    });
   }
 };
 

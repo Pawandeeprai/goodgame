@@ -35,7 +35,7 @@ module.exports = React.createClass({
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <Shelf key={shelf.id} shelf={shelf} />
+          <Shelf className="shelf-item-sidebar" key={shelf.id} shelf={shelf} />
         );
       }
     );
