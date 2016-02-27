@@ -4,6 +4,7 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 
+
 var AppDispatcher = require('./dispatcher/dispatcher');
 
 var UsersUtil = require('./util/users');
@@ -31,7 +32,7 @@ var routes = (
   <Route component={App} path="/">
     // TODO add index route
     <IndexRoute component={CurrentUser}/>
-    
+
     <Route component={CurrentUser} path="/user">
 
     </Route>

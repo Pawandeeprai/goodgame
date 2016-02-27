@@ -20123,6 +20123,7 @@
 	var Games = __webpack_require__(195);
 	var Shelves = __webpack_require__(200);
 	var NavBar = __webpack_require__(263);
+	var Rating = __webpack_require__(265);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -27147,6 +27148,27 @@
 	        GamesActions.receiveAllGames(games);
 	      }
 	    });
+	  },
+	
+	  fetchGame: function (data) {
+	    $.ajax({
+	      url: "api/games/" + data,
+	      type: "GET",
+	      success: function (game) {
+	        GamesActions.receiveOneGame(game);
+	      }
+	    });
+	  },
+	  addGameToShelf: function (data) {
+	    debugger;
+	    $.ajax({
+	      url: "/api/game_shelves",
+	      type: "POST",
+	      data: { shelf_game: data },
+	      success: function (game) {
+	        console.log(game);
+	      }
+	    });
 	  }
 	};
 	
@@ -27165,7 +27187,15 @@
 	      actionType: "ALL_GAMES",
 	      shelf: shelf
 	    });
+	  },
+	
+	  receiveOneGame: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "ONE_GAME",
+	      game: game
+	    });
 	  }
+	
 	};
 	
 	module.exports = GamesActions;
@@ -27180,6 +27210,7 @@
 	var GamesUtil = __webpack_require__(193);
 	var ShelvesUtil = __webpack_require__(197);
 	var Link = __webpack_require__(204).Link;
+	var ShelvesSidebar = __webpack_require__(268);
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
@@ -27243,6 +27274,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(ShelvesSidebar, { className: 'shelf-sidebar' }),
 	      display
 	    );
 	  }
@@ -27262,6 +27294,10 @@
 	var _games = [];
 	var updateGames = function (games) {
 	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
 	};
 	
 	GamesStore.all = function () {
@@ -27285,7 +27321,10 @@
 	      updateGames(payload.shelf.games);
 	      GamesStore.__emitChange();
 	      break;
-	
+	    case "ONE_GAME":
+	      addGame(payload.game);
+	      GamesStore.__emitChange();
+	      break;
 	  }
 	};
 	
@@ -32584,12 +32623,30 @@
 
 	var React = __webpack_require__(1);
 	var GamesStore = __webpack_require__(196);
+	var AddGameToShelfForm = __webpack_require__(264);
+	var GamesUtil = __webpack_require__(193);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
 	    return { game: GamesStore.game(parseInt(this.props.params.game_id)) };
+	  },
+	
+	  componentDidMount: function () {
+	    if (this.state.game === undefined) {
+	      this.Listener = GamesStore.addListener(this._onChange);
+	      GamesUtil.fetchGame(this.props.params.game_id);
+	    }
+	  },
+	
+	  //TODO: componentWillReceiveProps(newProps)
+	  //DONT USEE this.props in this function
+	
+	  _onChange: function () {
+	    this.setState({
+	      game: GamesStore.game(parseInt(this.props.params.game_id))
+	    });
 	  },
 	
 	  render: function () {
@@ -32617,7 +32674,8 @@
 	            { className: 'game-info-description' },
 	            this.state.game.description
 	          )
-	        )
+	        ),
+	        React.createElement(AddGameToShelfForm, { game: this.state.game })
 	      );
 	    }
 	  }
@@ -32649,6 +32707,161 @@
 	        Link,
 	        { className: 'navbar-home', to: '/user' },
 	        'home'
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(199);
+	var LinkedStateMixin = __webpack_require__(186);
+	var ShelvesUtil = __webpack_require__(197);
+	var GamesUtil = __webpack_require__(193);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return { shelves: this.getStateFromStore(), shelf_id: "" };
+	  },
+	
+	  getStateFromStore: function () {
+	    return ShelvesStore.all();
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ shelves: this.getStateFromStore() });
+	  },
+	
+	  addToShelf: function (e) {
+	    e.preventDefault();
+	    console.log(parseInt(this.state.shelf_id));
+	    console.log(this.props.game.id);
+	    GamesUtil.addGameToShelf({
+	      shelf_id: parseInt(this.state.shelf_id),
+	      game_id: this.props.game.id
+	    });
+	  },
+	
+	  render: function () {
+	    var options = this.state.shelves.map(function (shelf) {
+	      return React.createElement(
+	        'option',
+	        { value: shelf.id, key: shelf.id },
+	        shelf.title
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.addToShelf },
+	        React.createElement(
+	          'select',
+	          { valueLink: this.linkState('shelf_id'), name: 'dropdown' },
+	          options
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'Submit' })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	  render: function () {
+	    return React.createElement(
+	      "form",
+	      null,
+	      React.createElement(StarRating, { name: "airbnb-rating", caption: "Rate your stay!", totalStars: 5 }),
+	      React.createElement(
+	        "button",
+	        { type: "submit", className: "btn btn-submit" },
+	        "Submit Rating"
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 266 */,
+/* 267 */,
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(199);
+	var ShelvesUtil = __webpack_require__(197);
+	var Shelf = __webpack_require__(261);
+	var NewShelfForm = __webpack_require__(203);
+	var Link = __webpack_require__(204).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  getInitialState: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var that = this;
+	    var display = this.state.shelves.map(function (shelf) {
+	      return React.createElement(Shelf, { key: shelf.id, shelf: shelf });
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'shelf-sidebar' },
+	      React.createElement(
+	        'div',
+	        { className: 'shelves-header' },
+	        React.createElement(
+	          'h2',
+	          { className: 'shelves-header-text' },
+	          'Shelves'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        display,
+	        React.createElement(NewShelfForm, null)
 	      )
 	    );
 	  }

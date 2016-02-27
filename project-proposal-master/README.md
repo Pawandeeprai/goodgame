@@ -15,8 +15,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Create an account
 - [X] Log in / Log out
 - [X] Users can create shelves
-- [ ] Users can add games to shelves
-- [ ] Users can move games from one shelf to another
+- [x] Users can add games to shelves
+- [x] Users can move games from one shelf to another
 - [ ] Users can review games
 
 ## Design Docs

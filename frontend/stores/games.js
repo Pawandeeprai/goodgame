@@ -8,6 +8,10 @@ var updateGames = function(games){
   _games = games;
 };
 
+var addGame = function(game){
+  _games.push(game);
+};
+
 GamesStore.all = function(){
   return _games;
 };
@@ -29,7 +33,10 @@ GamesStore.__onDispatch = function(payload){
       updateGames(payload.shelf.games);
       GamesStore.__emitChange();
       break;
-
+    case "ONE_GAME":
+      addGame(payload.game);
+      GamesStore.__emitChange();
+      break;
   }
 };
 

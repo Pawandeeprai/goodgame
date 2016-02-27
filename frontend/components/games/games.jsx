@@ -4,6 +4,7 @@ var GamesStore = require('../../stores/games');
 var GamesUtil = require('../../util/games');
 var ShelvesUtil = require('../../util/shelves');
 var Link = require('react-router').Link;
+var ShelvesSidebar = require('../shelves/shelves_sidebar');
 
 
 
@@ -61,6 +62,7 @@ var Games = React.createClass({
     }
     return (
       <div>
+        <ShelvesSidebar className="shelf-sidebar"/>
         {display}
       </div>
       );
