@@ -63,7 +63,9 @@ var Games = React.createClass({
     return (
       <div>
         <ShelvesSidebar className="shelf-sidebar"/>
-        {display}
+        <div className="game-displays">
+          {display}
+        </div>
       </div>
       );
   }

@@ -33,15 +33,15 @@ module.exports = React.createClass({
       return (
         <div>
           <div className="game-picture-div">
-            <img src={this.state.game.coverimg_url}/>
+            <img className="game-picture-full" src={this.state.game.coverimg_url}/>
           </div>
           <div className="game-info-div">
             <h1 className="game-info-title">{this.state.game.title}</h1>
+            <AddGameToShelfForm game={this.state.game}/>
             <p className="game-info-description">
               {this.state.game.description}
             </p>
           </div>
-          <AddGameToShelfForm game={this.state.game}/>
         </div>
       );
     }

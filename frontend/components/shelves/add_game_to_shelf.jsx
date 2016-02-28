@@ -25,10 +25,12 @@ module.exports = React.createClass({
     this.setState({shelves: this.getStateFromStore()});
   },
 
+  componentWillUnmount: function(){
+    this.Listener.remove();
+  },
+
   addToShelf: function(e){
     e.preventDefault();
-    console.log(parseInt(this.state.shelf_id));
-    console.log(this.props.game.id);
     GamesUtil.addGameToShelf({
       shelf_id: parseInt(this.state.shelf_id),
       game_id: this.props.game.id

@@ -9,7 +9,7 @@
 
 .current-content {
   width: 1080px;
-  margin-left: 15%;
+  margin-left: 10%;
 }
 
 .logo {
@@ -49,4 +49,11 @@
   width: 800px;
   height: 200px;
   margin-top: 15px;
+}
+
+.game-displays {
+  height: auto;
+  display:inline-block;
+  float: right;
+  width: 870px;
 }

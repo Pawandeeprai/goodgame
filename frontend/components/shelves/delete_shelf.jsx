@@ -9,7 +9,9 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <img onClick={this.deleteShelf} className="delete-icon" src="assets/delete-2-xxl.png"/>
+      <img onClick={this.deleteShelf}
+           className="delete-icon"
+           src="assets/delete-2-xxl.png"/>
     );
   }
 });

@@ -4,6 +4,8 @@ var ShelvesUtil = require('../../util/shelves');
 var Shelf = require('./shelf');
 var NewShelfForm = require('./new_shelf_form');
 var Link = require('react-router').Link;
+var DeleteShelf = require('./delete_shelf');
+
 
 
 module.exports = React.createClass({
@@ -35,7 +37,10 @@ module.exports = React.createClass({
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <Shelf className="shelf-item-sidebar" key={shelf.id} shelf={shelf} />
+          <div className="shelf-item-sidebar-div">
+            <Shelf className="shelf-item-sidebar" key={shelf.id} shelf={shelf}/>
+            <DeleteShelf shelf={shelf}/>
+          </div>
         );
       }
     );

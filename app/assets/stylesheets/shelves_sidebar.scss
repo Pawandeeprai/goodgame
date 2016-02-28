@@ -1,0 +1,23 @@
+.shelf-sidebar{
+  border: 1px solid #8b9dc3;
+  border-radius: 4px;
+  float: left;
+  display: inline-block;
+  width: 200px;
+  height: auto;
+  margin-top: 15px
+}
+
+.shelf-item-sidebar-div {
+  height: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+.shelf-item-sidebar-div:hover {
+  background-color: #8b9dc3;
+}
+.shelf-item-sidebar{
+  margin-left: 5px;
+}

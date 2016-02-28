@@ -14,7 +14,6 @@ var Logout = require('./sessions/logout');
 var Games = require('./games/games');
 var Shelves = require('./shelves/shelves');
 var NavBar = require('./navbar');
-var Rating = require('./games/rating');
 
 
 var App = React.createClass({
