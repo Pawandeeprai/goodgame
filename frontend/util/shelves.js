@@ -38,6 +38,15 @@ var ShelvesUtil = {
         ShelvesActions.receiveAllShelves(shelves);
       }
     });
+  },
+  editShelf: function(data){
+    $.ajax({
+      url: "api/users/1/shelves/1",
+      type: "PATCH",
+      success: function(shelves){
+        ShelvesActions.receiveAllShelves(shelves);
+      }
+    });
   }
 };
 
