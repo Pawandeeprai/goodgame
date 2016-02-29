@@ -1,3 +1,4 @@
+
 class Api::GameShelvesController < ApplicationController
   def index
 
@@ -17,6 +18,17 @@ class Api::GameShelvesController < ApplicationController
 
     if @relation.save
       render json:{status: "success"}
+    else
+      render json: {status: "something went wrong"}, status: 401
+    end
+
+  end
+
+  def destroy
+    @relation = GameShelf.find_by(shelf_params)
+
+    if @relation.destroy
+      render json:{ game_id: @relation.game_id}
     else
       render json: {status: "something went wrong"}, status: 401
     end

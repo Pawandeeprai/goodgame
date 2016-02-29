@@ -24451,13 +24451,23 @@
 	    });
 	  },
 	  addGameToShelf: function (data) {
-	    debugger;
 	    $.ajax({
 	      url: "/api/game_shelves",
 	      type: "POST",
 	      data: { shelf_game: data },
 	      success: function (game) {
 	        console.log(game);
+	      }
+	    });
+	  },
+	  removeGameFromShelf: function (data) {
+	    $.ajax({
+	      url: "/api/game_shelves/1",
+	      type: "DELETE",
+	      data: { shelf_game: data },
+	
+	      success: function (game) {
+	        GamesActions.removeGame(game);
 	      }
 	    });
 	  }
@@ -24484,6 +24494,13 @@
 	    AppDispatcher.dispatch({
 	      actionType: "ONE_GAME",
 	      game: game
+	    });
+	  },
+	
+	  removeGame: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "REMOVE_GAME",
+	      game_id: game.game_id
 	    });
 	  }
 	
@@ -31656,12 +31673,12 @@
 	  render: function () {
 	    console.log(this.props);
 	    return React.createElement(
-	      'div',
-	      { className: 'navbar-logout' },
+	      'li',
+	      { className: 'navbar-logout', onClick: this.logout },
 	      React.createElement(
-	        'form',
-	        { className: 'logout-button', onSubmit: this.logout },
-	        React.createElement('input', { type: 'submit', value: 'Logout' })
+	        'a',
+	        { href: '#' },
+	        'Logout'
 	      )
 	    );
 	  }
@@ -31831,12 +31848,16 @@
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
 	var ShelvesSidebar = __webpack_require__(250);
+	var RemoveGame = __webpack_require__(254);
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
 	
 	  getInitialState: function () {
-	    return { games: GamesStore.all() };
+	    return {
+	      games: GamesStore.all(),
+	      shelf_id: ""
+	    };
 	  },
 	
 	  getStateFromStore: function () {
@@ -31845,15 +31866,22 @@
 	
 	  componentWillReceiveProps: function (nextProps) {
 	    ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
+	    this.setState({
+	      shelf_id: parseInt(nextProps.params.shelf_id)
+	    });
 	  },
 	
 	  _onChange: function () {
 	    this.setState(this.getStateFromStore());
 	  },
+	
 	  componentDidMount: function () {
 	    // GamesUtil.fetchGames();
 	    this.Listener = GamesStore.addListener(this._onChange);
 	    ShelvesUtil.fetchShelfGames(parseInt(this.props.params.shelf_id));
+	    this.setState({
+	      shelf_id: parseInt(this.props.params.shelf_id)
+	    });
 	    //this gets the shelf id from the router stuff in goodgame.jsx
 	  },
 	
@@ -31863,8 +31891,7 @@
 	
 	  render: function () {
 	    var display;
-	    console.log(this.state.games);
-	
+	    var that = this;
 	    if (this.state.games.length === 0) {
 	      display = "Snippy sandwich";
 	    } else {
@@ -31873,13 +31900,16 @@
 	          'div',
 	          { className: 'game-div', key: game.id },
 	          React.createElement(
-	            Link,
-	            { to: "/games/" + game.id },
+	            'h3',
+	            { className: 'game-title' },
 	            React.createElement(
-	              'h3',
-	              { className: 'game-title' },
+	              Link,
+	              { to: "/games/" + game.id },
 	              game.title
-	            )
+	            ),
+	            React.createElement(RemoveGame, { key: game.id,
+	              gameid: game.id,
+	              shelfid: that.state.shelf_id })
 	          ),
 	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
 	          React.createElement('img', { className: 'console-logo', src: game.console }),
@@ -31924,12 +31954,19 @@
 	  _games.push(game);
 	};
 	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === gameId) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
 	GamesStore.all = function () {
 	  return _games;
 	};
 	
 	GamesStore.game = function (id) {
-	  console.log(_games);
 	  var theGame;
 	  _games.forEach(function (game) {
 	    if (game.id === id) {
@@ -31947,6 +31984,10 @@
 	      break;
 	    case "ONE_GAME":
 	      addGame(payload.game);
+	      GamesStore.__emitChange();
+	      break;
+	    case "REMOVE_GAME":
+	      removeGame(payload.game_id);
 	      GamesStore.__emitChange();
 	      break;
 	  }
@@ -32038,17 +32079,20 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'logo-div' },
+	      { id: 'cssmenu', className: 'logo-div' },
 	      React.createElement(
-	        Link,
-	        { to: '/user' },
-	        React.createElement('img', { className: 'logo', src: 'assets/goodgamewhitelogo.png' })
-	      ),
-	      React.createElement(Logout, { className: 'navbar-logout' }),
-	      React.createElement(
-	        Link,
-	        { className: 'navbar-home', to: '/user' },
-	        'home'
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/user' },
+	            'home'
+	          )
+	        ),
+	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
 	    );
 	  }
@@ -32183,6 +32227,35 @@
 	        ),
 	        React.createElement('input', { type: 'submit', value: 'Submit' })
 	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  removeGame: function (e) {
+	    e.preventDefault();
+	    GamesUtil.removeGameFromShelf({
+	      game_id: this.props.gameid,
+	      shelf_id: this.props.shelfid
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('img', { onClick: this.removeGame,
+	        className: 'delete-icon',
+	        src: 'assets/delete-2-xxl.png' })
 	    );
 	  }
 	});

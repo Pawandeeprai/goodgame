@@ -12,7 +12,7 @@
 class Shelf < ActiveRecord::Base
   validates :title, :user_id, presence: true
 
-  has_many :game_shelves
+  has_many :game_shelves, dependent: :destroy
   has_many :games, :through => :game_shelves
 
   # TODO reafactor this later

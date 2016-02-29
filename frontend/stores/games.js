@@ -12,12 +12,19 @@ var addGame = function(game){
   _games.push(game);
 };
 
+var removeGame = function (gameId){
+  _games.forEach(function(game, idx){
+    if (game.id === gameId){
+      _games.splice(idx);
+    }
+  });
+};
+
 GamesStore.all = function(){
   return _games;
 };
 
 GamesStore.game = function(id){
-  console.log(_games);
   var theGame;
   _games.forEach(function(game){
     if (game.id === id){
@@ -27,6 +34,7 @@ GamesStore.game = function(id){
   return theGame;
 };
 
+
 GamesStore.__onDispatch = function(payload){
   switch (payload.actionType) {
     case "ALL_GAMES":
@@ -35,6 +43,10 @@ GamesStore.__onDispatch = function(payload){
       break;
     case "ONE_GAME":
       addGame(payload.game);
+      GamesStore.__emitChange();
+      break;
+    case "REMOVE_GAME":
+      removeGame(payload.game_id);
       GamesStore.__emitChange();
       break;
   }

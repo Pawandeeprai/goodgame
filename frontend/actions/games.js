@@ -15,6 +15,13 @@ var GamesActions = {
     });
   },
 
+  removeGame: function(game){
+    AppDispatcher.dispatch({
+      actionType: "REMOVE_GAME",
+      game_id: game.game_id
+    });
+  }
+
 };
 
 module.exports = GamesActions;

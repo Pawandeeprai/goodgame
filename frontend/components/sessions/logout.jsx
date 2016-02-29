@@ -10,11 +10,12 @@ var Logout = React.createClass({
   render: function(){
     console.log(this.props);
     return (
-      <div className="navbar-logout">
-        <form className="logout-button" onSubmit={this.logout}>
-          <input type="submit" value="Logout" />
-        </form>
-      </div>
+      <li className="navbar-logout" onClick={this.logout}>
+        <a href="#">
+          Logout
+        </a>
+      </li>
+
     );
   }
 });

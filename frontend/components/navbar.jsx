@@ -7,14 +7,15 @@ var Logout = require('./sessions/logout');
 module.exports = React.createClass({
   render: function () {
     return (
-      <div className="logo-div">
-        <Link to ="/user">
-        <img className="logo" src="assets/goodgamewhitelogo.png"/>
-        </Link>
-        <Logout className="navbar-logout"/>
-        <Link className="navbar-home" to ="/user">
-          home
-        </Link>
+      <div id="cssmenu" className="logo-div">
+        <ul>
+          <li>
+            <Link to ="/user">
+              home
+            </Link>
+          </li>
+          <Logout className="navbar-logout"/>
+        </ul>
       </div>
     );
   }

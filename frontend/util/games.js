@@ -21,13 +21,23 @@ var GamesUtil = {
     });
   },
   addGameToShelf: function(data){
-    debugger;
     $.ajax({
       url: "/api/game_shelves",
       type: "POST",
       data: {shelf_game: data},
       success: function(game){
         console.log(game);
+      }
+    });
+  },
+  removeGameFromShelf: function(data){
+    $.ajax({
+      url: "/api/game_shelves/1",
+      type: "DELETE",
+      data: {shelf_game: data},
+
+      success: function(game){
+        GamesActions.removeGame(game);
       }
     });
   }
