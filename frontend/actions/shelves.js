@@ -12,6 +12,12 @@ var ShelvesActions = {
       actionType: "ADD_SHELF",
       shelf: shelf
     });
+  },
+  editShelf : function(shelf){
+    AppDispatcher.dispatch({
+      actionType: "EDIT_SHELF",
+      shelf: shelf
+    });
   }
 };
 

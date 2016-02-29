@@ -41,10 +41,11 @@ var ShelvesUtil = {
   },
   editShelf: function(data){
     $.ajax({
-      url: "api/users/1/shelves/1",
+      url: "api/users/1/shelves/" + data.shelf_id,
       type: "PATCH",
-      success: function(shelves){
-        ShelvesActions.receiveAllShelves(shelves);
+      data: {shelf: data.shelf},
+      success: function(shelf){
+        ShelvesActions.editShelf(shelf);
       }
     });
   }

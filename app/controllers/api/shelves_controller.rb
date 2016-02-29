@@ -18,7 +18,13 @@ class Api::ShelvesController < ApplicationController
 
   def update
     @shelf = Shelf.find_by_id(params[:id])
-    # lets see what the front end sends to the front
+    @shelf.title = shelf_params[:title]
+    if @shelf.save
+      render json: @shelf
+    else
+      render json: {status: "something went wrong"}, status: 401
+    end
+
   end
 
   def destroy

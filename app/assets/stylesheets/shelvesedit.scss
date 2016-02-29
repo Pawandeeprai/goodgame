@@ -1,0 +1,53 @@
+.add-self-edit {
+  width: 400px
+  border 1px solid black;
+  text-align: center;
+}
+
+.edit-div {
+  width: 400px;
+  height: auto;
+  margin: 30px;
+  margin-left: 25%
+}
+
+.edit-shelf-title{
+  float: left;
+  display: inline-block;
+  width: 345px;
+  font-size: 20px;
+}
+
+.edit-div-item {
+  height: 40px;
+
+}
+
+.shelfedit-label-div{
+  width: 400px;
+  border-bottom: 1px solid black;
+  height: 30px;
+}
+
+.edit-label{
+  float: right;
+  margin: 5px;
+  font-size: 20px
+}
+
+.editdelete-label{
+  float: right;
+  margin: 5px;
+  font-size: 20px
+
+}
+
+.shelfedit-label {
+  font-size: 20px;
+  margin: 5px;
+
+}
+
+.edit-shelf-title{
+  display: inline-block;
+}

@@ -67,6 +67,7 @@
 	var Shelves = __webpack_require__(244);
 	var Shelf = __webpack_require__(246);
 	var GameFullPage = __webpack_require__(252);
+	var EditShelves = __webpack_require__(255);
 	
 	var SessionsStore = __webpack_require__(217);
 	var ShelvesStore = __webpack_require__(245);
@@ -77,6 +78,7 @@
 	  '// TODO add index route',
 	  React.createElement(IndexRoute, { component: CurrentUser }),
 	  React.createElement(Route, { component: CurrentUser, path: '/user' }),
+	  React.createElement(Route, { component: EditShelves, path: '/shelves/edit' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
 	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' })
@@ -24556,10 +24558,11 @@
 	  },
 	  editShelf: function (data) {
 	    $.ajax({
-	      url: "api/users/1/shelves/1",
+	      url: "api/users/1/shelves/" + data.shelf_id,
 	      type: "PATCH",
-	      success: function (shelves) {
-	        ShelvesActions.receiveAllShelves(shelves);
+	      data: { shelf: data.shelf },
+	      success: function (shelf) {
+	        ShelvesActions.editShelf(shelf);
 	      }
 	    });
 	  }
@@ -24584,6 +24587,12 @@
 	  receiveOneShelf: function (shelf) {
 	    AppDispatcher.dispatch({
 	      actionType: "ADD_SHELF",
+	      shelf: shelf
+	    });
+	  },
+	  editShelf: function (shelf) {
+	    AppDispatcher.dispatch({
+	      actionType: "EDIT_SHELF",
 	      shelf: shelf
 	    });
 	  }
@@ -31777,6 +31786,14 @@
 	  _shelves.push(shelf);
 	};
 	
+	var editShelf = function (shelf) {
+	  _shelves.forEach(function (shelfEl) {
+	    if (shelfEl.id === shelf.id) {
+	      shelfEl.title = shelf.title;
+	    }
+	  });
+	};
+	
 	ShelvesStore.all = function () {
 	  return _shelves;
 	};
@@ -31789,6 +31806,10 @@
 	      break;
 	    case "ADD_SHELF":
 	      addShelf(payload.shelf);
+	      ShelvesStore.__emitChange();
+	      break;
+	    case "EDIT_SHELF":
+	      editShelf(payload.shelf);
 	      ShelvesStore.__emitChange();
 	      break;
 	  }
@@ -32283,6 +32304,186 @@
 	        className: 'delete-icon',
 	        src: 'assets/delete-2-xxl.png' })
 	    );
+	  }
+	});
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(245);
+	var ShelvesUtil = __webpack_require__(214);
+	var DeleteShelf = __webpack_require__(247);
+	var ShelfEdit = __webpack_require__(257);
+	var NewShelf = __webpack_require__(256);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display = this.state.shelves.map(function (shelf) {
+	      return React.createElement(
+	        'div',
+	        { key: shelf.id, className: 'edit-div-item' },
+	        React.createElement(ShelfEdit, { key: shelf.id,
+	          shelf: shelf }),
+	        React.createElement(DeleteShelf, { shelf: shelf })
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-div' },
+	      React.createElement(NewShelf, null),
+	      React.createElement(
+	        'div',
+	        { className: 'shelfedit-label-div' },
+	        React.createElement(
+	          'label',
+	          { className: 'shelfedit-label' },
+	          'Shelf'
+	        ),
+	        React.createElement(
+	          'label',
+	          { className: 'editdelete-label' },
+	          'Delete'
+	        ),
+	        React.createElement(
+	          'label',
+	          { className: 'edit-label' },
+	          'Edit'
+	        )
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(236);
+	var ShelvesUtil = __webpack_require__(214);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      clicked: false,
+	      title: "add a shelf"
+	    };
+	  },
+	
+	  createShelf: function (e) {
+	    e.preventDefault();
+	    var shelf = this.state;
+	    ShelvesUtil.createShelf(shelf);
+	    this.setState(function () {
+	      return { clicked: false };
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'add-self-edit' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.createShelf },
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('title') }),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(236);
+	var ShelvesUtil = __webpack_require__(214);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      clicked: false,
+	      title: this.props.shelf.title
+	    };
+	  },
+	
+	  clicked: function () {
+	    this.setState({
+	      clicked: true
+	    });
+	  },
+	
+	  updateShelf: function (e) {
+	    e.preventDefault();
+	    ShelvesUtil.editShelf({
+	      shelf_id: this.props.shelf.id,
+	      shelf: { title: this.state.title }
+	    });
+	    this.setState({
+	      clicked: false
+	    });
+	  },
+	
+	  render: function () {
+	    var that = this;
+	    if (this.state.clicked) {
+	      return React.createElement(
+	        'form',
+	        { onSubmit: this.updateShelf },
+	        React.createElement('input', { type: 'text',
+	          valueLink: this.linkState('title') }),
+	        React.createElement('input', { type: 'submit', value: 'rename shelf' })
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'li',
+	          { className: 'edit-shelf-title' },
+	          this.props.shelf.title,
+	          React.createElement('img', { src: 'assets/edit-xxl.png',
+	            className: 'delete-icon edit-icon',
+	            onClick: that.clicked })
+	        )
+	      );
+	    }
 	  }
 	});
 

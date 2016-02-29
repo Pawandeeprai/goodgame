@@ -22,6 +22,7 @@ var Games = require('./components/games/games');
 var Shelves = require('./components/shelves/shelves');
 var Shelf = require('./components/shelves/shelf');
 var GameFullPage = require('./components/games/game_full_page');
+var EditShelves = require('./components/shelves/edit_shelf_page');
 
 var SessionsStore = require('./stores/sessions');
 var ShelvesStore = require('./stores/shelves');
@@ -33,6 +34,9 @@ var routes = (
     <IndexRoute component={CurrentUser}/>
 
     <Route component={CurrentUser} path="/user">
+
+    </Route>
+    <Route component={EditShelves} path="/shelves/edit">
 
     </Route>
     <Route component={Games} path="/shelves/1">
