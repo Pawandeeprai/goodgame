@@ -77,6 +77,7 @@
 	  '// TODO add index route',
 	  React.createElement(IndexRoute, { component: CurrentUser }),
 	  React.createElement(Route, { component: CurrentUser, path: '/user' }),
+	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
 	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' })
 	);
@@ -31893,7 +31894,19 @@
 	    var display;
 	    var that = this;
 	    if (this.state.games.length === 0) {
-	      display = "Snippy sandwich";
+	      if (this.props.params.shelf_id === "0") {
+	        display = React.createElement(
+	          'h2',
+	          { className: 'empty-self-header' },
+	          'Select a shelf'
+	        );
+	      } else {
+	        display = React.createElement(
+	          'h2',
+	          { className: 'empty-self-header' },
+	          'Selected shelf is empty'
+	        );
+	      }
 	    } else {
 	      display = this.state.games.map(function (game) {
 	        return React.createElement(
@@ -32072,14 +32085,18 @@
 	var Link = __webpack_require__(159).Link;
 	
 	var Logout = __webpack_require__(243);
+	var ShelvesStore = __webpack_require__(245);
+	var ShelvesUtil = __webpack_require__(214);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
+	
 	  render: function () {
+	    console.log(this.state);
 	    return React.createElement(
 	      'div',
-	      { id: 'cssmenu', className: 'logo-div' },
+	      { id: 'cssmenu' },
 	      React.createElement(
 	        'ul',
 	        null,
@@ -32090,6 +32107,15 @@
 	            Link,
 	            { to: '/user' },
 	            'home'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/shelves/0' },
+	            'shelves'
 	          )
 	        ),
 	        React.createElement(Logout, { className: 'navbar-logout' })

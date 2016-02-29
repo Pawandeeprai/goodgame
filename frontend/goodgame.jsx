@@ -35,7 +35,9 @@ var routes = (
     <Route component={CurrentUser} path="/user">
 
     </Route>
+    <Route component={Games} path="/shelves/1">
 
+    </Route>
     <Route component={Games} path="/shelves/:shelf_id">
 
     </Route>
