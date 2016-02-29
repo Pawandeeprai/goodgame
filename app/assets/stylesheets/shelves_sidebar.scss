@@ -21,3 +21,16 @@
 .shelf-item-sidebar{
   margin-left: 5px;
 }
+
+.shelves-edit-label {
+  text-decoration: none;
+  display: inline-block;
+  float: right;
+  font-size: 15px;
+  color: white;
+  margin-top: 5px
+}
+
+.shelves-edit-label:hover{
+  cursor: pointer;
+}

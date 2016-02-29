@@ -29,7 +29,9 @@ module.exports = React.createClass({
     return (
       <div className="add-self-edit">
         <form onSubmit={this.createShelf}>
-          <input type="text" valueLink={this.linkState('title')}/>
+          <input type="text"
+                 id="field-topsearch"
+                 valueLink={this.linkState('title')}/>
           <input className="button" type="submit" value="add shelf"/>
         </form>
       </div>

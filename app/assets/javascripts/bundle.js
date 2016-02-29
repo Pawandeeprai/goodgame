@@ -31752,7 +31752,12 @@
 	        React.createElement(
 	          'h2',
 	          { className: 'shelves-header-text' },
-	          'Shelves'
+	          'Shelves',
+	          React.createElement(
+	            Link,
+	            { to: 'shelves/edit', className: 'shelves-edit-label' },
+	            '(edit)'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -32085,7 +32090,12 @@
 	        React.createElement(
 	          'h2',
 	          { className: 'shelves-header-text' },
-	          'Shelves'
+	          'Shelves',
+	          React.createElement(
+	            Link,
+	            { className: 'shelves-edit-label', to: '/shelves/edit' },
+	            '(edit)'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -32416,7 +32426,9 @@
 	      React.createElement(
 	        'form',
 	        { onSubmit: this.createShelf },
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('title') }),
+	        React.createElement('input', { type: 'text',
+	          id: 'field-topsearch',
+	          valueLink: this.linkState('title') }),
 	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
 	      )
 	    );
@@ -32465,7 +32477,7 @@
 	    if (this.state.clicked) {
 	      return React.createElement(
 	        'form',
-	        { onSubmit: this.updateShelf },
+	        { className: 'shelf-edit-form', onSubmit: this.updateShelf },
 	        React.createElement('input', { type: 'text',
 	          valueLink: this.linkState('title') }),
 	        React.createElement('input', { type: 'submit', value: 'rename shelf' })

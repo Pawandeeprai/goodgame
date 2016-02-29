@@ -34,7 +34,7 @@ module.exports = React.createClass({
     var that = this;
     if(this.state.clicked) {
       return(
-        <form onSubmit={this.updateShelf}>
+        <form className="shelf-edit-form" onSubmit={this.updateShelf}>
           <input type="text"
                  valueLink={this.linkState('title')}/>
           <input type="submit" value="rename shelf"/>

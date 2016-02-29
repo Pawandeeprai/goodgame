@@ -47,7 +47,10 @@ module.exports = React.createClass({
     return (
     <div className="shelf-sidebar">
       <div className="shelves-header">
-        <h2 className="shelves-header-text">Shelves</h2>
+        <h2 className="shelves-header-text">
+          Shelves
+          <Link className="shelves-edit-label" to="/shelves/edit">(edit)</Link>
+        </h2>
       </div>
       <div >
         {display}
