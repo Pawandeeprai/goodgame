@@ -32192,6 +32192,7 @@
 	var GamesStore = __webpack_require__(249);
 	var AddGameToShelfForm = __webpack_require__(253);
 	var GamesUtil = __webpack_require__(212);
+	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',

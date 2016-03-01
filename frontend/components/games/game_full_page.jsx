@@ -2,7 +2,7 @@ var React = require('react');
 var GamesStore = require('../../stores/games');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
 var GamesUtil = require('../../util/games');
-
+// add remove game from shelf.. and find in all shelves might have to hit data base again
 
 module.exports = React.createClass({
   getInitialState: function(){
