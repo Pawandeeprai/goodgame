@@ -19,6 +19,16 @@ var UsersUtil = {
         console.log(users);
       }
     });
+  },
+  editUser: function(data){
+    $.ajax({
+      url: "api/users/1",
+      type: "PATCH",
+      data: {user: data},
+      success: function(user){
+        SessionsActions.receiveCurrentUser(user);
+      }
+    });
   }
 };
 

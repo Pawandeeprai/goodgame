@@ -17,6 +17,7 @@ var App = require('./components/app');
 var NewUsersForm = require('./components/users/form');
 var NewSessionForm = require('./components/sessions/form');
 var CurrentUser = require('./components/users/current_user');
+var EditUser = require('./components/users/edit_page');
 
 var Games = require('./components/games/games');
 var Shelves = require('./components/shelves/shelves');
@@ -50,7 +51,9 @@ var routes = (
 
     </Route>
 
+    <Route component={EditUser} path="/users/edit">
 
+    </Route>
 
   </Route>
 );

@@ -62,6 +62,7 @@
 	var NewUsersForm = __webpack_require__(235);
 	var NewSessionForm = __webpack_require__(240);
 	var CurrentUser = __webpack_require__(242);
+	var EditUser = __webpack_require__(258);
 	
 	var Games = __webpack_require__(248);
 	var Shelves = __webpack_require__(244);
@@ -81,7 +82,8 @@
 	  React.createElement(Route, { component: EditShelves, path: '/shelves/edit' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
-	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' })
+	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' }),
+	  React.createElement(Route, { component: EditUser, path: '/users/edit' })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -24356,6 +24358,16 @@
 	        console.log(users);
 	      }
 	    });
+	  },
+	  editUser: function (data) {
+	    $.ajax({
+	      url: "api/users/1",
+	      type: "PATCH",
+	      data: { user: data },
+	      success: function (user) {
+	        SessionsActions.receiveCurrentUser(user);
+	      }
+	    });
 	  }
 	};
 	
@@ -31615,6 +31627,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
 	var SessionsStore = __webpack_require__(217);
 	var Logout = __webpack_require__(243);
 	var Shelves = __webpack_require__(244);
@@ -31643,6 +31656,10 @@
 	    this.Listener.remove();
 	  },
 	
+	  memberSince: function () {
+	    return this.state.user.created_at.slice(0, 4);
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -31655,7 +31672,19 @@
 	      React.createElement(
 	        'div',
 	        { className: 'current-user-name' },
-	        this.state.user.username
+	        this.state.user.username,
+	        React.createElement(
+	          Link,
+	          { className: 'user-edit-link', to: 'users/edit' },
+	          '(edit profile)'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'member-since-label' },
+	          'Member Since:',
+	          this.memberSince()
+	        )
 	      ),
 	      React.createElement(Shelves, null),
 	      React.createElement(Logout, { userid: this.state.user.id })
@@ -32365,6 +32394,11 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'edit-div' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Edit Shelves'
+	      ),
 	      React.createElement(NewShelf, null),
 	      React.createElement(
 	        'div',
@@ -32419,6 +32453,12 @@
 	    });
 	  },
 	
+	  emptyValue: function (e) {
+	    if (this.state.title === "add a shelf") {
+	      this.setState({ title: "" });
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -32427,6 +32467,7 @@
 	        'form',
 	        { onSubmit: this.createShelf },
 	        React.createElement('input', { type: 'text',
+	          onClick: this.emptyValue,
 	          id: 'field-topsearch',
 	          valueLink: this.linkState('title') }),
 	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
@@ -32496,6 +32537,73 @@
 	        )
 	      );
 	    }
+	  }
+	});
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsStore = __webpack_require__(217);
+	var UsersUtil = __webpack_require__(209);
+	var LinkedStateMixin = __webpack_require__(236);
+	
+	var Link = __webpack_require__(159).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	  getInitialState: function () {
+	    return {
+	      username: SessionsStore.all().username,
+	      name: SessionsStore.all().name
+	    };
+	  },
+	
+	  updateProfile: function (e) {
+	    e.preventDefault();
+	    UsersUtil.editUser(this.state);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Profile Settings'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.updateProfile },
+	        React.createElement(
+	          'label',
+	          null,
+	          'username'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'name'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('name') }),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'edit profile' })
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: 'shelves/edit' },
+	        'Edit Shelves',
+	        React.createElement('img', { className: 'edit-icon', src: 'assets/edit-xxl.png' })
+	      )
+	    );
 	  }
 	});
 

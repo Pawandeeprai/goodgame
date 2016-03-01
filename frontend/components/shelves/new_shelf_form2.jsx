@@ -23,13 +23,18 @@ module.exports = React.createClass({
     });
   },
 
-
+  emptyValue: function(e){
+    if (this.state.title === "add a shelf" ){
+      this.setState({title: ""});
+    }
+  },
 
   render: function(){
     return (
       <div className="add-self-edit">
         <form onSubmit={this.createShelf}>
           <input type="text"
+                 onClick={this.emptyValue}
                  id="field-topsearch"
                  valueLink={this.linkState('title')}/>
           <input className="button" type="submit" value="add shelf"/>
