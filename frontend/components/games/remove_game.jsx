@@ -12,10 +12,13 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <img onClick={this.removeGame}
-             className="delete-icon"
-             src="assets/delete-2-xxl.png"/>
+      <div className="remove-from-shelf-div">
+        <form onSubmit={this.removeGame}>
+          <input type="submit"
+                 className="button"
+                 value="remove game from shelf"/>
+        </form>
+
       </div>
     );
   }

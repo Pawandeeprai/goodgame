@@ -33,7 +33,7 @@ var NewShelfForm = React.createClass({
     if (this.state.clicked){
       return (
         <div className="new-shelf-div">
-          <form onSubmit={this.createShelf}>
+          <form className="new-shelf-form" onSubmit={this.createShelf}>
             <label className="new-shelf-label">new shelf title:</label>
             <input type="text" valueLink={this.linkState('title')}/>
             <input className="button" type="submit" value="add shelf"/>
@@ -43,7 +43,7 @@ var NewShelfForm = React.createClass({
     } else {
       return (
         <div >
-          <form onSubmit={this.clicked}>
+          <form className="new-shelf-div" onSubmit={this.clicked}>
             <input className="button" type="submit" value="add shelf"/>
           </form>
         </div>

@@ -3,13 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .game-div {
-  border: 1px solid #8b9dc3;
+  border: 1px solid #c9c9c9;
   border-radius: 4px;
   display: inline-block;
   position: relative;
   width: 799px;
   margin-top: 15px;
   margin-left: 15px;
+  text-align: center;
 }
 
 .game-image {
@@ -20,8 +21,8 @@
   height: auto;
 }
 .game-title {
-
-  background-color: #3b5998;
+  font-size: 30px;
+  background-color: #9ad3de;
   float: left;
   display: inline-block;
   width: 100%;
@@ -33,9 +34,15 @@
 
 }
 
+.game-title a {
+  color: white;
+}
+
 .game-description {
   float: left;
   display: inline-block;
+  width: 600px;
+  height: 100px;
 }
 
 .console-logo{
@@ -51,4 +58,9 @@
 .empty-self-header{
   display: block;
   margin-left: 50px;
+}
+
+.remove-from-shelf-div {
+  display: inline-block;
+  float: right;
 }

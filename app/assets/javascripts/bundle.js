@@ -31596,7 +31596,7 @@
 	        { className: 'new-shelf-div' },
 	        React.createElement(
 	          'form',
-	          { onSubmit: this.createShelf },
+	          { className: 'new-shelf-form', onSubmit: this.createShelf },
 	          React.createElement(
 	            'label',
 	            { className: 'new-shelf-label' },
@@ -31612,7 +31612,7 @@
 	        null,
 	        React.createElement(
 	          'form',
-	          { onSubmit: this.clicked },
+	          { className: 'new-shelf-div', onSubmit: this.clicked },
 	          React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
 	        )
 	      );
@@ -31684,10 +31684,10 @@
 	          { className: 'member-since-label' },
 	          'Member Since:',
 	          this.memberSince()
-	        )
+	        ),
+	        React.createElement(Logout, { userid: this.state.user.id })
 	      ),
-	      React.createElement(Shelves, null),
-	      React.createElement(Logout, { userid: this.state.user.id })
+	      React.createElement(Shelves, null)
 	    );
 	  }
 	});
@@ -32258,6 +32258,8 @@
 	var ShelvesUtil = __webpack_require__(214);
 	var GamesUtil = __webpack_require__(212);
 	
+	// TODO change this to use <ul> and li
+	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -32296,7 +32298,7 @@
 	    var options = this.state.shelves.map(function (shelf) {
 	      return React.createElement(
 	        'option',
-	        { value: shelf.id, key: shelf.id },
+	        { className: 'shelf-option', value: shelf.id, key: shelf.id },
 	        shelf.title
 	      );
 	    });
@@ -32311,7 +32313,7 @@
 	          { valueLink: this.linkState('shelf_id'), name: 'dropdown' },
 	          options
 	        ),
-	        React.createElement('input', { type: 'submit', value: 'Submit' })
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'Submit' })
 	      )
 	    );
 	  }
@@ -32338,10 +32340,14 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement('img', { onClick: this.removeGame,
-	        className: 'delete-icon',
-	        src: 'assets/delete-2-xxl.png' })
+	      { className: 'remove-from-shelf-div' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.removeGame },
+	        React.createElement('input', { type: 'submit',
+	          className: 'button',
+	          value: 'remove game from shelf' })
+	      )
 	    );
 	  }
 	});

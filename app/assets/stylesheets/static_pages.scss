@@ -3,8 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .main-class {
-  font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 
+
+}
+
+body {
+  background-color: #e3e3e3;
+  font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 .current-content {
@@ -18,7 +32,7 @@
 }
 
 .logo-div {
-  background-color: #3b5998;
+  background-color: #9ad3de;
   padding: 0px;
   border-top: 0px;
   margin-top: 0px;

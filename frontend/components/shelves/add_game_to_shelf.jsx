@@ -4,6 +4,8 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ShelvesUtil = require('../../util/shelves');
 var GamesUtil = require('../../util/games');
 
+// TODO change this to use <ul> and li
+
 
 module.exports = React.createClass({
   mixins: [LinkedStateMixin],
@@ -41,7 +43,7 @@ module.exports = React.createClass({
     var options = this.state.shelves.map(
       function(shelf) {
         return (
-          <option value={shelf.id} key={shelf.id}>
+          <option className="shelf-option" value={shelf.id} key={shelf.id}>
                   {shelf.title}
           </option>
         );
@@ -53,7 +55,7 @@ module.exports = React.createClass({
           <select valueLink={this.linkState('shelf_id')} name="dropdown">
             {options}
           </select>
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
       </div>
     );
