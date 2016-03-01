@@ -20,6 +20,13 @@ var GamesActions = {
       actionType: "REMOVE_GAME",
       game_id: game.game_id
     });
+  },
+  favoriteGames: function(games){
+    debugger;
+    AppDispatcher.dispatch({
+      actionType: "FAVORITE_GAMES",
+      games: games
+    });
   }
 
 };

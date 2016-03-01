@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resources :game_shelves
     resources :sessions, only: [:index, :create, :destroy]
     resources :games, only: [:index, :show]
+    resources :owns, only: [:index, :show, :create, :destroy]
+    resources :favorites, only: [:index, :show, :create, :destroy]
   end
 end

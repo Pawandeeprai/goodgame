@@ -19,7 +19,12 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   attr_reader :password
 
-  
+  has_many :favorites
+  has_many :favorite_games, through: :favorites
+  has_many :owns
+  has_many :owned_games, through: :owns
+
+
 
   def self.find_by_credentials(username, password)
     print "HEY HEY HEY I AM HERE"

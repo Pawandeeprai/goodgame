@@ -40,6 +40,24 @@ var GamesUtil = {
         GamesActions.removeGame(game);
       }
     });
+  },
+  fetchFavoriteGames: function(){
+    $.ajax({
+      url: "/api/favorites",
+      type: "GET",
+      success: function(games){
+        GamesActions.favoriteGames(games);
+      }
+    });
+  },
+  fetchOwnedGames: function(){
+    $.ajax({
+      url: "/api/owns",
+      type: "GET",
+      success: function(games){
+        console.log(games);
+      }
+    });
   }
 };
 

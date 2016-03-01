@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225193355) do
+ActiveRecord::Schema.define(version: 20160301171910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "game_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorites", ["game_id"], name: "index_favorites_on_game_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "game_shelves", force: :cascade do |t|
     t.integer  "shelf_id",   null: false
@@ -34,6 +44,16 @@ ActiveRecord::Schema.define(version: 20160225193355) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "owns", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "game_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "owns", ["game_id"], name: "index_owns_on_game_id", using: :btree
+  add_index "owns", ["user_id"], name: "index_owns_on_user_id", using: :btree
 
   create_table "shelves", force: :cascade do |t|
     t.string   "title",      null: false
