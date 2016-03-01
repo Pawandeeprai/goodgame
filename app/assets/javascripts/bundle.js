@@ -32578,31 +32578,27 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.updateProfile },
+	        { onSubmit: this.updateProfile, className: 'user-edit-form' },
 	        React.createElement(
 	          'label',
 	          null,
-	          'username'
+	          'username',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
 	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('username') }),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
 	          null,
-	          'name'
+	          'name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('name') })
 	        ),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('name') }),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'edit profile' })
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit profile' })
 	      ),
-	      React.createElement(
-	        Link,
-	        { to: 'shelves/edit' },
-	        'Edit Shelves',
-	        React.createElement('img', { className: 'edit-icon', src: 'assets/edit-xxl.png' })
-	      )
+	      React.createElement('img', { className: 'profile-edit-picture',
+	        src: SessionsStore.all().picture_url })
 	    );
 	  }
 	});

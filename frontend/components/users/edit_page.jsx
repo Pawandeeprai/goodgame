@@ -24,21 +24,21 @@ module.exports = React.createClass({
     return (
       <div>
         <h1>Profile Settings</h1>
-        <form onSubmit={this.updateProfile}>
-          <label>username</label>
+        <form onSubmit={this.updateProfile} className="user-edit-form">
+          <label>username
+            <br/>
+            <input type="text" valueLink={this.linkState('username')}/>
+          </label>
           <br/>
-          <input type="text" valueLink={this.linkState('username')}/>
+          <label>name
+            <br/>
+            <input type="text" valueLink={this.linkState('name')}/>
+          </label>
           <br/>
-          <label>name</label>
-          <br/>
-          <input type="text" valueLink={this.linkState('name')}/>
-          <br/>
-          <input type="submit" value="edit profile"/>
+          <input className="button" type="submit" value="edit profile"/>
         </form>
-        <Link to="shelves/edit">
-          Edit Shelves
-          <img className="edit-icon" src="assets/edit-xxl.png" />
-        </Link>
+        <img className="profile-edit-picture"
+             src={SessionsStore.all().picture_url}/>
       </div>
     );
   }

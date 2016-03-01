@@ -64,12 +64,12 @@ the API.
 **Objective:** shelves can be created, viewed, edited and destroyed with the
 user interface.  You can search for games and add them to your shelves.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
 - implement each shelve component, building out the flux loop as needed.
-  - [ ] `ShelvesIndex`
-  - [ ] `ShelvesIndexItem`
-  - [ ] `ShelveForm`
+  - [x] `ShelvesIndex`
+  - [x] `ShelvesIndexItem`
+  - [x] `ShelveForm`
 
 ### Phase 4: Start Styling (1 days)
 
