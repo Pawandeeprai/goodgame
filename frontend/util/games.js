@@ -69,6 +69,16 @@ var GamesUtil = {
       }
     });
   },
+  removeOwned: function(data){
+    $.ajax({
+      url: "api/owns/1",
+      type: "DELETE",
+      data: {game_id: data},
+      success: function(game) {
+        GamesActions.removeOwned(game);
+      }
+    });
+  },
   createFavorite: function(data){
     $.ajax({
       url: "api/favorites",
@@ -76,6 +86,16 @@ var GamesUtil = {
       data: {game_id: data},
       success: function(game){
         GamesActions.createFavorite(game);
+      }
+    });
+  },
+  createOwned: function(data){
+    $.ajax({
+      url: "api/owns",
+      type: "POST",
+      data: {game_id: data},
+      success: function(game){
+        GamesActions.createOwned(game);
       }
     });
   }

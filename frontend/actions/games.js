@@ -46,6 +46,18 @@ var GamesActions = {
       actionType: "OWNED_GAMES",
       games: games
     });
+  },
+  removeOwned: function(gameId){
+    AppDispatcher.dispatch({
+      actionType: "REMOVE_OWNED_GAME",
+      gameId: gameId
+    });
+  },
+  createOwned: function(game){
+    AppDispatcher.dispatch({
+      actionType: "NEW_OWNED_GAME",
+      game: game
+    });
   }
 
 };

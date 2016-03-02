@@ -24519,6 +24519,16 @@
 	      }
 	    });
 	  },
+	  removeOwned: function (data) {
+	    $.ajax({
+	      url: "api/owns/1",
+	      type: "DELETE",
+	      data: { game_id: data },
+	      success: function (game) {
+	        GamesActions.removeOwned(game);
+	      }
+	    });
+	  },
 	  createFavorite: function (data) {
 	    $.ajax({
 	      url: "api/favorites",
@@ -24526,6 +24536,16 @@
 	      data: { game_id: data },
 	      success: function (game) {
 	        GamesActions.createFavorite(game);
+	      }
+	    });
+	  },
+	  createOwned: function (data) {
+	    $.ajax({
+	      url: "api/owns",
+	      type: "POST",
+	      data: { game_id: data },
+	      success: function (game) {
+	        GamesActions.createOwned(game);
 	      }
 	    });
 	  }
@@ -24585,6 +24605,18 @@
 	    AppDispatcher.dispatch({
 	      actionType: "OWNED_GAMES",
 	      games: games
+	    });
+	  },
+	  removeOwned: function (gameId) {
+	    AppDispatcher.dispatch({
+	      actionType: "REMOVE_OWNED_GAME",
+	      gameId: gameId
+	    });
+	  },
+	  createOwned: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "NEW_OWNED_GAME",
+	      game: game
 	    });
 	  }
 	
@@ -32375,6 +32407,7 @@
 	var AddGameToShelfForm = __webpack_require__(255);
 	var GamesUtil = __webpack_require__(212);
 	var AddFavorite = __webpack_require__(266);
+	var AddOwn = __webpack_require__(268);
 	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
@@ -32426,7 +32459,8 @@
 	            { className: 'game-info-description' },
 	            this.state.game.description
 	          ),
-	          React.createElement(AddFavorite, { game: this.state.game })
+	          React.createElement(AddFavorite, { game: this.state.game }),
+	          React.createElement(AddOwn, { game: this.state.game })
 	        )
 	      );
 	    }
@@ -32805,7 +32839,7 @@
 	
 	var removeGame = function (gameId) {
 	  _games.forEach(function (game, idx) {
-	    if (game.id === gameId) {
+	    if (game.id === parseInt(gameId.game_id)) {
 	      _games.splice(idx);
 	    }
 	  });
@@ -32825,6 +32859,16 @@
 	  return theGame;
 	};
 	
+	OwnedGamesStore.isOwned = function (gameId) {
+	  var owned = false;
+	  _games.forEach(function (game) {
+	    if (game.id === gameId) {
+	      owned = true;
+	    }
+	  });
+	  return owned;
+	};
+	
 	OwnedGamesStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case "OWNED_GAMES":
@@ -32836,7 +32880,7 @@
 	      OwnedGamesStore.__emitChange();
 	      break;
 	    case "REMOVE_OWNED_GAME":
-	      removeGame(payload.game_id);
+	      removeGame(payload.gameId);
 	      OwnedGamesStore.__emitChange();
 	      break;
 	  }
@@ -33080,6 +33124,69 @@
 	      'li',
 	      { onClick: this.addToShelf },
 	      this.props.shelf.title
+	    );
+	  }
+	});
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var OwnedGamesStore = __webpack_require__(261);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      owned: this.isOwned(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = OwnedGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchOwnedGames();
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isOwned: function (gameId) {
+	    return OwnedGamesStore.isOwned(gameId);
+	  },
+	
+	  toggleOwns: function (e) {
+	    e.preventDefault();
+	    if (this.state.owned) {
+	      GamesUtil.removeOwned(this.props.game.id);
+	    } else {
+	      GamesUtil.createOwned(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.owned) {
+	      display = "remove from owned games";
+	    } else {
+	      display = "add to owned games";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleOwns, className: 'button' },
+	      display
 	    );
 	  }
 	});

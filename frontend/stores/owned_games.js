@@ -15,7 +15,7 @@ var addGame = function(game){
 
 var removeGame = function (gameId){
   _games.forEach(function(game, idx){
-    if (game.id === gameId){
+    if (game.id === parseInt(gameId.game_id)){
       _games.splice(idx);
     }
   });
@@ -35,6 +35,17 @@ OwnedGamesStore.game = function(id){
   return theGame;
 };
 
+OwnedGamesStore.isOwned = function(gameId){
+  var owned = false;
+  _games.forEach(
+    function(game){
+      if (game.id === gameId){
+        owned = true;
+      }
+    }
+  );
+  return owned;
+};
 
 OwnedGamesStore.__onDispatch = function(payload){
   switch (payload.actionType) {
@@ -47,7 +58,7 @@ OwnedGamesStore.__onDispatch = function(payload){
       OwnedGamesStore.__emitChange();
       break;
     case "REMOVE_OWNED_GAME":
-      removeGame(payload.game_id);
+      removeGame(payload.gameId);
       OwnedGamesStore.__emitChange();
       break;
   }
