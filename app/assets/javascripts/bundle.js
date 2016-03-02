@@ -32442,6 +32442,7 @@
 	var LinkedStateMixin = __webpack_require__(236);
 	var ShelvesUtil = __webpack_require__(214);
 	var GamesUtil = __webpack_require__(212);
+	var ShelfChoice = __webpack_require__(267);
 	
 	// TODO change this to use <ul> and li
 	
@@ -32451,7 +32452,11 @@
 	  mixins: [LinkedStateMixin],
 	
 	  getInitialState: function () {
-	    return { shelves: this.getStateFromStore(), shelf_id: "" };
+	    return {
+	      shelves: this.getStateFromStore(),
+	      shelf_id: "",
+	      clicked: false
+	    };
 	  },
 	
 	  getStateFromStore: function () {
@@ -32478,28 +32483,38 @@
 	      game_id: this.props.game.id
 	    });
 	  },
+	  toggleClicked: function (e) {
+	    e.preventDefault();
+	    if (this.state.clicked) {
+	      this.setState({ clicked: false });
+	    } else {
+	      this.setState({ clicked: true });
+	    }
+	  },
 	
 	  render: function () {
-	    var options = this.state.shelves.map(function (shelf) {
-	      return React.createElement(
-	        'option',
-	        { className: 'shelf-option', value: shelf.id, key: shelf.id },
-	        shelf.title
-	      );
-	    });
+	    var options = "";
+	    var that = this;
+	    if (this.state.clicked === true) {
+	      options = this.state.shelves.map(function (shelf) {
+	        return React.createElement(
+	          'div',
+	          { onClick: this.toggleClicked },
+	          React.createElement(ShelfChoice, { key: shelf.id,
+	            gameid: that.props.game.id,
+	            shelf: shelf })
+	        );
+	      });
+	    }
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'add-game-dropdown' },
 	      React.createElement(
-	        'form',
-	        { onSubmit: this.addToShelf },
-	        React.createElement(
-	          'select',
-	          { valueLink: this.linkState('shelf_id'), name: 'dropdown' },
-	          options
-	        ),
-	        React.createElement('input', { className: 'button', type: 'submit', value: 'Submit' })
-	      )
+	        'h4',
+	        { onClick: this.toggleClicked },
+	        'add to shelf'
+	      ),
+	      options
 	    );
 	  }
 	});
@@ -32869,11 +32884,10 @@
 	      return React.createElement(
 	        'li',
 	        { key: game.id, className: 'game-list-item' },
-	        React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url }),
 	        React.createElement(
 	          Link,
 	          { to: link },
-	          game.title
+	          React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url })
 	        )
 	      );
 	    });
@@ -33039,6 +33053,33 @@
 	      'button',
 	      { onClick: this.toggleFavorite, className: 'button' },
 	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  addToShelf: function (e) {
+	    e.preventDefault();
+	    GamesUtil.addGameToShelf({
+	      game_id: this.props.gameid,
+	      shelf_id: this.props.shelf.id
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { onClick: this.addToShelf },
+	      this.props.shelf.title
 	    );
 	  }
 	});

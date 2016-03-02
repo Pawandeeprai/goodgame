@@ -1,0 +1,27 @@
+.add-game-dropdown:hover{
+  cursor: pointer;
+}
+.add-game-dropdown{
+  border: 1px solid #c9c9c9;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 4px;
+
+}
+
+.add-game-dropdown h4{
+  width: auto;
+  background-color: #9ad3de;
+  margin: 0px;
+}
+
+.add-game-dropdown li{
+  font-size: 15px;
+  list-style-type: none;
+  border-top: 1px solid #c9c9c9;
+
+}
+
+.add-game-dropdown li:hover{
+  background-color: #9ad3de;
+}

@@ -32,9 +32,8 @@ module.exports = React.createClass({
         var link = "games/" + game.id;
         return (
           <li key={game.id} className="game-list-item">
-            <img className="game-list-item-img" src={game.coverimg_url} />
             <Link to={link}>
-              {game.title}
+              <img className="game-list-item-img" src={game.coverimg_url} />
             </Link>
           </li>
         );
