@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'annotate'
 gem 'newrelic_rpm'
 gem 'rails_12factor'
+gem "bgg-api"
+
 
 
 gem 'pry-rails'

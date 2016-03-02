@@ -13,4 +13,6 @@
 
 class Game < ActiveRecord::Base
   validates :title, :console, :description, :coverimg_url, presence: true
+
+  has_many :reviews
 end

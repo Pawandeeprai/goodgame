@@ -51,7 +51,6 @@ var CurrentUser = React.createClass({
               Member Since:
               {this.memberSince()}
             </label>
-            <Logout userid={this.state.user.id}/>
           </div >
         </div>
         <FavoriteGames/>

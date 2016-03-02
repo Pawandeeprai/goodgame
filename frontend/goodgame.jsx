@@ -11,6 +11,8 @@ var UsersUtil = require('./util/users');
 var SessionsUtil = require('./util/sessions');
 var GamesUtil = require('./util/games');
 var ShelvesUtil = require('./util/shelves');
+var SearchUtil = require('./util/search');
+var ReviewsUtil = require('./util/reviews');
 
 var App = require('./components/app');
 

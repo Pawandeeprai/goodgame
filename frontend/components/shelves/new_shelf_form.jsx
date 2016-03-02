@@ -25,7 +25,10 @@ var NewShelfForm = React.createClass({
   clicked: function(e){
     e.preventDefault();
     this.setState(function(){
-      return {clicked: true};
+      return {
+        clicked: true,
+        title: ""
+      };
     });
   },
 

@@ -56,6 +56,8 @@
 	var SessionsUtil = __webpack_require__(211);
 	var GamesUtil = __webpack_require__(212);
 	var ShelvesUtil = __webpack_require__(214);
+	var SearchUtil = __webpack_require__(269);
+	var ReviewsUtil = __webpack_require__(270);
 	
 	var App = __webpack_require__(216);
 	
@@ -31687,7 +31689,10 @@
 	  clicked: function (e) {
 	    e.preventDefault();
 	    this.setState(function () {
-	      return { clicked: true };
+	      return {
+	        clicked: true,
+	        title: ""
+	      };
 	    });
 	  },
 	
@@ -31791,8 +31796,7 @@
 	            { className: 'member-since-label' },
 	            'Member Since:',
 	            this.memberSince()
-	          ),
-	          React.createElement(Logout, { userid: this.state.user.id })
+	          )
 	        )
 	      ),
 	      React.createElement(FavoriteGames, null),
@@ -32408,6 +32412,7 @@
 	var GamesUtil = __webpack_require__(212);
 	var AddFavorite = __webpack_require__(266);
 	var AddOwn = __webpack_require__(268);
+	var Reviews = __webpack_require__(272);
 	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
@@ -32443,7 +32448,8 @@
 	        React.createElement(
 	          'div',
 	          { className: 'game-picture-div' },
-	          React.createElement('img', { className: 'game-picture-full', src: this.state.game.coverimg_url })
+	          React.createElement('img', { className: 'game-picture-full', src: this.state.game.coverimg_url }),
+	          React.createElement(AddGameToShelfForm, { game: this.state.game })
 	        ),
 	        React.createElement(
 	          'div',
@@ -32453,12 +32459,12 @@
 	            { className: 'game-info-title' },
 	            this.state.game.title
 	          ),
-	          React.createElement(AddGameToShelfForm, { game: this.state.game }),
 	          React.createElement(
 	            'p',
 	            { className: 'game-info-description' },
 	            this.state.game.description
 	          ),
+	          React.createElement(Reviews, { game: this.state.game }),
 	          React.createElement(AddFavorite, { game: this.state.game }),
 	          React.createElement(AddOwn, { game: this.state.game })
 	        )
@@ -33190,6 +33196,159 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	var SearchUtil = {
+	  search: function (data) {
+	    $.ajax({
+	      url: "api/searches/",
+	      type: "GET",
+	      data: data,
+	      success: function (results) {
+	        console.log(results);
+	      }
+	    });
+	  }
+	};
+	
+	window.SearchUtil = SearchUtil;
+	module.exports = SearchUtil;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewsActions = __webpack_require__(271);
+	
+	var ReviewsUtil = {
+	  fetchGameReviews: function (data) {
+	    $.ajax({
+	      url: "api/games/" + data + "/reviews",
+	      type: "GET",
+	      success: function (reviews) {
+	        debugger;
+	        ReviewsActions.receiveAllReviews(reviews);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = ReviewsUtil;
+	window.ReviewsUtil = ReviewsUtil;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(205);
+	
+	var ReviewsActions = {
+	  receiveAllReviews: function (reviews) {
+	    AppDispatcher.dispatch({
+	      actionType: "ALL_REVIEWS",
+	      reviews: reviews
+	    });
+	  }
+	};
+	
+	module.exports = ReviewsActions;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReviewsStore = __webpack_require__(273);
+	var ReviewsUtil = __webpack_require__(270);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {};
+	  },
+	
+	  componentDidMount: function () {
+	    debugger;
+	    this.Listener = ReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchGameReviews(this.props.game.id);
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.reviews) {
+	      display = this.state.reviews.map(function (review) {
+	        return React.createElement(
+	          'ul',
+	          null,
+	          React.createElement(
+	            'li',
+	            null,
+	            review.rating
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            review.review_text
+	          )
+	        );
+	      });
+	    } else {
+	      var display = "No Reviews Yet";
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(218).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var ReviewsStore = new Store(AppDispatcher);
+	
+	var _reviews = [];
+	
+	var updateReviews = function (reviews) {
+	  _reviews = reviews;
+	};
+	
+	ReviewsStore.all = function () {
+	  return _reviews;
+	};
+	
+	ReviewsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ALL_REVIEWS":
+	      updateReviews(payload.reviews);
+	      ReviewsStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = ReviewsStore;
 
 /***/ }
 /******/ ]);

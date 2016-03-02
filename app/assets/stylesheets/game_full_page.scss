@@ -1,13 +1,16 @@
 .game-picture-div {
   display: inline-block;
   float: left;
+  width: 330px;
+  height: auto;
+  margin-top: 20px;
 }
 
 .game-info-div {
   text-align: center;
   float: left;
   display: inline-block;
-  width: 700px;
+  width: 600px;
 }
 
 .game-info-description {
@@ -24,4 +27,9 @@
   height: 30px;
   background-color: #9ad3de;
   font-size: 30px;
+}
+
+.game-picture-full {
+  display: block;
+  margin: 0px
 }
