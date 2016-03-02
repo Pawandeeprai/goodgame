@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'annotate'
+gem 'newrelic_rpm'
+gem 'rails_12factor'
+
 
 gem 'pry-rails'
 gem 'better_errors'

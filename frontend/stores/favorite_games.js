@@ -15,7 +15,7 @@ var addGame = function(game){
 
 var removeGame = function (gameId){
   _games.forEach(function(game, idx){
-    if (game.id === gameId){
+    if (game.id === parseInt(gameId.game_id)){
       _games.splice(idx);
     }
   });
@@ -35,12 +35,22 @@ FavoriteGamesStore.game = function(id){
   return theGame;
 };
 
+FavoriteGamesStore.isFavorite = function(gameId){
+  var favorite = false;
+  _games.forEach(
+    function(game){
+      if (game.id === gameId){
+        favorite = true;
+      }
+    }
+  );
+  return favorite;
+};
+
 
 FavoriteGamesStore.__onDispatch = function(payload){
-  debugger;
   switch (payload.actionType) {
     case "FAVORITE_GAMES":
-      console.log(payload);
       updateGames(payload.games);
       FavoriteGamesStore.__emitChange();
       break;
@@ -49,7 +59,7 @@ FavoriteGamesStore.__onDispatch = function(payload){
       FavoriteGamesStore.__emitChange();
       break;
     case "REMOVE_FAVORITE_GAME":
-      removeGame(payload.game_id);
+      removeGame(payload.gameId);
       FavoriteGamesStore.__emitChange();
       break;
   }

@@ -62,16 +62,20 @@
 	var NewUsersForm = __webpack_require__(235);
 	var NewSessionForm = __webpack_require__(240);
 	var CurrentUser = __webpack_require__(242);
-	var EditUser = __webpack_require__(258);
+	var EditUser = __webpack_require__(253);
 	
 	var Games = __webpack_require__(248);
 	var Shelves = __webpack_require__(244);
 	var Shelf = __webpack_require__(246);
-	var GameFullPage = __webpack_require__(252);
-	var EditShelves = __webpack_require__(255);
+	var GameFullPage = __webpack_require__(254);
+	var EditShelves = __webpack_require__(256);
+	var FavoriteGames = __webpack_require__(262);
+	var FavoritesPage = __webpack_require__(265);
 	
 	var SessionsStore = __webpack_require__(217);
 	var ShelvesStore = __webpack_require__(245);
+	var FavoriteGamesStore = __webpack_require__(259);
+	var OwnedGamesStore = __webpack_require__(261);
 	
 	var routes = React.createElement(
 	  Route,
@@ -79,6 +83,7 @@
 	  '// TODO add index route',
 	  React.createElement(IndexRoute, { component: CurrentUser }),
 	  React.createElement(Route, { component: CurrentUser, path: '/user' }),
+	  React.createElement(Route, { component: FavoritesPage, path: '/favorites' }),
 	  React.createElement(Route, { component: EditShelves, path: '/shelves/edit' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
@@ -24500,7 +24505,27 @@
 	      url: "/api/owns",
 	      type: "GET",
 	      success: function (games) {
-	        console.log(games);
+	        GamesActions.ownedGames(games);
+	      }
+	    });
+	  },
+	  removeFavorite: function (data) {
+	    $.ajax({
+	      url: "api/favorites/1",
+	      type: "DELETE",
+	      data: { game_id: data },
+	      success: function (game) {
+	        GamesActions.removeFavorite(game);
+	      }
+	    });
+	  },
+	  createFavorite: function (data) {
+	    $.ajax({
+	      url: "api/favorites",
+	      type: "POST",
+	      data: { game_id: data },
+	      success: function (game) {
+	        GamesActions.createFavorite(game);
 	      }
 	    });
 	  }
@@ -24537,9 +24562,28 @@
 	    });
 	  },
 	  favoriteGames: function (games) {
-	    debugger;
 	    AppDispatcher.dispatch({
 	      actionType: "FAVORITE_GAMES",
+	      games: games
+	    });
+	  },
+	
+	  removeFavorite: function (gameId) {
+	    AppDispatcher.dispatch({
+	      actionType: "REMOVE_FAVORITE_GAME",
+	      gameId: gameId
+	    });
+	  },
+	  createFavorite: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "NEW_FAVORITE_GAME",
+	      game: game
+	    });
+	  },
+	
+	  ownedGames: function (games) {
+	    AppDispatcher.dispatch({
+	      actionType: "OWNED_GAMES",
 	      games: games
 	    });
 	  }
@@ -24655,7 +24699,8 @@
 	var Logout = __webpack_require__(243);
 	var Games = __webpack_require__(248);
 	var Shelves = __webpack_require__(244);
-	var NavBar = __webpack_require__(251);
+	var NavBar = __webpack_require__(252);
+	var FavoriteGames = __webpack_require__(262);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31656,6 +31701,7 @@
 	var SessionsStore = __webpack_require__(217);
 	var Logout = __webpack_require__(243);
 	var Shelves = __webpack_require__(244);
+	var FavoriteGames = __webpack_require__(262);
 	
 	var CurrentUser = React.createClass({
 	  displayName: 'CurrentUser',
@@ -31688,30 +31734,36 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'current-user-div' },
+	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'current-user-img-div' },
-	        React.createElement('img', { className: 'current-user-img', src: this.state.user.picture_url })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'current-user-name' },
-	        this.state.user.username,
+	        { className: 'current-user-div' },
 	        React.createElement(
-	          Link,
-	          { className: 'user-edit-link', to: 'users/edit' },
-	          '(edit profile)'
+	          'div',
+	          { className: 'current-user-img-div' },
+	          React.createElement('img', { className: 'current-user-img',
+	            src: this.state.user.picture_url })
 	        ),
-	        React.createElement('br', null),
 	        React.createElement(
-	          'label',
-	          { className: 'member-since-label' },
-	          'Member Since:',
-	          this.memberSince()
-	        ),
-	        React.createElement(Logout, { userid: this.state.user.id })
+	          'div',
+	          { className: 'current-user-name' },
+	          this.state.user.username,
+	          React.createElement(
+	            Link,
+	            { className: 'user-edit-link', to: 'users/edit' },
+	            '(edit profile)'
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            { className: 'member-since-label' },
+	            'Member Since:',
+	            this.memberSince()
+	          ),
+	          React.createElement(Logout, { userid: this.state.user.id })
+	        )
 	      ),
+	      React.createElement(FavoriteGames, null),
 	      React.createElement(Shelves, null)
 	    );
 	  }
@@ -31929,7 +31981,7 @@
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
 	var ShelvesSidebar = __webpack_require__(250);
-	var RemoveGame = __webpack_require__(254);
+	var RemoveGame = __webpack_require__(251);
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
@@ -32167,6 +32219,39 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  removeGame: function (e) {
+	    e.preventDefault();
+	    GamesUtil.removeGameFromShelf({
+	      game_id: this.props.gameid,
+	      shelf_id: this.props.shelfid
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'remove-from-shelf-div' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.removeGame },
+	        React.createElement('input', { type: 'submit',
+	          className: 'button',
+	          value: 'remove game from shelf' })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 	
 	var Logout = __webpack_require__(243);
@@ -32203,6 +32288,15 @@
 	            'shelves'
 	          )
 	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/favorites' },
+	            'favorites'
+	          )
+	        ),
 	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
 	    );
@@ -32210,13 +32304,77 @@
 	});
 
 /***/ },
-/* 252 */
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsStore = __webpack_require__(217);
+	var UsersUtil = __webpack_require__(209);
+	var LinkedStateMixin = __webpack_require__(236);
+	
+	var Link = __webpack_require__(159).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	  getInitialState: function () {
+	    return {
+	      username: SessionsStore.all().username,
+	      name: SessionsStore.all().name
+	    };
+	  },
+	
+	  updateProfile: function (e) {
+	    e.preventDefault();
+	    UsersUtil.editUser(this.state);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Profile Settings'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.updateProfile, className: 'user-edit-form' },
+	        React.createElement(
+	          'label',
+	          null,
+	          'username',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('name') })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit profile' })
+	      ),
+	      React.createElement('img', { className: 'profile-edit-picture',
+	        src: SessionsStore.all().picture_url })
+	    );
+	  }
+	});
+
+/***/ },
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var GamesStore = __webpack_require__(249);
-	var AddGameToShelfForm = __webpack_require__(253);
+	var AddGameToShelfForm = __webpack_require__(255);
 	var GamesUtil = __webpack_require__(212);
+	var AddFavorite = __webpack_require__(266);
 	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
@@ -32267,7 +32425,8 @@
 	            'p',
 	            { className: 'game-info-description' },
 	            this.state.game.description
-	          )
+	          ),
+	          React.createElement(AddFavorite, { game: this.state.game })
 	        )
 	      );
 	    }
@@ -32275,7 +32434,7 @@
 	});
 
 /***/ },
-/* 253 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32346,40 +32505,7 @@
 	});
 
 /***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  removeGame: function (e) {
-	    e.preventDefault();
-	    GamesUtil.removeGameFromShelf({
-	      game_id: this.props.gameid,
-	      shelf_id: this.props.shelfid
-	    });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'remove-from-shelf-div' },
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.removeGame },
-	        React.createElement('input', { type: 'submit',
-	          className: 'button',
-	          value: 'remove game from shelf' })
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32387,7 +32513,7 @@
 	var ShelvesUtil = __webpack_require__(214);
 	var DeleteShelf = __webpack_require__(247);
 	var ShelfEdit = __webpack_require__(257);
-	var NewShelf = __webpack_require__(256);
+	var NewShelf = __webpack_require__(258);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32452,58 +32578,6 @@
 	        )
 	      ),
 	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(236);
-	var ShelvesUtil = __webpack_require__(214);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      clicked: false,
-	      title: "add a shelf"
-	    };
-	  },
-	
-	  createShelf: function (e) {
-	    e.preventDefault();
-	    var shelf = this.state;
-	    ShelvesUtil.createShelf(shelf);
-	    this.setState(function () {
-	      return { clicked: false };
-	    });
-	  },
-	
-	  emptyValue: function (e) {
-	    if (this.state.title === "add a shelf") {
-	      this.setState({ title: "" });
-	    }
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'add-self-edit' },
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.createShelf },
-	        React.createElement('input', { type: 'text',
-	          onClick: this.emptyValue,
-	          id: 'field-topsearch',
-	          valueLink: this.linkState('title') }),
-	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
-	      )
 	    );
 	  }
 	});
@@ -32577,60 +32651,394 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SessionsStore = __webpack_require__(217);
-	var UsersUtil = __webpack_require__(209);
 	var LinkedStateMixin = __webpack_require__(236);
-	
-	var Link = __webpack_require__(159).Link;
+	var ShelvesUtil = __webpack_require__(214);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	  mixins: [LinkedStateMixin],
+	
 	  getInitialState: function () {
 	    return {
-	      username: SessionsStore.all().username,
-	      name: SessionsStore.all().name
+	      clicked: false,
+	      title: "add a shelf"
 	    };
 	  },
 	
-	  updateProfile: function (e) {
+	  createShelf: function (e) {
 	    e.preventDefault();
-	    UsersUtil.editUser(this.state);
+	    var shelf = this.state;
+	    ShelvesUtil.createShelf(shelf);
+	    this.setState(function () {
+	      return { clicked: false };
+	    });
+	  },
+	
+	  emptyValue: function (e) {
+	    if (this.state.title === "add a shelf") {
+	      this.setState({ title: "" });
+	    }
 	  },
 	
 	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'add-self-edit' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.createShelf },
+	        React.createElement('input', { type: 'text',
+	          onClick: this.emptyValue,
+	          id: 'field-topsearch',
+	          valueLink: this.linkState('title') }),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(218).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var FavoriteGamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
+	};
+	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === parseInt(gameId.game_id)) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
+	FavoriteGamesStore.all = function () {
+	  return _games;
+	};
+	
+	FavoriteGamesStore.game = function (id) {
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
+	};
+	
+	FavoriteGamesStore.isFavorite = function (gameId) {
+	  var favorite = false;
+	  _games.forEach(function (game) {
+	    if (game.id === gameId) {
+	      favorite = true;
+	    }
+	  });
+	  return favorite;
+	};
+	
+	FavoriteGamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "FAVORITE_GAMES":
+	      updateGames(payload.games);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	    case "NEW_FAVORITE_GAME":
+	      addGame(payload.game);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	    case "REMOVE_FAVORITE_GAME":
+	      removeGame(payload.gameId);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = FavoriteGamesStore;
+
+/***/ },
+/* 260 */,
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(218).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var OwnedGamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
+	};
+	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === gameId) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
+	OwnedGamesStore.all = function () {
+	  return _games;
+	};
+	
+	OwnedGamesStore.game = function (id) {
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
+	};
+	
+	OwnedGamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "OWNED_GAMES":
+	      updateGames(payload.games);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "NEW_OWNED_GAME":
+	      addGame(payload.game);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "REMOVE_OWNED_GAME":
+	      removeGame(payload.game_id);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = OwnedGamesStore;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(259);
+	var GamesUtil = __webpack_require__(212);
+	var Link = __webpack_require__(159).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { games: this.getStateFromStore() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      games: this.getStateFromStore()
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      games: this.getStateFromStore()
+	    });
+	  },
+	
+	  getStateFromStore: function () {
+	    return FavoriteGamesStore.all();
+	  },
+	
+	  render: function () {
+	    var display = this.state.games.map(function (game) {
+	      var link = "games/" + game.id;
+	      return React.createElement(
+	        'li',
+	        { key: game.id, className: 'game-list-item' },
+	        React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url }),
+	        React.createElement(
+	          Link,
+	          { to: link },
+	          game.title
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'favorites-div' },
+	      React.createElement(
+	        'ul',
+	        { className: 'favorites-ul' },
+	        ' ',
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Favorite Games'
+	        ),
+	        display
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 263 */,
+/* 264 */,
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(259);
+	
+	var GamesUtil = __webpack_require__(212);
+	var Link = __webpack_require__(159).Link;
+	
+	var Games = React.createClass({
+	  displayName: 'Games',
+	
+	  getInitialState: function () {
+	    return {
+	      games: FavoriteGamesStore.all()
+	    };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { games: FavoriteGamesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      games: FavoriteGamesStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display;
+	    var that = this;
+	    display = this.state.games.map(function (game) {
+	      return React.createElement(
+	        'div',
+	        { className: 'game-div', key: game.id },
+	        React.createElement(
+	          'h3',
+	          { className: 'game-title' },
+	          React.createElement(
+	            Link,
+	            { to: "/games/" + game.id },
+	            game.title
+	          )
+	        ),
+	        React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
+	        React.createElement(
+	          'p',
+	          { className: 'game-description' },
+	          game.description
+	        )
+	      );
+	    });
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'h1',
 	        null,
-	        'Profile Settings'
+	        'Favorite Games'
 	      ),
 	      React.createElement(
-	        'form',
-	        { onSubmit: this.updateProfile, className: 'user-edit-form' },
-	        React.createElement(
-	          'label',
-	          null,
-	          'username',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'name',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', valueLink: this.linkState('name') })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit profile' })
-	      ),
-	      React.createElement('img', { className: 'profile-edit-picture',
-	        src: SessionsStore.all().picture_url })
+	        'div',
+	        null,
+	        display
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Games;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(259);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	
+	    return {
+	      favorite: this.isFavorite(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isFavorite: function (gameId) {
+	    return FavoriteGamesStore.isFavorite(gameId);
+	  },
+	
+	  toggleFavorite: function (e) {
+	    e.preventDefault();
+	    if (this.state.favorite) {
+	      GamesUtil.removeFavorite(this.props.game.id);
+	    } else {
+	      GamesUtil.createFavorite(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.favorite) {
+	      display = "remove from favorites";
+	    } else {
+	      display = "add to favorites";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleFavorite, className: 'button' },
+	      display
 	    );
 	  }
 	});

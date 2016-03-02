@@ -2,6 +2,7 @@ var React = require('react');
 var GamesStore = require('../../stores/games');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
 var GamesUtil = require('../../util/games');
+var AddFavorite = require('./add_favorite');
 // add remove game from shelf.. and find in all shelves might have to hit data base again
 
 module.exports = React.createClass({
@@ -41,6 +42,7 @@ module.exports = React.createClass({
             <p className="game-info-description">
               {this.state.game.description}
             </p>
+            <AddFavorite game={this.state.game}/>
           </div>
         </div>
       );

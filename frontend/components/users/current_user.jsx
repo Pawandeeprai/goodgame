@@ -3,6 +3,8 @@ var Link = require('react-router').Link;
 var SessionsStore = require('../../stores/sessions');
 var Logout = require('../sessions/logout');
 var Shelves = require('../shelves/shelves');
+var FavoriteGames = require('../games/favorite_games');
+
 
 
 var CurrentUser = React.createClass({
@@ -33,22 +35,26 @@ var CurrentUser = React.createClass({
 
   render: function(){
     return (
-      <div className="current-user-div">
-        <div className="current-user-img-div">
-          <img className="current-user-img" src={this.state.user.picture_url}/>
+      <div>
+        <div className="current-user-div">
+          <div className="current-user-img-div">
+            <img className="current-user-img"
+                 src={this.state.user.picture_url}/>
+          </div>
+          <div className="current-user-name">
+            {this.state.user.username}
+            <Link className="user-edit-link" to="users/edit">
+              (edit profile)
+            </Link>
+            <br/>
+            <label className="member-since-label">
+              Member Since:
+              {this.memberSince()}
+            </label>
+            <Logout userid={this.state.user.id}/>
+          </div >
         </div>
-        <div className="current-user-name">
-          {this.state.user.username}
-          <Link className="user-edit-link" to="users/edit">
-            (edit profile)
-          </Link>
-          <br/>
-          <label className="member-since-label">
-            Member Since:
-            {this.memberSince()}
-          </label>
-          <Logout userid={this.state.user.id}/>
-        </div >
+        <FavoriteGames/>
         <Shelves/>
       </div>
     );

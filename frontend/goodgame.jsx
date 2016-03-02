@@ -24,9 +24,13 @@ var Shelves = require('./components/shelves/shelves');
 var Shelf = require('./components/shelves/shelf');
 var GameFullPage = require('./components/games/game_full_page');
 var EditShelves = require('./components/shelves/edit_shelf_page');
+var FavoriteGames = require('./components/games/favorite_games');
+var FavoritesPage = require('./components/games/favorites_page');
 
 var SessionsStore = require('./stores/sessions');
 var ShelvesStore = require('./stores/shelves');
+var FavoriteGamesStore = require('./stores/favorite_games');
+var OwnedGamesStore = require('./stores/owned_games');
 
 
 var routes = (
@@ -35,6 +39,9 @@ var routes = (
     <IndexRoute component={CurrentUser}/>
 
     <Route component={CurrentUser} path="/user">
+
+    </Route>
+    <Route component={FavoritesPage} path="/favorites">
 
     </Route>
     <Route component={EditShelves} path="/shelves/edit">

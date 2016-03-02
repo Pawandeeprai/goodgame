@@ -22,9 +22,28 @@ var GamesActions = {
     });
   },
   favoriteGames: function(games){
-    debugger;
     AppDispatcher.dispatch({
       actionType: "FAVORITE_GAMES",
+      games: games
+    });
+  },
+
+  removeFavorite: function(gameId){
+    AppDispatcher.dispatch({
+      actionType: "REMOVE_FAVORITE_GAME",
+      gameId: gameId
+    });
+  },
+  createFavorite: function(game){
+    AppDispatcher.dispatch({
+      actionType: "NEW_FAVORITE_GAME",
+      game: game
+    });
+  },
+
+  ownedGames: function(games){
+    AppDispatcher.dispatch({
+      actionType: "OWNED_GAMES",
       games: games
     });
   }

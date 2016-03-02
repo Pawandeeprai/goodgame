@@ -55,7 +55,27 @@ var GamesUtil = {
       url: "/api/owns",
       type: "GET",
       success: function(games){
-        console.log(games);
+        GamesActions.ownedGames(games);
+      }
+    });
+  },
+  removeFavorite: function(data){
+    $.ajax({
+      url: "api/favorites/1",
+      type: "DELETE",
+      data: {game_id: data},
+      success: function(game) {
+        GamesActions.removeFavorite(game);
+      }
+    });
+  },
+  createFavorite: function(data){
+    $.ajax({
+      url: "api/favorites",
+      type: "POST",
+      data: {game_id: data},
+      success: function(game){
+        GamesActions.createFavorite(game);
       }
     });
   }

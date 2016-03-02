@@ -23,6 +23,11 @@ module.exports = React.createClass({
               shelves
             </Link>
           </li>
+          <li>
+            <Link to="/favorites">
+              favorites
+            </Link>
+          </li>
           <Logout className="navbar-logout"/>
         </ul>
       </div>

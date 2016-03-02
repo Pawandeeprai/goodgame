@@ -1,0 +1,44 @@
+.game-list-item-img{
+  width: 50px;
+  height: auto;
+}
+
+.game-list-item {
+  display: inline-block;
+  width: 60px;
+  text-align: center;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.game-list-item a {
+  color: black;
+}
+
+.favorites-div {
+  display: block;
+  width: 1000px;
+}
+
+.favorites-ul{
+  display: block;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 15px;
+  width: 1000px;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+}
+
+.favorites-ul h3{
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  height: 33px;
+  background-color: #9ad3de;
+  color: white;
+}
