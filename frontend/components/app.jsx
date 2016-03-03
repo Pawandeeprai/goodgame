@@ -15,6 +15,7 @@ var Games = require('./games/games');
 var Shelves = require('./shelves/shelves');
 var NavBar = require('./navbar');
 var FavoriteGames = require('./games/favorite_games');
+var AddReview = require('./reviews/add_review');
 
 
 

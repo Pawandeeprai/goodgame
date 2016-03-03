@@ -19,4 +19,26 @@ class Api::ReviewsController < ApplicationController
     @reviews = @game.reviews
     render "api/reviews/index"
   end
+
+  def create
+    @review = Review.new(review_params)
+    @review.game_id = params[:game_id]
+    @review.user_id = current_user.id
+    if @review.save
+      render json: @review
+    else
+      render json:{status: "something went wrong"}, status: 401
+    end
+
+  end
+
+  def show
+    @reviews = current_user.reviews
+    render "api/reviews/show"
+  end
+
+  private
+  def review_params
+    params.require(:review).permit(:review_text, :rating)
+  end
 end

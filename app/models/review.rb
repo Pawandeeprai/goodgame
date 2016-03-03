@@ -12,9 +12,10 @@
 #
 
 class Review < ActiveRecord::Base
-  validates :rating, :user_id, :game_id, presence: true
+  validates :rating, :user_id, :game_id, :review_text, presence: true
   validates :user_id, uniqueness: {scope: :game_id,
     message: "you can only review a game once"}
 
   belongs_to :game
+  belongs_to :user
 end

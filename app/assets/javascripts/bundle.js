@@ -56,28 +56,28 @@
 	var SessionsUtil = __webpack_require__(211);
 	var GamesUtil = __webpack_require__(212);
 	var ShelvesUtil = __webpack_require__(214);
-	var SearchUtil = __webpack_require__(269);
-	var ReviewsUtil = __webpack_require__(270);
+	var SearchUtil = __webpack_require__(216);
+	var ReviewsUtil = __webpack_require__(217);
 	
-	var App = __webpack_require__(216);
+	var App = __webpack_require__(219);
 	
-	var NewUsersForm = __webpack_require__(235);
-	var NewSessionForm = __webpack_require__(240);
-	var CurrentUser = __webpack_require__(242);
-	var EditUser = __webpack_require__(253);
+	var NewUsersForm = __webpack_require__(238);
+	var NewSessionForm = __webpack_require__(243);
+	var CurrentUser = __webpack_require__(245);
+	var EditUser = __webpack_require__(418);
 	
-	var Games = __webpack_require__(248);
-	var Shelves = __webpack_require__(244);
-	var Shelf = __webpack_require__(246);
-	var GameFullPage = __webpack_require__(254);
-	var EditShelves = __webpack_require__(256);
-	var FavoriteGames = __webpack_require__(262);
-	var FavoritesPage = __webpack_require__(265);
+	var Games = __webpack_require__(253);
+	var Shelves = __webpack_require__(247);
+	var Shelf = __webpack_require__(249);
+	var GameFullPage = __webpack_require__(419);
+	var EditShelves = __webpack_require__(427);
+	var FavoriteGames = __webpack_require__(251);
+	var FavoritesPage = __webpack_require__(430);
 	
-	var SessionsStore = __webpack_require__(217);
-	var ShelvesStore = __webpack_require__(245);
-	var FavoriteGamesStore = __webpack_require__(259);
-	var OwnedGamesStore = __webpack_require__(261);
+	var SessionsStore = __webpack_require__(220);
+	var ShelvesStore = __webpack_require__(248);
+	var FavoriteGamesStore = __webpack_require__(252);
+	var OwnedGamesStore = __webpack_require__(424);
 	
 	var routes = React.createElement(
 	  Route,
@@ -24717,24 +24717,114 @@
 
 /***/ },
 /* 216 */
+/***/ function(module, exports) {
+
+	var SearchUtil = {
+	  search: function (data) {
+	    $.ajax({
+	      url: "api/searches/",
+	      type: "GET",
+	      data: data,
+	      success: function (results) {
+	        console.log(results);
+	      }
+	    });
+	  }
+	};
+	
+	window.SearchUtil = SearchUtil;
+	module.exports = SearchUtil;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewsActions = __webpack_require__(218);
+	
+	var ReviewsUtil = {
+	  fetchGameReviews: function (data) {
+	    $.ajax({
+	      url: "api/games/" + data + "/reviews",
+	      type: "GET",
+	      success: function (reviews) {
+	        ReviewsActions.receiveAllReviews(reviews);
+	      }
+	    });
+	  },
+	  createReview: function (gameId, data) {
+	    $.ajax({
+	      url: "api/games/" + gameId + "/reviews",
+	      type: "POST",
+	      data: { review: data },
+	      success: function (review) {
+	        ReviewsActions.newUserReview(review);
+	      }
+	    });
+	  },
+	  fetchUserReivews: function (gameId) {
+	    $.ajax({
+	      url: "api/games/" + gameId + "/reviews/1",
+	      type: "GET",
+	      success: function (reviews) {
+	        ReviewsActions.receiveAllUserReviews(reviews);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = ReviewsUtil;
+	window.ReviewsUtil = ReviewsUtil;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(205);
+	
+	var ReviewsActions = {
+	  receiveAllReviews: function (reviews) {
+	    AppDispatcher.dispatch({
+	      actionType: "ALL_REVIEWS",
+	      reviews: reviews
+	    });
+	  },
+	  receiveAllUserReviews: function (reviews) {
+	    AppDispatcher.dispatch({
+	      actionType: "USER_REVIEWS",
+	      reviews: reviews
+	    });
+	  },
+	  newUserReview: function (review) {
+	    AppDispatcher.dispatch({
+	      actionType: "NEW_USER_REVIEW",
+	      review: review
+	    });
+	  }
+	};
+	
+	module.exports = ReviewsActions;
+
+/***/ },
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 	
-	var SessionsStore = __webpack_require__(217);
+	var SessionsStore = __webpack_require__(220);
 	var SessionsUtil = __webpack_require__(211);
 	
-	var NewUserForm = __webpack_require__(235);
-	var NewSessionsForm = __webpack_require__(240);
-	var NewShelfForm = __webpack_require__(241);
+	var NewUserForm = __webpack_require__(238);
+	var NewSessionsForm = __webpack_require__(243);
+	var NewShelfForm = __webpack_require__(244);
 	
-	var CurrentUser = __webpack_require__(242);
-	var Logout = __webpack_require__(243);
-	var Games = __webpack_require__(248);
-	var Shelves = __webpack_require__(244);
-	var NavBar = __webpack_require__(252);
-	var FavoriteGames = __webpack_require__(262);
+	var CurrentUser = __webpack_require__(245);
+	var Logout = __webpack_require__(246);
+	var Games = __webpack_require__(253);
+	var Shelves = __webpack_require__(247);
+	var NavBar = __webpack_require__(257);
+	var FavoriteGames = __webpack_require__(251);
+	var AddReview = __webpack_require__(258);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24801,10 +24891,10 @@
 	module.exports = App;
 
 /***/ },
-/* 217 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(218).Store;
+	var Store = __webpack_require__(221).Store;
 	var AppDispatcher = __webpack_require__(205);
 	var SessionsUtil = __webpack_require__(211);
 	
@@ -24848,7 +24938,7 @@
 	module.exports = SessionsStore;
 
 /***/ },
-/* 218 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24860,15 +24950,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(219);
-	module.exports.MapStore = __webpack_require__(222);
-	module.exports.Mixin = __webpack_require__(234);
-	module.exports.ReduceStore = __webpack_require__(223);
-	module.exports.Store = __webpack_require__(224);
+	module.exports.Container = __webpack_require__(222);
+	module.exports.MapStore = __webpack_require__(225);
+	module.exports.Mixin = __webpack_require__(237);
+	module.exports.ReduceStore = __webpack_require__(226);
+	module.exports.Store = __webpack_require__(227);
 
 
 /***/ },
-/* 219 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24890,10 +24980,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(220);
+	var FluxStoreGroup = __webpack_require__(223);
 	
 	var invariant = __webpack_require__(208);
-	var shallowEqual = __webpack_require__(221);
+	var shallowEqual = __webpack_require__(224);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -25051,7 +25141,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 220 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25132,7 +25222,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 221 */
+/* 224 */
 /***/ function(module, exports) {
 
 	/**
@@ -25187,7 +25277,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 222 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25208,8 +25298,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(223);
-	var Immutable = __webpack_require__(233);
+	var FluxReduceStore = __webpack_require__(226);
+	var Immutable = __webpack_require__(236);
 	
 	var invariant = __webpack_require__(208);
 	
@@ -25337,7 +25427,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 223 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25358,9 +25448,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(224);
+	var FluxStore = __webpack_require__(227);
 	
-	var abstractMethod = __webpack_require__(232);
+	var abstractMethod = __webpack_require__(235);
 	var invariant = __webpack_require__(208);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -25444,7 +25534,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 224 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25463,7 +25553,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(225);
+	var _require = __webpack_require__(228);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -25627,7 +25717,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 225 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25640,14 +25730,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(226)
+	  EventEmitter: __webpack_require__(229)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 226 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25666,11 +25756,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(227);
-	var EventSubscriptionVendor = __webpack_require__(229);
+	var EmitterSubscription = __webpack_require__(230);
+	var EventSubscriptionVendor = __webpack_require__(232);
 	
-	var emptyFunction = __webpack_require__(231);
-	var invariant = __webpack_require__(230);
+	var emptyFunction = __webpack_require__(234);
+	var invariant = __webpack_require__(233);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -25844,7 +25934,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 227 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25865,7 +25955,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(228);
+	var EventSubscription = __webpack_require__(231);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -25897,7 +25987,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 228 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -25951,7 +26041,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25970,7 +26060,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(230);
+	var invariant = __webpack_require__(233);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -26060,7 +26150,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26115,7 +26205,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports) {
 
 	/**
@@ -26157,7 +26247,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26184,7 +26274,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31171,7 +31261,7 @@
 	}));
 
 /***/ },
-/* 234 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31188,7 +31278,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(220);
+	var FluxStoreGroup = __webpack_require__(223);
 	
 	var invariant = __webpack_require__(208);
 	
@@ -31294,12 +31384,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 235 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var UsersUtil = __webpack_require__(209);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
@@ -31366,13 +31456,13 @@
 	module.exports = NewUserForm;
 
 /***/ },
-/* 236 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(237);
+	module.exports = __webpack_require__(240);
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31389,8 +31479,8 @@
 	
 	'use strict';
 	
-	var ReactLink = __webpack_require__(238);
-	var ReactStateSetters = __webpack_require__(239);
+	var ReactLink = __webpack_require__(241);
+	var ReactStateSetters = __webpack_require__(242);
 	
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -31413,7 +31503,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 238 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31487,7 +31577,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports) {
 
 	/**
@@ -31596,12 +31686,12 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var SessionsUtil = __webpack_require__(211);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	
 	var NewSessionForm = React.createClass({
 	  displayName: 'NewSessionForm',
@@ -31659,11 +31749,11 @@
 	module.exports = NewSessionForm;
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	var ShelvesUtil = __webpack_require__(214);
 	
 	var NewShelfForm = React.createClass({
@@ -31730,15 +31820,15 @@
 	module.exports = NewShelfForm;
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var SessionsStore = __webpack_require__(217);
-	var Logout = __webpack_require__(243);
-	var Shelves = __webpack_require__(244);
-	var FavoriteGames = __webpack_require__(262);
+	var SessionsStore = __webpack_require__(220);
+	var Logout = __webpack_require__(246);
+	var Shelves = __webpack_require__(247);
+	var FavoriteGames = __webpack_require__(251);
 	
 	var CurrentUser = React.createClass({
 	  displayName: 'CurrentUser',
@@ -31808,7 +31898,7 @@
 	module.exports = CurrentUser;
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31839,15 +31929,15 @@
 	module.exports = Logout;
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(245);
+	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
-	var Shelf = __webpack_require__(246);
-	var DeleteShelf = __webpack_require__(247);
-	var NewShelfForm = __webpack_require__(241);
+	var Shelf = __webpack_require__(249);
+	var DeleteShelf = __webpack_require__(250);
+	var NewShelfForm = __webpack_require__(244);
 	var Link = __webpack_require__(159).Link;
 	
 	var Shelves = React.createClass({
@@ -31915,10 +32005,10 @@
 	module.exports = Shelves;
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(218).Store;
+	var Store = __webpack_require__(221).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
 	var ShelvesStore = new Store(AppDispatcher);
@@ -31965,11 +32055,11 @@
 	module.exports = ShelvesStore;
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(245);
+	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
 	
@@ -31986,7 +32076,7 @@
 	});
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32007,17 +32097,152 @@
 	});
 
 /***/ },
-/* 248 */
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(252);
+	var GamesUtil = __webpack_require__(212);
+	var Link = __webpack_require__(159).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { games: this.getStateFromStore() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      games: this.getStateFromStore()
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      games: this.getStateFromStore()
+	    });
+	  },
+	
+	  getStateFromStore: function () {
+	    return FavoriteGamesStore.all();
+	  },
+	
+	  render: function () {
+	    var display = this.state.games.map(function (game) {
+	      var link = "games/" + game.id;
+	      return React.createElement(
+	        'li',
+	        { key: game.id, className: 'game-list-item' },
+	        React.createElement(
+	          Link,
+	          { to: link },
+	          React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url })
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'favorites-div' },
+	      React.createElement(
+	        'ul',
+	        { className: 'favorites-ul' },
+	        ' ',
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Favorite Games'
+	        ),
+	        display
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(221).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var FavoriteGamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
+	};
+	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === parseInt(gameId.game_id)) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
+	FavoriteGamesStore.all = function () {
+	  return _games;
+	};
+	
+	FavoriteGamesStore.game = function (id) {
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
+	};
+	
+	FavoriteGamesStore.isFavorite = function (gameId) {
+	  var favorite = false;
+	  _games.forEach(function (game) {
+	    if (game.id === gameId) {
+	      favorite = true;
+	    }
+	  });
+	  return favorite;
+	};
+	
+	FavoriteGamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "FAVORITE_GAMES":
+	      updateGames(payload.games);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	    case "NEW_FAVORITE_GAME":
+	      addGame(payload.game);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	    case "REMOVE_FAVORITE_GAME":
+	      removeGame(payload.gameId);
+	      FavoriteGamesStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = FavoriteGamesStore;
+
+/***/ },
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var GamesStore = __webpack_require__(249);
+	var GamesStore = __webpack_require__(254);
 	var GamesUtil = __webpack_require__(212);
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
-	var ShelvesSidebar = __webpack_require__(250);
-	var RemoveGame = __webpack_require__(251);
+	var ShelvesSidebar = __webpack_require__(255);
+	var RemoveGame = __webpack_require__(256);
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
@@ -32118,10 +32343,10 @@
 	module.exports = Games;
 
 /***/ },
-/* 249 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(218).Store;
+	var Store = __webpack_require__(221).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
 	var GamesStore = new Store(AppDispatcher);
@@ -32177,16 +32402,16 @@
 	module.exports = GamesStore;
 
 /***/ },
-/* 250 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(245);
+	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
-	var Shelf = __webpack_require__(246);
-	var NewShelfForm = __webpack_require__(241);
+	var Shelf = __webpack_require__(249);
+	var NewShelfForm = __webpack_require__(244);
 	var Link = __webpack_require__(159).Link;
-	var DeleteShelf = __webpack_require__(247);
+	var DeleteShelf = __webpack_require__(250);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32251,7 +32476,7 @@
 	});
 
 /***/ },
-/* 251 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32284,14 +32509,14 @@
 	});
 
 /***/ },
-/* 252 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 	
-	var Logout = __webpack_require__(243);
-	var ShelvesStore = __webpack_require__(245);
+	var Logout = __webpack_require__(246);
+	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
 	
 	module.exports = React.createClass({
@@ -32340,13 +32565,219 @@
 	});
 
 /***/ },
-/* 253 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SessionsStore = __webpack_require__(217);
+	var Rating = __webpack_require__(431);
+	var LinkedStateMixin = __webpack_require__(239);
+	var ReviewsUtil = __webpack_require__(217);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return { rating: 0 };
+	  },
+	
+	  handleRating: function (e) {
+	    this.setState({
+	      rating: e
+	    });
+	  },
+	
+	  createReview: function (e) {
+	    e.preventDefault();
+	    ReviewsUtil.createReview(this.props.game.id, this.state);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'new-review', onSubmit: this.createReview },
+	      React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	        empty: 'glyphicon glyphicon-star-empty large',
+	        initialRate: this.state.rating,
+	        onChange: this.handleRating }),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'text-box',
+	        valueLink: this.linkState('review_text'),
+	        type: 'text-box' }),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'button', type: 'submit', value: 'add review' })
+	    );
+	  }
+	});
+
+/***/ },
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsStore = __webpack_require__(220);
 	var UsersUtil = __webpack_require__(209);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	
 	var Link = __webpack_require__(159).Link;
 	
@@ -32403,16 +32834,17 @@
 	});
 
 /***/ },
-/* 254 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var GamesStore = __webpack_require__(249);
-	var AddGameToShelfForm = __webpack_require__(255);
+	var GamesStore = __webpack_require__(254);
+	var AddGameToShelfForm = __webpack_require__(420);
 	var GamesUtil = __webpack_require__(212);
-	var AddFavorite = __webpack_require__(266);
-	var AddOwn = __webpack_require__(268);
-	var Reviews = __webpack_require__(272);
+	var AddFavorite = __webpack_require__(422);
+	var AddOwn = __webpack_require__(423);
+	var Reviews = __webpack_require__(425);
+	var UserReivew = __webpack_require__(433);
 	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
@@ -32464,6 +32896,7 @@
 	            { className: 'game-info-description' },
 	            this.state.game.description
 	          ),
+	          React.createElement(UserReivew, { game: this.state.game }),
 	          React.createElement(Reviews, { game: this.state.game }),
 	          React.createElement(AddFavorite, { game: this.state.game }),
 	          React.createElement(AddOwn, { game: this.state.game })
@@ -32474,15 +32907,15 @@
 	});
 
 /***/ },
-/* 255 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(245);
-	var LinkedStateMixin = __webpack_require__(236);
+	var ShelvesStore = __webpack_require__(248);
+	var LinkedStateMixin = __webpack_require__(239);
 	var ShelvesUtil = __webpack_require__(214);
 	var GamesUtil = __webpack_require__(212);
-	var ShelfChoice = __webpack_require__(267);
+	var ShelfChoice = __webpack_require__(421);
 	
 	// TODO change this to use <ul> and li
 	
@@ -32560,15 +32993,341 @@
 	});
 
 /***/ },
-/* 256 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(245);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  addToShelf: function (e) {
+	    e.preventDefault();
+	    GamesUtil.addGameToShelf({
+	      game_id: this.props.gameid,
+	      shelf_id: this.props.shelf.id
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { onClick: this.addToShelf },
+	      this.props.shelf.title
+	    );
+	  }
+	});
+
+/***/ },
+/* 422 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(252);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	
+	    return {
+	      favorite: this.isFavorite(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isFavorite: function (gameId) {
+	    return FavoriteGamesStore.isFavorite(gameId);
+	  },
+	
+	  toggleFavorite: function (e) {
+	    e.preventDefault();
+	    if (this.state.favorite) {
+	      GamesUtil.removeFavorite(this.props.game.id);
+	    } else {
+	      GamesUtil.createFavorite(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.favorite) {
+	      display = "remove from favorites";
+	    } else {
+	      display = "add to favorites";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleFavorite, className: 'button' },
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 423 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var OwnedGamesStore = __webpack_require__(424);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      owned: this.isOwned(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = OwnedGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchOwnedGames();
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isOwned: function (gameId) {
+	    return OwnedGamesStore.isOwned(gameId);
+	  },
+	
+	  toggleOwns: function (e) {
+	    e.preventDefault();
+	    if (this.state.owned) {
+	      GamesUtil.removeOwned(this.props.game.id);
+	    } else {
+	      GamesUtil.createOwned(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.owned) {
+	      display = "remove from owned games";
+	    } else {
+	      display = "add to owned games";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleOwns, className: 'button' },
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 424 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(221).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var OwnedGamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
+	};
+	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === parseInt(gameId.game_id)) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
+	OwnedGamesStore.all = function () {
+	  return _games;
+	};
+	
+	OwnedGamesStore.game = function (id) {
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
+	};
+	
+	OwnedGamesStore.isOwned = function (gameId) {
+	  var owned = false;
+	  _games.forEach(function (game) {
+	    if (game.id === gameId) {
+	      owned = true;
+	    }
+	  });
+	  return owned;
+	};
+	
+	OwnedGamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "OWNED_GAMES":
+	      updateGames(payload.games);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "NEW_OWNED_GAME":
+	      addGame(payload.game);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "REMOVE_OWNED_GAME":
+	      removeGame(payload.gameId);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = OwnedGamesStore;
+
+/***/ },
+/* 425 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Rating = __webpack_require__(431);
+	var React = __webpack_require__(1);
+	var ReviewsStore = __webpack_require__(426);
+	var ReviewsUtil = __webpack_require__(217);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {};
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchGameReviews(this.props.game.id);
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.reviews) {
+	      display = this.state.reviews.map(function (review) {
+	        return React.createElement(
+	          'ul',
+	          { key: review.id },
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	              empty: 'glyphicon glyphicon-star-empty large',
+	              initialRate: review.rating })
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            review.review_text
+	          )
+	        );
+	      });
+	    } else {
+	      display = "No Reviews Yet";
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'reviews' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'All Reviews of ',
+	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 426 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(221).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var ReviewsStore = new Store(AppDispatcher);
+	
+	var _reviews = [];
+	
+	var updateReviews = function (reviews) {
+	  _reviews = reviews;
+	};
+	
+	ReviewsStore.all = function () {
+	  return _reviews;
+	};
+	
+	ReviewsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ALL_REVIEWS":
+	      updateReviews(payload.reviews);
+	      ReviewsStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = ReviewsStore;
+
+/***/ },
+/* 427 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
-	var DeleteShelf = __webpack_require__(247);
-	var ShelfEdit = __webpack_require__(257);
-	var NewShelf = __webpack_require__(258);
+	var DeleteShelf = __webpack_require__(250);
+	var ShelfEdit = __webpack_require__(428);
+	var NewShelf = __webpack_require__(429);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32638,11 +33397,11 @@
 	});
 
 /***/ },
-/* 257 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	var ShelvesUtil = __webpack_require__(214);
 	
 	module.exports = React.createClass({
@@ -32702,11 +33461,11 @@
 	});
 
 /***/ },
-/* 258 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(236);
+	var LinkedStateMixin = __webpack_require__(239);
 	var ShelvesUtil = __webpack_require__(214);
 	
 	module.exports = React.createClass({
@@ -32754,219 +33513,11 @@
 	});
 
 /***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(218).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var FavoriteGamesStore = new Store(AppDispatcher);
-	
-	var _games = [];
-	
-	var updateGames = function (games) {
-	  _games = games;
-	};
-	
-	var addGame = function (game) {
-	  _games.push(game);
-	};
-	
-	var removeGame = function (gameId) {
-	  _games.forEach(function (game, idx) {
-	    if (game.id === parseInt(gameId.game_id)) {
-	      _games.splice(idx);
-	    }
-	  });
-	};
-	
-	FavoriteGamesStore.all = function () {
-	  return _games;
-	};
-	
-	FavoriteGamesStore.game = function (id) {
-	  var theGame;
-	  _games.forEach(function (game) {
-	    if (game.id === id) {
-	      theGame = game;
-	    }
-	  });
-	  return theGame;
-	};
-	
-	FavoriteGamesStore.isFavorite = function (gameId) {
-	  var favorite = false;
-	  _games.forEach(function (game) {
-	    if (game.id === gameId) {
-	      favorite = true;
-	    }
-	  });
-	  return favorite;
-	};
-	
-	FavoriteGamesStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "FAVORITE_GAMES":
-	      updateGames(payload.games);
-	      FavoriteGamesStore.__emitChange();
-	      break;
-	    case "NEW_FAVORITE_GAME":
-	      addGame(payload.game);
-	      FavoriteGamesStore.__emitChange();
-	      break;
-	    case "REMOVE_FAVORITE_GAME":
-	      removeGame(payload.gameId);
-	      FavoriteGamesStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	module.exports = FavoriteGamesStore;
-
-/***/ },
-/* 260 */,
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(218).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var OwnedGamesStore = new Store(AppDispatcher);
-	
-	var _games = [];
-	
-	var updateGames = function (games) {
-	  _games = games;
-	};
-	
-	var addGame = function (game) {
-	  _games.push(game);
-	};
-	
-	var removeGame = function (gameId) {
-	  _games.forEach(function (game, idx) {
-	    if (game.id === parseInt(gameId.game_id)) {
-	      _games.splice(idx);
-	    }
-	  });
-	};
-	
-	OwnedGamesStore.all = function () {
-	  return _games;
-	};
-	
-	OwnedGamesStore.game = function (id) {
-	  var theGame;
-	  _games.forEach(function (game) {
-	    if (game.id === id) {
-	      theGame = game;
-	    }
-	  });
-	  return theGame;
-	};
-	
-	OwnedGamesStore.isOwned = function (gameId) {
-	  var owned = false;
-	  _games.forEach(function (game) {
-	    if (game.id === gameId) {
-	      owned = true;
-	    }
-	  });
-	  return owned;
-	};
-	
-	OwnedGamesStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "OWNED_GAMES":
-	      updateGames(payload.games);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	    case "NEW_OWNED_GAME":
-	      addGame(payload.game);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	    case "REMOVE_OWNED_GAME":
-	      removeGame(payload.gameId);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	module.exports = OwnedGamesStore;
-
-/***/ },
-/* 262 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(259);
-	var GamesUtil = __webpack_require__(212);
-	var Link = __webpack_require__(159).Link;
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return { games: this.getStateFromStore() };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchFavoriteGames();
-	    this.setState({
-	      games: this.getStateFromStore()
-	    });
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      games: this.getStateFromStore()
-	    });
-	  },
-	
-	  getStateFromStore: function () {
-	    return FavoriteGamesStore.all();
-	  },
-	
-	  render: function () {
-	    var display = this.state.games.map(function (game) {
-	      var link = "games/" + game.id;
-	      return React.createElement(
-	        'li',
-	        { key: game.id, className: 'game-list-item' },
-	        React.createElement(
-	          Link,
-	          { to: link },
-	          React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url })
-	        )
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      { className: 'favorites-div' },
-	      React.createElement(
-	        'ul',
-	        { className: 'favorites-ul' },
-	        ' ',
-	        React.createElement(
-	          'h3',
-	          null,
-	          'Favorite Games'
-	        ),
-	        display
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 263 */,
-/* 264 */,
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(259);
+	var FavoriteGamesStore = __webpack_require__(252);
 	
 	var GamesUtil = __webpack_require__(212);
 	var Link = __webpack_require__(159).Link;
@@ -33044,290 +33595,372 @@
 	module.exports = Games;
 
 /***/ },
-/* 266 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(259);
-	var GamesUtil = __webpack_require__(212);
+	/*! react-rating - 0.2.0 | (c) 2015, 2016  dreyescat | MIT | https://github.com/dreyescat/react-rating */
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory(__webpack_require__(1));
+		else if(typeof define === 'function' && define.amd)
+			define(["react"], factory);
+		else if(typeof exports === 'object')
+			exports["ReactRating"] = factory(require("react"));
+		else
+			root["ReactRating"] = factory(root["React"]);
+	})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
 	
-	module.exports = React.createClass({
-	  displayName: 'exports',
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
 	
-	  getInitialState: function () {
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
 	
-	    return {
-	      favorite: this.isFavorite(this.props.game.id)
-	    };
-	  },
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
 	
-	  componentDidMount: function () {
-	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchFavoriteGames();
-	    this.setState({
-	      favorite: this.isFavorite(this.props.game.id)
-	    });
-	  },
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 	
-	  _onChange: function () {
-	    this.setState({
-	      favorite: this.isFavorite(this.props.game.id)
-	    });
-	  },
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
 	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
 	
-	  isFavorite: function (gameId) {
-	    return FavoriteGamesStore.isFavorite(gameId);
-	  },
 	
-	  toggleFavorite: function (e) {
-	    e.preventDefault();
-	    if (this.state.favorite) {
-	      GamesUtil.removeFavorite(this.props.game.id);
-	    } else {
-	      GamesUtil.createFavorite(this.props.game.id);
-	    }
-	  },
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
 	
-	  render: function () {
-	    var display;
-	    if (this.state.favorite) {
-	      display = "remove from favorites";
-	    } else {
-	      display = "add to favorites";
-	    }
-	    return React.createElement(
-	      'button',
-	      { onClick: this.toggleFavorite, className: 'button' },
-	      display
-	    );
-	  }
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "/lib";
+	
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		module.exports = __webpack_require__(1);
+	
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		var React = __webpack_require__(2);
+		var Style = __webpack_require__(3);
+		var Symbol = __webpack_require__(5);
+	
+		// Returns the index of the rate in the range (start, stop, step).
+		// Returns undefined index if the rate is outside the range.
+		// NOTE: A range.step of 0 produces an empty range and consequently returns an
+		// undefined index.
+		var indexOf = function indexOf(range, rate) {
+		  // Check the rate is in the proper range [start..stop] according to
+		  // the start, stop and step properties in props.
+		  var step = range.step;
+		  var start = step > 0 ? range.start : range.stop;
+		  var stop = step > 0 ? range.stop : range.start;
+		  if (step && start <= rate && rate <= stop) {
+		    // The index corresponds to the number of steps of size props.step
+		    // that fits between rate and start.
+		    // This index does not need to be a whole number because we can have
+		    // fractional symbols, and consequently fractional/float indexes.
+		    return (rate - range.start) / step;
+		  }
+		};
+	
+		var Rating = React.createClass({
+		  displayName: 'Rating',
+	
+		  // Define propTypes only in development.
+		  propTypes: "boolean" !== 'undefined' && (true) && {
+		    start: React.PropTypes.number,
+		    stop: React.PropTypes.number,
+		    step: React.PropTypes.number,
+		    initialRate: React.PropTypes.number,
+		    placeholderRate: React.PropTypes.number,
+		    empty: React.PropTypes.oneOfType([
+		    // Array of class names and/or style objects.
+		    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+		    // Class names.
+		    React.PropTypes.string,
+		    // Style objects.
+		    React.PropTypes.object]),
+		    placeholder: React.PropTypes.oneOfType([
+		    // Array of class names and/or style objects.
+		    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+		    // Class names.
+		    React.PropTypes.string,
+		    // Style objects.
+		    React.PropTypes.object]),
+		    full: React.PropTypes.oneOfType([
+		    // Array of class names and/or style objects.
+		    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+		    // Class names.
+		    React.PropTypes.string,
+		    // Style objects.
+		    React.PropTypes.object]),
+		    readonly: React.PropTypes.bool,
+		    fractions: React.PropTypes.number,
+		    scale: React.PropTypes.number,
+		    onChange: React.PropTypes.func,
+		    onRate: React.PropTypes.func
+		  },
+		  getDefaultProps: function getDefaultProps() {
+		    return {
+		      start: 0,
+		      stop: 5,
+		      step: 1,
+		      empty: Style.empty,
+		      placeholder: Style.full,
+		      full: Style.full,
+		      fractions: 1,
+		      scale: 3,
+		      onChange: function onChange(rate) {},
+		      onRate: function onRate(rate) {}
+		    };
+		  },
+		  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+		    var rate = nextProps.initialRate > 0 ? nextProps.initialRate : nextProps.placeholderRate;
+		    this.setState({
+		      index: indexOf(nextProps, rate)
+		    });
+		  },
+		  getInitialState: function getInitialState() {
+		    var index = this.props.initialRate > 0 ? this.props.initialRate : this.props.placeholderRate;
+		    return {
+		      index: this._rateToIndex(index),
+		      indexOver: undefined
+		    };
+		  },
+		  handleMouseDown: function handleMouseDown(i, event) {
+		    var index = i + this._fractionalIndex(event);
+		    if (this.state.index !== index) {
+		      this.props.onChange(this._indexToRate(index));
+		      this.setState({
+		        index: index,
+		        selected: true
+		      });
+		    }
+		  },
+		  handleMouseLeave: function handleMouseLeave() {
+		    this.props.onRate();
+		    this.setState({
+		      indexOver: undefined
+		    });
+		  },
+		  handleMouseMove: function handleMouseMove(i, event) {
+		    var index = i + this._fractionalIndex(event);
+		    if (this.state.indexOver !== index) {
+		      this.props.onRate(this._indexToRate(index));
+		      this.setState({
+		        indexOver: index
+		      });
+		    }
+		  },
+		  // Calculate the rate of an index according the the start and step.
+		  _indexToRate: function _indexToRate(index) {
+		    return this.props.start + Math.floor(index) * this.props.step + this.props.step * this._roundToFraction(index % 1);
+		  },
+		  // Calculate the corresponding index for a rate according to the provided
+		  // props or this.props.
+		  _rateToIndex: function _rateToIndex(rate) {
+		    return indexOf(this.props, rate);
+		  },
+		  _roundToFraction: function _roundToFraction(index) {
+		    // Get the closest top fraction.
+		    var fraction = Math.ceil(index % 1 * this.props.fractions) / this.props.fractions;
+		    // Truncate decimal trying to avoid float precission issues.
+		    var precision = Math.pow(10, this.props.scale);
+		    return Math.floor(index) + Math.floor(fraction * precision) / precision;
+		  },
+		  _fractionalIndex: function _fractionalIndex(event) {
+		    var x = event.clientX - event.currentTarget.getBoundingClientRect().left;
+		    return this._roundToFraction(x / event.currentTarget.offsetWidth);
+		  },
+		  render: function render() {
+		    var symbolNodes = [];
+		    var empty = [].concat(this.props.empty);
+		    var placeholder = [].concat(this.props.placeholder);
+		    var full = [].concat(this.props.full);
+		    // The symbol with the mouse over prevails over the selected one.
+		    var index = this.state.indexOver !== undefined ? this.state.indexOver : this.state.index;
+		    // The index of the last full symbol or NaN if index is undefined.
+		    var lastFullIndex = Math.floor(index);
+		    // Render the number of whole symbols.
+	
+		    var icon = !this.state.selected && !this.props.initialRate && this.props.placeholderRate > 0 && this.state.indexOver == undefined ? placeholder : full;
+	
+		    for (var i = 0; i < Math.floor(this._rateToIndex(this.props.stop)); i++) {
+		      // Return the percentage of the decimal part of the last full index,
+		      // 100 percent for those below the last full index or 0 percent for those
+		      // indexes NaN or above the last full index.
+		      var percent = i - lastFullIndex === 0 ? index % 1 * 100 : i - lastFullIndex < 0 ? 100 : 0;
+	
+		      symbolNodes.push(React.createElement(Symbol, {
+		        key: i,
+		        background: empty[i % empty.length],
+		        icon: icon[i % icon.length],
+		        percent: percent,
+		        onMouseDown: !this.props.readonly && this.handleMouseDown.bind(this, i),
+		        onMouseMove: !this.props.readonly && this.handleMouseMove.bind(this, i)
+		      }));
+		    }
+		    return React.createElement(
+		      'span',
+		      { onMouseLeave: !this.props.readonly && this.handleMouseLeave },
+		      symbolNodes
+		    );
+		  }
+		});
+	
+		module.exports = Rating;
+	
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports) {
+	
+		module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+	
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		var merge = __webpack_require__(4);
+	
+		var style = {
+		  display: 'inline-block',
+		  borderRadius: '50%',
+		  border: '5px double white',
+		  width: 30,
+		  height: 30
+		};
+	
+		module.exports = {
+		  empty: merge(style, {
+		    backgroundColor: '#ccc'
+		  }),
+		  full: merge(style, {
+		    backgroundColor: 'black'
+		  })
+		};
+	
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		module.exports = function () {
+		  var res = {};
+		  for (var i = 0; i < arguments.length; i++) {
+		    var obj = arguments[i];
+		    for (var k in obj) {
+		      res[k] = obj[k];
+		    }
+		  }
+		  return res;
+		};
+	
+	/***/ },
+	/* 5 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		var React = __webpack_require__(2);
+	
+		var PercentageSymbol = React.createClass({
+		  displayName: 'PercentageSymbol',
+	
+		  // Define propTypes only in development. They will be void in production.
+		  propTypes: "boolean" !== 'undefined' && (true) && {
+		    icon: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object, React.PropTypes.element]),
+		    background: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object, React.PropTypes.element]),
+		    percent: React.PropTypes.number
+		  },
+		  // Return the corresponding React node for an icon.
+		  _iconNode: function _iconNode(icon) {
+		    // If it is already a React Element just return it.
+		    if (React.isValidElement(icon)) {
+		      return icon;
+		    }
+		    // If it is an object, try to use it as a CSS style object.
+		    if (typeof icon === 'object' && icon !== null) {
+		      return React.createElement('div', { style: icon });
+		    }
+		    // If it is a string, use it as class names.
+		    if (Object.prototype.toString.call(icon) === '[object String]') {
+		      return React.createElement('div', { className: icon });
+		    }
+		  },
+		  render: function render() {
+		    var backgroundNode = this._iconNode(this.props.background);
+		    var iconNode = this._iconNode(this.props.icon);
+		    var iconContainerStyle = {
+		      display: 'inline-block',
+		      position: 'absolute',
+		      overflow: 'hidden',
+		      top: 0,
+		      left: 0,
+		      width: this.props.percent !== undefined ? this.props.percent + '%' : 'auto'
+		    };
+		    var style = {
+		      cursor: this.props.onMouseDown || this.props.onMouseOver ? 'pointer' : 'auto',
+		      display: 'inline-block',
+		      position: 'relative'
+		    };
+		    return React.createElement(
+		      'span',
+		      { style: style,
+		        onMouseDown: this.props.onMouseDown,
+		        onMouseMove: this.props.onMouseMove },
+		      backgroundNode,
+		      React.createElement(
+		        'div',
+		        { style: iconContainerStyle },
+		        iconNode
+		      )
+		    );
+		  }
+		});
+	
+		module.exports = PercentageSymbol;
+	
+	/***/ }
+	/******/ ])
 	});
+	;
 
 /***/ },
-/* 267 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  addToShelf: function (e) {
-	    e.preventDefault();
-	    GamesUtil.addGameToShelf({
-	      game_id: this.props.gameid,
-	      shelf_id: this.props.shelf.id
-	    });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'li',
-	      { onClick: this.addToShelf },
-	      this.props.shelf.title
-	    );
-	  }
-	});
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var OwnedGamesStore = __webpack_require__(261);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {
-	      owned: this.isOwned(this.props.game.id)
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = OwnedGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchOwnedGames();
-	    this.setState({
-	      owned: this.isOwned(this.props.game.id)
-	    });
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      owned: this.isOwned(this.props.game.id)
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  isOwned: function (gameId) {
-	    return OwnedGamesStore.isOwned(gameId);
-	  },
-	
-	  toggleOwns: function (e) {
-	    e.preventDefault();
-	    if (this.state.owned) {
-	      GamesUtil.removeOwned(this.props.game.id);
-	    } else {
-	      GamesUtil.createOwned(this.props.game.id);
-	    }
-	  },
-	
-	  render: function () {
-	    var display;
-	    if (this.state.owned) {
-	      display = "remove from owned games";
-	    } else {
-	      display = "add to owned games";
-	    }
-	    return React.createElement(
-	      'button',
-	      { onClick: this.toggleOwns, className: 'button' },
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 269 */
-/***/ function(module, exports) {
-
-	var SearchUtil = {
-	  search: function (data) {
-	    $.ajax({
-	      url: "api/searches/",
-	      type: "GET",
-	      data: data,
-	      success: function (results) {
-	        console.log(results);
-	      }
-	    });
-	  }
-	};
-	
-	window.SearchUtil = SearchUtil;
-	module.exports = SearchUtil;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ReviewsActions = __webpack_require__(271);
-	
-	var ReviewsUtil = {
-	  fetchGameReviews: function (data) {
-	    $.ajax({
-	      url: "api/games/" + data + "/reviews",
-	      type: "GET",
-	      success: function (reviews) {
-	        debugger;
-	        ReviewsActions.receiveAllReviews(reviews);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = ReviewsUtil;
-	window.ReviewsUtil = ReviewsUtil;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
+	var Store = __webpack_require__(221).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
-	var ReviewsActions = {
-	  receiveAllReviews: function (reviews) {
-	    AppDispatcher.dispatch({
-	      actionType: "ALL_REVIEWS",
-	      reviews: reviews
-	    });
-	  }
-	};
-	
-	module.exports = ReviewsActions;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReviewsStore = __webpack_require__(273);
-	var ReviewsUtil = __webpack_require__(270);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {};
-	  },
-	
-	  componentDidMount: function () {
-	    debugger;
-	    this.Listener = ReviewsStore.addListener(this._onChange);
-	    ReviewsUtil.fetchGameReviews(this.props.game.id);
-	    this.setState({
-	      reviews: ReviewsStore.all()
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      reviews: ReviewsStore.all()
-	    });
-	  },
-	
-	  render: function () {
-	    var display;
-	    if (this.state.reviews) {
-	      display = this.state.reviews.map(function (review) {
-	        return React.createElement(
-	          'ul',
-	          null,
-	          React.createElement(
-	            'li',
-	            null,
-	            review.rating
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            review.review_text
-	          )
-	        );
-	      });
-	    } else {
-	      var display = "No Reviews Yet";
-	    }
-	    return React.createElement(
-	      'div',
-	      null,
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(218).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var ReviewsStore = new Store(AppDispatcher);
+	var UserReviewsStore = new Store(AppDispatcher);
 	
 	var _reviews = [];
 	
@@ -33335,20 +33968,109 @@
 	  _reviews = reviews;
 	};
 	
-	ReviewsStore.all = function () {
+	var addReview = function (review) {
+	  _reviews.push(review);
+	};
+	
+	UserReviewsStore.all = function () {
 	  return _reviews;
 	};
 	
-	ReviewsStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "ALL_REVIEWS":
-	      updateReviews(payload.reviews);
-	      ReviewsStore.__emitChange();
-	      break;
+	UserReviewsStore.findReview = function (gameId) {
+	  var userReivew;
+	  _reviews.forEach(function (review) {
+	    if (review.game_id === parseInt(gameId)) {
+	      userReivew = review;
+	    }
+	  });
+	  return userReivew;
+	};
 	
+	UserReviewsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "USER_REVIEWS":
+	      updateReviews(payload.reviews);
+	      UserReviewsStore.__emitChange();
+	      break;
+	    case "NEW_USER_REVIEW":
+	      addReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
 	  }
 	};
-	module.exports = ReviewsStore;
+	module.exports = UserReviewsStore;
+
+/***/ },
+/* 433 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UserReviewsStore = __webpack_require__(432);
+	var AddReview = __webpack_require__(258);
+	var ReviewsUtil = __webpack_require__(217);
+	var Rating = __webpack_require__(431);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { review: false };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = UserReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchUserReivews(this.props.game.id);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      review: this.getStateFromStore()
+	    });
+	  },
+	
+	  getStateFromStore: function () {
+	    return UserReviewsStore.findReview(this.props.game.id);
+	  },
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display;
+	    console.log(this.state.review);
+	    if (this.state.review) {
+	      display = React.createElement(
+	        'ul',
+	        { key: this.state.review.id },
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	            empty: 'glyphicon glyphicon-star-empty large',
+	            initialRate: this.state.review.rating })
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          this.state.review.review_text
+	        )
+	      );
+	    } else {
+	      display = React.createElement(AddReview, { game: this.props.game });
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'reviews' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Your Review for ',
+	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

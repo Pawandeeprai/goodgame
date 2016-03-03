@@ -5,6 +5,7 @@ var GamesUtil = require('../../util/games');
 var AddFavorite = require('./add_favorite');
 var AddOwn = require('./add_own');
 var Reviews = require('../reviews/reviews');
+var UserReivew = require('../reviews/User_review');
 // add remove game from shelf.. and find in all shelves might have to hit data base again
 
 module.exports = React.createClass({
@@ -44,6 +45,7 @@ module.exports = React.createClass({
             <p className="game-info-description">
               {this.state.game.description}
             </p>
+            <UserReivew game={this.state.game}/>
             <Reviews game={this.state.game}/>
             <AddFavorite game={this.state.game}/>
             <AddOwn game={this.state.game}/>

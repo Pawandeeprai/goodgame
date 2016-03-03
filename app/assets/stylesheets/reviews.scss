@@ -1,3 +1,28 @@
 // Place all the styles related to the reviews controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.reviews ul{
+  display: block;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+}
+
+.reviews li {
+  list-style-type: none;
+  text-align: left;
+}
+
+.new-review {
+
+  text-align: left;
+}
+
+.text-box {
+  position: relative;
+  line-height: 100px;
+  width: 500px;
+  font-size: 14px;
+  transition: none;
+  overflow: auto;
+  margin-left: auto;
+}

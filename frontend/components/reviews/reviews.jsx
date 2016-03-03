@@ -1,3 +1,4 @@
+var Rating = require('react-rating');
 var React = require('react');
 var ReviewsStore = require('../../stores/reviews');
 var ReviewsUtil = require('../../util/reviews');
@@ -9,7 +10,6 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    debugger;
     this.Listener = ReviewsStore.addListener(this._onChange);
     ReviewsUtil.fetchGameReviews(this.props.game.id);
     this.setState({
@@ -32,17 +32,22 @@ module.exports = React.createClass({
     if (this.state.reviews){
       display = this.state.reviews.map(function(review){
         return(
-          <ul>
-            <li>{review.rating}</li>
+          <ul key={review.id}>
+            <li>
+              <Rating full="glyphicon glyphicon-star large"
+                      empty="glyphicon glyphicon-star-empty large"
+                      initialRate={review.rating}/>
+            </li>
             <li>{review.review_text}</li>
           </ul>
         );
       });
     } else {
-      var display = "No Reviews Yet"
+      display = "No Reviews Yet";
     }
     return (
-      <div>
+      <div className="reviews">
+        <h3>All Reviews of {this.props.game.title}</h3>
         {display}
       </div>
     );
