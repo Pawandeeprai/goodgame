@@ -37,6 +37,16 @@ var ReviewsUtil = {
         ReviewsActions.removeReview(review);
       }
     });
+  },
+  editReview: function(gameId, review){
+    $.ajax({
+      url: "api/games/" + gameId + "/reviews/"+ review.id,
+      type: "PATCH",
+      data: {review: review},
+      success: function(newReview){
+        ReviewsActions.updateReview(newReview);
+      }
+    });
   }
 };
 

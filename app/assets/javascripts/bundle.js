@@ -24778,6 +24778,16 @@
 	        ReviewsActions.removeReview(review);
 	      }
 	    });
+	  },
+	  editReview: function (gameId, review) {
+	    $.ajax({
+	      url: "api/games/" + gameId + "/reviews/" + review.id,
+	      type: "PATCH",
+	      data: { review: review },
+	      success: function (newReview) {
+	        ReviewsActions.updateReview(newReview);
+	      }
+	    });
 	  }
 	};
 	
@@ -24812,6 +24822,12 @@
 	  removeReview: function (review) {
 	    AppDispatcher.dispatch({
 	      actionType: "REMOVE_REVIEW",
+	      review: review
+	    });
+	  },
+	  updateReview: function (review) {
+	    AppDispatcher.dispatch({
+	      actionType: "UPDATE_REVIEW",
 	      review: review
 	    });
 	  }
@@ -32594,7 +32610,11 @@
 	  mixins: [LinkedStateMixin],
 	
 	  getInitialState: function () {
-	    return { rating: 0 };
+	    return {
+	      rating: this.props.review.rating,
+	      review_text: this.props.review.review_text,
+	      id: this.props.review.id
+	    };
 	  },
 	
 	  handleRating: function (e) {
@@ -32608,21 +32628,43 @@
 	    ReviewsUtil.createReview(this.props.game.id, this.state);
 	  },
 	
+	  editReview: function (e) {
+	    e.preventDefault();
+	    ReviewsUtil.editReview(this.props.game.id, this.state);
+	  },
+	
 	  render: function () {
-	    return React.createElement(
-	      'form',
-	      { className: 'new-review', onSubmit: this.createReview },
-	      React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
-	        empty: 'glyphicon glyphicon-star-empty large',
-	        initialRate: this.state.rating,
-	        onChange: this.handleRating }),
-	      React.createElement('br', null),
-	      React.createElement('input', { className: 'text-box',
-	        valueLink: this.linkState('review_text'),
-	        type: 'text-box' }),
-	      React.createElement('br', null),
-	      React.createElement('input', { className: 'button', type: 'submit', value: 'add review' })
-	    );
+	    if (this.props.review) {
+	      return React.createElement(
+	        'form',
+	        { className: 'new-review', onSubmit: this.editReview },
+	        React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	          empty: 'glyphicon glyphicon-star-empty large',
+	          initialRate: this.props.review.rating,
+	          onChange: this.handleRating }),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'text-box',
+	          valueLink: this.linkState('review_text'),
+	          type: 'text-box' }),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit review' })
+	      );
+	    } else {
+	      return React.createElement(
+	        'form',
+	        { className: 'new-review', onSubmit: this.createReview },
+	        React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	          empty: 'glyphicon glyphicon-star-empty large',
+	          initialRate: this.state.rating,
+	          onChange: this.handleRating }),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'text-box',
+	          valueLink: this.linkState('review_text'),
+	          type: 'text-box' }),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'add review' })
+	      );
+	    }
 	  }
 	});
 
@@ -33995,6 +34037,15 @@
 	  });
 	};
 	
+	var updateReview = function (newReview) {
+	  _reviews.forEach(function (review, idx) {
+	    if (review.id === parseInt(newReview.id)) {
+	      _reviews.splice(idx);
+	    }
+	  });
+	  _reviews.push(newReview);
+	};
+	
 	UserReviewsStore.all = function () {
 	  return _reviews;
 	};
@@ -34023,6 +34074,10 @@
 	      removeReview(payload.review);
 	      UserReviewsStore.__emitChange();
 	      break;
+	    case "UPDATE_REVIEW":
+	      updateReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
 	  }
 	};
 	module.exports = UserReviewsStore;
@@ -34041,7 +34096,10 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    return { review: false };
+	    return {
+	      review: false,
+	      reviewed: false
+	    };
 	  },
 	
 	  componentDidMount: function () {
@@ -34053,6 +34111,11 @@
 	    this.setState({
 	      review: this.getStateFromStore()
 	    });
+	    if (this.state.review) {
+	      this.setState({
+	        reviewed: true
+	      });
+	    }
 	  },
 	
 	  getStateFromStore: function () {
@@ -34064,12 +34127,21 @@
 	  removeReview: function (e) {
 	    e.preventDefault();
 	    ReviewsUtil.deleteReview(this.state.review.id);
+	    this.setState({
+	      reviewed: false
+	    });
+	  },
+	  editReview: function (e) {
+	    e.preventDefault();
+	    this.setState({
+	      reviewed: false
+	    });
 	  },
 	
 	  render: function () {
 	    var display;
 	    var that = this;
-	    if (this.state.review) {
+	    if (this.state.reviewed) {
 	      display = React.createElement(
 	        'ul',
 	        { key: this.state.review.id },
@@ -34097,7 +34169,7 @@
 	        )
 	      );
 	    } else {
-	      display = React.createElement(AddReview, { game: this.props.game });
+	      display = React.createElement(AddReview, { review: this.state.review, game: this.props.game });
 	    }
 	    return React.createElement(
 	      'div',

@@ -47,8 +47,19 @@ class Api::ReviewsController < ApplicationController
     end
   end
 
+  def update
+    @review = Review.find_by_id(params[:id])
+    @review.update(review_params)
+
+    if @review.save
+      render json: @review
+    else
+      render json: {status: "something went wrong"}, status: 401
+    end
+  end
+
   private
   def review_params
-    params.require(:review).permit(:review_text, :rating)
+    params.require(:review).permit(:review_text, :rating, :id)
   end
 end

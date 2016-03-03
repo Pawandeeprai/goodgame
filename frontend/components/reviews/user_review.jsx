@@ -8,7 +8,10 @@ var Rating = require('react-rating');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {review: false};
+    return {
+      review: false,
+      reviewed: false
+    };
   },
 
   componentDidMount: function(){
@@ -20,6 +23,11 @@ module.exports = React.createClass({
     this.setState({
       review: this.getStateFromStore()
     });
+    if (this.state.review){
+      this.setState({
+        reviewed: true
+      });
+    }
   },
 
   getStateFromStore: function(){
@@ -31,12 +39,21 @@ module.exports = React.createClass({
   removeReview: function(e){
     e.preventDefault();
     ReviewsUtil.deleteReview(this.state.review.id);
+    this.setState({
+      reviewed: false
+    });
+  },
+  editReview: function(e){
+    e.preventDefault();
+    this.setState({
+      reviewed: false
+    });
   },
 
   render: function () {
     var display;
       var that = this;
-    if (this.state.review){
+    if (this.state.reviewed){
       display = (
         <ul key={this.state.review.id}>
           <li>
@@ -58,7 +75,7 @@ module.exports = React.createClass({
         </ul>
       );
     } else {
-      display = <AddReview game={this.props.game} />;
+      display = <AddReview review={this.state.review} game={this.props.game} />;
     }
     return (
       <div className="reviews">

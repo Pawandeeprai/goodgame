@@ -25,6 +25,12 @@ var ReviewsActions ={
       actionType: "REMOVE_REVIEW",
       review: review
     });
+  },
+  updateReview: function(review){
+    AppDispatcher.dispatch({
+      actionType: "UPDATE_REVIEW",
+      review: review
+    });
   }
 };
 

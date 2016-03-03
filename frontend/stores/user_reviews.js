@@ -21,6 +21,15 @@ var removeReview = function(userReview){
   });
 };
 
+var updateReview = function(newReview){
+  _reviews.forEach(function(review, idx){
+    if (review.id === parseInt(newReview.id)){
+      _reviews.splice(idx);
+    }
+  });
+  _reviews.push(newReview);
+};
+
 UserReviewsStore.all = function(){
   return _reviews;
 };
@@ -47,6 +56,10 @@ UserReviewsStore.__onDispatch = function(payload){
       break;
     case "REMOVE_REVIEW":
       removeReview(payload.review);
+      UserReviewsStore.__emitChange();
+      break;
+    case "UPDATE_REVIEW":
+      updateReview(payload.review);
       UserReviewsStore.__emitChange();
       break;
   }
