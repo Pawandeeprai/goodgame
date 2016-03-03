@@ -28,6 +28,15 @@ var ReviewsUtil = {
         ReviewsActions.receiveAllUserReviews(reviews);
       }
     });
+  },
+  deleteReview: function(reviewId){
+    $.ajax({
+      url: "api/games/1/reviews/" + reviewId,
+      type: "DELETE",
+      success: function(review){
+        ReviewsActions.removeReview(review);
+      }
+    });
   }
 };
 

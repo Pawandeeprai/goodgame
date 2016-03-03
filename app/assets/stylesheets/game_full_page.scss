@@ -33,3 +33,13 @@
   display: block;
   margin: 0px
 }
+.icon {
+  width: 20px;
+  height: auto;
+  float: right;
+  margin: 5px;
+}
+
+.icon:hover{
+  cursor: pointer;
+}

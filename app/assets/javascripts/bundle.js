@@ -24769,6 +24769,15 @@
 	        ReviewsActions.receiveAllUserReviews(reviews);
 	      }
 	    });
+	  },
+	  deleteReview: function (reviewId) {
+	    $.ajax({
+	      url: "api/games/1/reviews/" + reviewId,
+	      type: "DELETE",
+	      success: function (review) {
+	        ReviewsActions.removeReview(review);
+	      }
+	    });
 	  }
 	};
 	
@@ -24797,6 +24806,12 @@
 	  newUserReview: function (review) {
 	    AppDispatcher.dispatch({
 	      actionType: "NEW_USER_REVIEW",
+	      review: review
+	    });
+	  },
+	  removeReview: function (review) {
+	    AppDispatcher.dispatch({
+	      actionType: "REMOVE_REVIEW",
 	      review: review
 	    });
 	  }
@@ -33972,6 +33987,14 @@
 	  _reviews.push(review);
 	};
 	
+	var removeReview = function (userReview) {
+	  _reviews.forEach(function (review, idx) {
+	    if (review.id === parseInt(userReview.id)) {
+	      _reviews.splice(idx);
+	    }
+	  });
+	};
+	
 	UserReviewsStore.all = function () {
 	  return _reviews;
 	};
@@ -33994,6 +34017,10 @@
 	      break;
 	    case "NEW_USER_REVIEW":
 	      addReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
+	    case "REMOVE_REVIEW":
+	      removeReview(payload.review);
 	      UserReviewsStore.__emitChange();
 	      break;
 	  }
@@ -34034,10 +34061,14 @@
 	  componentWillUnmount: function () {
 	    this.Listener.remove();
 	  },
+	  removeReview: function (e) {
+	    e.preventDefault();
+	    ReviewsUtil.deleteReview(this.state.review.id);
+	  },
 	
 	  render: function () {
 	    var display;
-	    console.log(this.state.review);
+	    var that = this;
 	    if (this.state.review) {
 	      display = React.createElement(
 	        'ul',
@@ -34053,6 +34084,16 @@
 	          'li',
 	          null,
 	          this.state.review.review_text
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement('img', { src: 'assets/delete-2-xxl.png',
+	            className: 'icon',
+	            onClick: that.removeReview }),
+	          React.createElement('img', { src: 'assets/edit-xxl.png',
+	            className: 'icon',
+	            onClick: that.editReview })
 	        )
 	      );
 	    } else {

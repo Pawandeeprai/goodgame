@@ -37,6 +37,16 @@ class Api::ReviewsController < ApplicationController
     render "api/reviews/show"
   end
 
+  def destroy
+    @review = Review.find_by_id(params[:id])
+    if @review
+      @review.destroy
+      render json: @review
+    else
+      render json: {status: "something went wrong"}, status: 401
+    end
+  end
+
   private
   def review_params
     params.require(:review).permit(:review_text, :rating)

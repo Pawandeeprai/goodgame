@@ -28,10 +28,14 @@ module.exports = React.createClass({
   componentWillUnmount: function(){
     this.Listener.remove();
   },
+  removeReview: function(e){
+    e.preventDefault();
+    ReviewsUtil.deleteReview(this.state.review.id);
+  },
 
   render: function () {
     var display;
-    console.log(this.state.review);
+      var that = this;
     if (this.state.review){
       display = (
         <ul key={this.state.review.id}>
@@ -40,7 +44,17 @@ module.exports = React.createClass({
                     empty="glyphicon glyphicon-star-empty large"
                     initialRate={this.state.review.rating}/>
           </li>
-          <li>{this.state.review.review_text}</li>
+          <li>
+            {this.state.review.review_text}
+          </li>
+          <div>
+            <img src="assets/delete-2-xxl.png"
+              className="icon"
+              onClick={that.removeReview}/>
+            <img src="assets/edit-xxl.png"
+              className="icon"
+              onClick={that.editReview}/>
+          </div>
         </ul>
       );
     } else {

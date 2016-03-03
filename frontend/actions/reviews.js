@@ -19,6 +19,12 @@ var ReviewsActions ={
       actionType: "NEW_USER_REVIEW",
       review: review
     });
+  },
+  removeReview: function(review){
+    AppDispatcher.dispatch({
+      actionType: "REMOVE_REVIEW",
+      review: review
+    });
   }
 };
 
