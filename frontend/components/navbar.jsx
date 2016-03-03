@@ -28,6 +28,11 @@ module.exports = React.createClass({
               favorites
             </Link>
           </li>
+          <li>
+            <Link to="/search">
+              games
+            </Link>
+          </li>
           <Logout className="navbar-logout"/>
         </ul>
       </div>

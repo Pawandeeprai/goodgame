@@ -73,12 +73,15 @@
 	var EditShelves = __webpack_require__(427);
 	var FavoriteGames = __webpack_require__(251);
 	var FavoritesPage = __webpack_require__(430);
+	var SearchPage = __webpack_require__(437);
+	var SearchGamePage = __webpack_require__(440);
 	
 	var SessionsStore = __webpack_require__(220);
 	var ShelvesStore = __webpack_require__(248);
 	var FavoriteGamesStore = __webpack_require__(252);
 	var OwnedGamesStore = __webpack_require__(424);
 	var SearchFieldStore = __webpack_require__(436);
+	var SearchGameStore = __webpack_require__(439);
 	
 	var routes = React.createElement(
 	  Route,
@@ -91,7 +94,9 @@
 	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
 	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' }),
-	  React.createElement(Route, { component: EditUser, path: '/users/edit' })
+	  React.createElement(Route, { component: EditUser, path: '/users/edit' }),
+	  React.createElement(Route, { component: SearchPage, path: '/search' }),
+	  React.createElement(Route, { component: SearchGamePage, path: '/game' })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -24732,6 +24737,15 @@
 	        SearchesActions.receiveSearchResults(results);
 	      }
 	    });
+	  },
+	  getGameInfo: function (data) {
+	    $.ajax({
+	      url: "api/searches/" + data,
+	      type: "GET",
+	      success: function (game) {
+	        SearchesActions.receiveGameResults(game);
+	      }
+	    });
 	  }
 	};
 	
@@ -24861,6 +24875,7 @@
 	var AddReview = __webpack_require__(258);
 	var SearchBar = __webpack_require__(434);
 	var SearchPage = __webpack_require__(437);
+	var SearchGamePage = __webpack_require__(440);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24891,8 +24906,6 @@
 	      things = React.createElement(
 	        'div',
 	        null,
-	        React.createElement(SearchBar, null),
-	        React.createElement(SearchPage, null),
 	        React.createElement(NavBar, null),
 	        React.createElement(
 	          'div',
@@ -32596,6 +32609,15 @@
 	            'favorites'
 	          )
 	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/search' },
+	            'games'
+	          )
+	        ),
 	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
 	    );
@@ -32924,6 +32946,9 @@
 	      GamesUtil.fetchGame(this.props.params.game_id);
 	    }
 	  },
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
 	
 	  //TODO: componentWillReceiveProps(newProps)
 	  //DONT USEE this.props in this function
@@ -32944,7 +32969,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'game-picture-div' },
-	          React.createElement('img', { className: 'game-picture-full', src: this.state.game.coverimg_url }),
+	          React.createElement('img', { src: this.state.game.coverimg_url }),
 	          React.createElement(AddGameToShelfForm, { game: this.state.game })
 	        ),
 	        React.createElement(
@@ -32958,12 +32983,11 @@
 	          React.createElement(
 	            'p',
 	            { className: 'game-info-description' },
-	            this.state.game.description
-	          ),
-	          React.createElement(UserReivew, { game: this.state.game }),
-	          React.createElement(Reviews, { game: this.state.game }),
-	          React.createElement(AddFavorite, { game: this.state.game }),
-	          React.createElement(AddOwn, { game: this.state.game })
+	            this.state.game.description,
+	            React.createElement(AddFavorite, { game: this.state.game }),
+	            React.createElement(UserReivew, { game: this.state.game }),
+	            React.createElement(Reviews, { game: this.state.game })
+	          )
 	        )
 	      );
 	    }
@@ -34240,6 +34264,12 @@
 	      actionType: "SEARCH_RESULTS",
 	      searchResults: searchResults
 	    });
+	  },
+	  receiveGameResults: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "SEARCH_GAME",
+	      game: game
+	    });
 	  }
 	
 	};
@@ -34259,7 +34289,6 @@
 	
 	var newSearch = function (searchResults) {
 	  _searchItems = searchResults;
-	  debugger;
 	};
 	
 	SearchStore.all = function () {
@@ -34284,6 +34313,8 @@
 	var React = __webpack_require__(1);
 	var SearchFieldStore = __webpack_require__(436);
 	var SearchBar = __webpack_require__(434);
+	var SearchUtil = __webpack_require__(216);
+	var SearchItem = __webpack_require__(438);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34309,18 +34340,8 @@
 	  render: function () {
 	    var display;
 	    if (this.state.searchResults.item) {
-	      display = this.state.searchResults.item.map(function (item) {
-	        return React.createElement(
-	          'li',
-	          { info: item },
-	          React.createElement(
-	            'h5',
-	            null,
-	            item.name[0].value
-	          ),
-	          'published: ',
-	          item.yearpublished[0].value
-	        );
+	      display = this.state.searchResults.item.map(function (item, idx) {
+	        return React.createElement(SearchItem, { key: idx, info: item });
 	      });
 	    }
 	    return React.createElement(
@@ -34341,6 +34362,175 @@
 	      ),
 	      display
 	    );
+	  }
+	});
+
+/***/ },
+/* 438 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SearchUtil = __webpack_require__(216);
+	var Link = __webpack_require__(159).Link;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({
+	      info: nextProps.info
+	    });
+	  },
+	  handleClick: function (e) {
+	    e.preventDefault();
+	    SearchUtil.getGameInfo(this.props.info.id);
+	  },
+	  render: function () {
+	    var published;
+	    if (this.props.info.yearpublished) {
+	      published = this.props.info.yearpublished[0].value;
+	    } else {
+	      published = "";
+	    }
+	    var that = this;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'li',
+	        { onClick: that.handleClick },
+	        React.createElement(
+	          'h5',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/game' },
+	            that.props.info.name[0].value,
+	            ' (',
+	            published,
+	            ')'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 439 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(221).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchGameStore = new Store(AppDispatcher);
+	
+	var _searchGame = {};
+	
+	var newGame = function (game) {
+	  _searchGame = game;
+	};
+	
+	SearchGameStore.all = function () {
+	  if (_searchGame !== {}) {
+	    return _searchGame;
+	  }
+	};
+	
+	SearchGameStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SEARCH_GAME":
+	      newGame(payload.game);
+	      SearchGameStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = SearchGameStore;
+
+/***/ },
+/* 440 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SearchGameStore = __webpack_require__(439);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { game: SearchGameStore.all() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = SearchGameStore.addListener(this._onChange);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      game: SearchGameStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    if (this.state.game) {
+	      return React.createElement(
+	        'div',
+	        { className: 'new-game' },
+	        React.createElement(
+	          'div',
+	          { className: 'game-picture-div' },
+	          React.createElement('img', { src: this.state.game.image }),
+	          React.createElement(
+	            'h4',
+	            null,
+	            this.state.game.yearpublished
+	          ),
+	          React.createElement(
+	            'ul',
+	            null,
+	            React.createElement(
+	              'li',
+	              null,
+	              'minimum players: ',
+	              this.state.game.minplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'maximum players: ',
+	              this.state.game.maxplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'play time: ',
+	              this.state.game.playtime
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'game-info-div' },
+	          React.createElement(
+	            'h1',
+	            { className: 'game-info-title' },
+	            this.state.game.title
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'game-info-description' },
+	            this.state.game.description
+	          )
+	        )
+	      );
+	    } else {
+	      return React.createElement('div', null);
+	    }
 	  }
 	});
 

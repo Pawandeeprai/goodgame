@@ -1,6 +1,9 @@
 var React = require('react');
 var SearchFieldStore = require('../../stores/search_field');
 var SearchBar = require('./search_bar');
+var SearchUtil = require('../../util/search');
+var SearchItem = require('./search_item');
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -25,12 +28,9 @@ module.exports = React.createClass({
   render: function () {
     var display;
     if (this.state.searchResults.item){
-      display = this.state.searchResults.item.map(function(item){
+      display = this.state.searchResults.item.map(function(item, idx){
         return (
-          <li info={item}>
-            <h5>{item.name[0].value}</h5>
-            published: {item.yearpublished[0].value}
-          </li>
+          <SearchItem key={idx} info={item}/>
         );
       });
     }

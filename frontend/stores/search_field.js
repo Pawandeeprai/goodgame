@@ -7,7 +7,6 @@ var _searchItems = {};
 
 var newSearch = function(searchResults){
   _searchItems = searchResults;
-  debugger;
 };
 
 SearchStore.all = function(){

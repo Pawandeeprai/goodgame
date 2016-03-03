@@ -28,12 +28,15 @@ var GameFullPage = require('./components/games/game_full_page');
 var EditShelves = require('./components/shelves/edit_shelf_page');
 var FavoriteGames = require('./components/games/favorite_games');
 var FavoritesPage = require('./components/games/favorites_page');
+var SearchPage = require('./components/search/search_page');
+var SearchGamePage = require('./components/search/game_page');
 
 var SessionsStore = require('./stores/sessions');
 var ShelvesStore = require('./stores/shelves');
 var FavoriteGamesStore = require('./stores/favorite_games');
 var OwnedGamesStore = require('./stores/owned_games');
 var SearchFieldStore = require('./stores/search_field');
+var SearchGameStore = require('./stores/search_game');
 
 
 var routes = (
@@ -62,6 +65,11 @@ var routes = (
     </Route>
 
     <Route component={EditUser} path="/users/edit">
+
+    </Route>
+    <Route component={SearchPage} path="/search">
+    </Route>
+    <Route component={SearchGamePage} path="/game">
 
     </Route>
 

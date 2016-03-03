@@ -19,6 +19,9 @@ module.exports = React.createClass({
       GamesUtil.fetchGame(this.props.params.game_id);
     }
   },
+    componentWillUnmount: function(){
+      this.Listener.remove();
+    },
 
   //TODO: componentWillReceiveProps(newProps)
   //DONT USEE this.props in this function
@@ -37,18 +40,17 @@ module.exports = React.createClass({
       return (
         <div>
           <div className="game-picture-div">
-            <img className="game-picture-full" src={this.state.game.coverimg_url}/>
+            <img src={this.state.game.coverimg_url}/>
             <AddGameToShelfForm game={this.state.game}/>
           </div>
           <div className="game-info-div">
             <h1 className="game-info-title">{this.state.game.title}</h1>
             <p className="game-info-description">
               {this.state.game.description}
+              <AddFavorite game={this.state.game}/>
+              <UserReivew game={this.state.game}/>
+              <Reviews game={this.state.game}/>
             </p>
-            <UserReivew game={this.state.game}/>
-            <Reviews game={this.state.game}/>
-            <AddFavorite game={this.state.game}/>
-            <AddOwn game={this.state.game}/>
           </div>
         </div>
       );

@@ -10,6 +10,15 @@ var SearchUtil = {
         SearchesActions.receiveSearchResults(results);
       }
     });
+  },
+  getGameInfo: function(data){
+    $.ajax({
+      url: "api/searches/" + data,
+      type: "GET",
+      success: function(game){
+        SearchesActions.receiveGameResults(game);
+      }
+    });
   }
 };
 

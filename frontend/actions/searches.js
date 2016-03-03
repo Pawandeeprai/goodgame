@@ -8,7 +8,12 @@ var SearchesActions = {
       searchResults: searchResults
     });
   },
-
+  receiveGameResults: function(game){
+    AppDispatcher.dispatch({
+      actionType: "SEARCH_GAME",
+      game: game
+    });
+  }
 
 };
 
