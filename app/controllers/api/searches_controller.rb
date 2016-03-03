@@ -3,8 +3,8 @@ require 'bgg-api'
 class Api::SearchesController < ApplicationController
   def index
     bgg = BggApi.new
-    search_results = bgg.search({:query => search_params.query_string, :type => 'boardgame' })
-    render search_results
+    search_results = bgg.search({:query => params[:search][:query_string], :type => 'boardgame' })
+    render json: search_results
   end
 
   private

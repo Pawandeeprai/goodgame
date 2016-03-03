@@ -42,7 +42,7 @@ module.exports = React.createClass({
           <br/>
           <input className="text-box"
             valueLink={this.linkState('review_text')}
-            type="text-box"/>
+            type="textarea"/>
           <br/>
           <input className="button" type="submit" value="edit review"/>
         </form>

@@ -33,6 +33,7 @@ var SessionsStore = require('./stores/sessions');
 var ShelvesStore = require('./stores/shelves');
 var FavoriteGamesStore = require('./stores/favorite_games');
 var OwnedGamesStore = require('./stores/owned_games');
+var SearchFieldStore = require('./stores/search_field');
 
 
 var routes = (

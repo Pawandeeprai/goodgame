@@ -78,6 +78,7 @@
 	var ShelvesStore = __webpack_require__(248);
 	var FavoriteGamesStore = __webpack_require__(252);
 	var OwnedGamesStore = __webpack_require__(424);
+	var SearchFieldStore = __webpack_require__(436);
 	
 	var routes = React.createElement(
 	  Route,
@@ -24717,16 +24718,18 @@
 
 /***/ },
 /* 216 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var SearchesActions = __webpack_require__(435);
+	
 	var SearchUtil = {
 	  search: function (data) {
 	    $.ajax({
 	      url: "api/searches/",
 	      type: "GET",
-	      data: data,
+	      data: { search: data },
 	      success: function (results) {
-	        console.log(results);
+	        SearchesActions.receiveSearchResults(results);
 	      }
 	    });
 	  }
@@ -24856,6 +24859,8 @@
 	var NavBar = __webpack_require__(257);
 	var FavoriteGames = __webpack_require__(251);
 	var AddReview = __webpack_require__(258);
+	var SearchBar = __webpack_require__(434);
+	var SearchPage = __webpack_require__(437);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24886,6 +24891,8 @@
 	      things = React.createElement(
 	        'div',
 	        null,
+	        React.createElement(SearchBar, null),
+	        React.createElement(SearchPage, null),
 	        React.createElement(NavBar, null),
 	        React.createElement(
 	          'div',
@@ -32645,7 +32652,7 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { className: 'text-box',
 	          valueLink: this.linkState('review_text'),
-	          type: 'text-box' }),
+	          type: 'textarea' }),
 	        React.createElement('br', null),
 	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit review' })
 	      );
@@ -34179,6 +34186,158 @@
 	        null,
 	        'Your Review for ',
 	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 434 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(239);
+	var SearchUtil = __webpack_require__(216);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	  getInitialState: function () {
+	    return {
+	      query_string: ""
+	    };
+	  },
+	  searchGame: function (e) {
+	    e.preventDefault();
+	    if (this.state.query_string) {
+	      SearchUtil.search({
+	        query_string: this.state.query_string
+	      });
+	    }
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.searchGame },
+	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
+	      React.createElement('input', { type: 'submit', value: 'search' })
+	    );
+	  }
+	});
+
+/***/ },
+/* 435 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchesActions = {
+	  receiveSearchResults: function (searchResults) {
+	    AppDispatcher.dispatch({
+	
+	      actionType: "SEARCH_RESULTS",
+	      searchResults: searchResults
+	    });
+	  }
+	
+	};
+	
+	module.exports = SearchesActions;
+
+/***/ },
+/* 436 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(221).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchStore = new Store(AppDispatcher);
+	
+	var _searchItems = {};
+	
+	var newSearch = function (searchResults) {
+	  _searchItems = searchResults;
+	  debugger;
+	};
+	
+	SearchStore.all = function () {
+	  return _searchItems;
+	};
+	
+	SearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SEARCH_RESULTS":
+	      newSearch(payload.searchResults);
+	      SearchStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = SearchStore;
+
+/***/ },
+/* 437 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SearchFieldStore = __webpack_require__(436);
+	var SearchBar = __webpack_require__(434);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      searchResults: { total: 0 }
+	    };
+	  },
+	  componentDidMount: function () {
+	    this.Listener = SearchFieldStore.addListener(this._onChange);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      searchResults: SearchFieldStore.all()
+	    });
+	  },
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.searchResults.item) {
+	      display = this.state.searchResults.item.map(function (item) {
+	        return React.createElement(
+	          'li',
+	          { info: item },
+	          React.createElement(
+	            'h5',
+	            null,
+	            item.name[0].value
+	          ),
+	          'published: ',
+	          item.yearpublished[0].value
+	        );
+	      });
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Search'
+	      ),
+	      React.createElement(SearchBar, null),
+	      React.createElement(
+	        'h4',
+	        null,
+	        'generated ',
+	        this.state.searchResults.total,
+	        ' items'
 	      ),
 	      display
 	    );

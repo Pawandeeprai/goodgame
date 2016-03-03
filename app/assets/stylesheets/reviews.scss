@@ -15,14 +15,21 @@
 .new-review {
 
   text-align: left;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+}
+
+.new-review .button{
+  float: right;
 }
 
 .text-box {
   position: relative;
-  line-height: 100px;
-  width: 500px;
+  padding: 0 0 85px;
+  width: 580px;
   font-size: 14px;
   transition: none;
-  overflow: auto;
-  margin-left: auto;
+  overflow: scroll;
+  margin: 10px;
+
 }

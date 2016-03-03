@@ -16,7 +16,8 @@ var Shelves = require('./shelves/shelves');
 var NavBar = require('./navbar');
 var FavoriteGames = require('./games/favorite_games');
 var AddReview = require('./reviews/add_review');
-
+var SearchBar = require('./search/search_bar');
+var SearchPage = require('./search/search_page');
 
 
 var App = React.createClass({
@@ -45,6 +46,8 @@ var App = React.createClass({
     if (this.state.loggedIn){
       things = (
         <div>
+          <SearchBar/>
+          <SearchPage/>
           <NavBar/>
           <div className="current-content">
             {this.props.children}

@@ -1,11 +1,13 @@
+var SearchesActions = require('../actions/searches');
+
 var SearchUtil = {
   search: function(data){
     $.ajax({
       url: "api/searches/",
       type: "GET",
-      data: data,
+      data: {search: data},
       success: function(results){
-        console.log(results);
+        SearchesActions.receiveSearchResults(results);
       }
     });
   }
