@@ -33620,7 +33620,7 @@
 	var AddFavorite = __webpack_require__(272);
 	var AddOwn = __webpack_require__(273);
 	var Reviews = __webpack_require__(275);
-	var UserReivew = __webpack_require__(277);
+	var UserReivew = __webpack_require__(283);
 	// add remove game from shelf.. and find in all shelves might have to hit data base again
 	
 	module.exports = React.createClass({
@@ -34023,110 +34023,7 @@
 	module.exports = ReviewsStore;
 
 /***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var UserReviewsStore = __webpack_require__(278);
-	var AddReview = __webpack_require__(260);
-	var ReviewsUtil = __webpack_require__(218);
-	var Rating = __webpack_require__(261);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {
-	      review: false,
-	      reviewed: false
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = UserReviewsStore.addListener(this._onChange);
-	    ReviewsUtil.fetchUserReivews(this.props.game.id);
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      review: this.getStateFromStore()
-	    });
-	    if (this.state.review) {
-	      this.setState({
-	        reviewed: true
-	      });
-	    }
-	  },
-	
-	  getStateFromStore: function () {
-	    return UserReviewsStore.findReview(this.props.game.id);
-	  },
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	  removeReview: function (e) {
-	    e.preventDefault();
-	    ReviewsUtil.deleteReview(this.state.review.id);
-	    this.setState({
-	      reviewed: false
-	    });
-	  },
-	  editReview: function (e) {
-	    e.preventDefault();
-	    this.setState({
-	      reviewed: false
-	    });
-	  },
-	
-	  render: function () {
-	    var display;
-	    var that = this;
-	    if (this.state.reviewed) {
-	      display = React.createElement(
-	        'ul',
-	        { key: this.state.review.id },
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(Rating, { className: 'rating',
-	            full: 'glyphicon glyphicon-star large',
-	            empty: 'glyphicon glyphicon-star-empty large',
-	            initialRate: this.state.review.rating })
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          this.state.review.review_text
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png',
-	            className: 'icon',
-	            onClick: that.removeReview }),
-	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/edit-xxl.png',
-	            className: 'icon',
-	            onClick: that.editReview })
-	        )
-	      );
-	    } else {
-	      display = React.createElement(AddReview, { review: this.state.review, game: this.props.game });
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'reviews' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Your Review for ',
-	        this.props.game.title
-	      ),
-	      display
-	    );
-	  }
-	});
-
-/***/ },
+/* 277 */,
 /* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34477,6 +34374,110 @@
 	});
 	
 	module.exports = Games;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UserReviewsStore = __webpack_require__(278);
+	var AddReview = __webpack_require__(260);
+	var ReviewsUtil = __webpack_require__(218);
+	var Rating = __webpack_require__(261);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      review: false,
+	      reviewed: false
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = UserReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchUserReivews(this.props.game.id);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      review: this.getStateFromStore()
+	    });
+	    if (this.state.review) {
+	      this.setState({
+	        reviewed: true
+	      });
+	    }
+	  },
+	
+	  getStateFromStore: function () {
+	    return UserReviewsStore.findReview(this.props.game.id);
+	  },
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	  removeReview: function (e) {
+	    e.preventDefault();
+	    ReviewsUtil.deleteReview(this.state.review.id);
+	    this.setState({
+	      reviewed: false
+	    });
+	  },
+	  editReview: function (e) {
+	    e.preventDefault();
+	    this.setState({
+	      reviewed: false
+	    });
+	  },
+	
+	  render: function () {
+	    var display;
+	    var that = this;
+	    if (this.state.reviewed) {
+	      display = React.createElement(
+	        'ul',
+	        { key: this.state.review.id },
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(Rating, { className: 'rating',
+	            full: 'glyphicon glyphicon-star large',
+	            empty: 'glyphicon glyphicon-star-empty large',
+	            initialRate: this.state.review.rating })
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          this.state.review.review_text
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png',
+	            className: 'icon',
+	            onClick: that.removeReview }),
+	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/edit-xxl.png',
+	            className: 'icon',
+	            onClick: that.editReview })
+	        )
+	      );
+	    } else {
+	      display = React.createElement(AddReview, { review: this.state.review, game: this.props.game });
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'reviews' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Your Review for ',
+	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

@@ -6,7 +6,7 @@ var Rating = require('react-rating');
 var AddFavorite = require('./add_favorite');
 var AddOwn = require('./add_own');
 var Reviews = require('../reviews/reviews');
-var UserReivew = require('../reviews/User_review');
+var UserReivew = require('../reviews/user_review');
 // add remove game from shelf.. and find in all shelves might have to hit data base again
 
 module.exports = React.createClass({
