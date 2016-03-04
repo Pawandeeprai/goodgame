@@ -16,6 +16,7 @@ var SearchUtil = {
       url: "api/searches/" + data,
       type: "GET",
       success: function(game){
+        // if game id then we go a different direction
         SearchesActions.receiveGameResults(game);
       }
     });

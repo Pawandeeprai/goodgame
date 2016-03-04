@@ -34,8 +34,8 @@ module.exports = React.createClass({
               <li>minimum players: {this.state.game.minplayers}</li>
               <li>maximum players: {this.state.game.maxplayers}</li>
               <li>play time: {this.state.game.playtime}</li>
-              <AddGameToShelfForm game={this.state.game}/>
             </ul>
+            <AddGameToShelfForm game={this.state.game}/>
           </div>
           <div className="game-info-div">
             <h1 className="game-info-title">

@@ -71,7 +71,7 @@ var Games = React.createClass({
                     </Link>
                     <RemoveGame key={game.id}
                                 gameid={game.id}
-                                shelfid={that.state.shelf_id}/>
+                                shelfid={that.props.params.shelf_id}/>
                   </h3>
                   <img className="game-image" src={game.image}/>
                   <div className="game-description-div">

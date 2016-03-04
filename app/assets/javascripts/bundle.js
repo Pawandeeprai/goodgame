@@ -91,7 +91,6 @@
 	  React.createElement(Route, { component: CurrentUser, path: '/user' }),
 	  React.createElement(Route, { component: FavoritesPage, path: '/favorites' }),
 	  React.createElement(Route, { component: EditShelves, path: '/shelves/edit' }),
-	  React.createElement(Route, { component: Games, path: '/shelves/1' }),
 	  React.createElement(Route, { component: Games, path: '/shelves/:shelf_id' }),
 	  React.createElement(Route, { component: GameFullPage, path: '/games/:game_id' }),
 	  React.createElement(Route, { component: EditUser, path: '/users/edit' }),
@@ -24753,6 +24752,7 @@
 	      url: "api/searches/" + data,
 	      type: "GET",
 	      success: function (game) {
+	        // if game id then we go a different direction
 	        SearchesActions.receiveGameResults(game);
 	      }
 	    });
@@ -32200,7 +32200,7 @@
 	        React.createElement(
 	          Link,
 	          { to: link },
-	          React.createElement('img', { className: 'game-list-item-img', src: game.coverimg_url })
+	          React.createElement('img', { className: 'game-list-item-img', src: game.image })
 	        )
 	      );
 	    });
@@ -32373,7 +32373,7 @@
 	            ),
 	            React.createElement(RemoveGame, { key: game.id,
 	              gameid: game.id,
-	              shelfid: that.state.shelf_id })
+	              shelfid: that.props.params.shelf_id })
 	          ),
 	          React.createElement('img', { className: 'game-image', src: game.image }),
 	          React.createElement(
@@ -32963,7 +32963,9 @@
 	    }
 	  },
 	  componentWillUnmount: function () {
-	    this.Listener.remove();
+	    if (this.Listener) {
+	      this.Listener.remove();
+	    }
 	  },
 	
 	  //TODO: componentWillReceiveProps(newProps)
@@ -32985,7 +32987,34 @@
 	        React.createElement(
 	          'div',
 	          { className: 'game-picture-div' },
-	          React.createElement('img', { src: this.state.game.coverimg_url }),
+	          React.createElement('img', { src: this.state.game.image }),
+	          React.createElement(
+	            'h4',
+	            null,
+	            this.state.game.yearpublished
+	          ),
+	          React.createElement(
+	            'ul',
+	            null,
+	            React.createElement(
+	              'li',
+	              null,
+	              'minimum players: ',
+	              this.state.game.minplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'maximum players: ',
+	              this.state.game.maxplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'play time: ',
+	              this.state.game.playtime
+	            )
+	          ),
 	          React.createElement(AddGameToShelfForm, { game: this.state.game })
 	        ),
 	        React.createElement(
@@ -32999,11 +33028,15 @@
 	          React.createElement(
 	            'p',
 	            { className: 'game-info-description' },
-	            this.state.game.description,
-	            React.createElement(AddFavorite, { game: this.state.game }),
-	            React.createElement(UserReivew, { game: this.state.game }),
-	            React.createElement(Reviews, { game: this.state.game })
-	          )
+	            this.state.game.description
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(AddFavorite, { game: this.state.game })
+	          ),
+	          React.createElement(UserReivew, { game: this.state.game }),
+	          React.createElement(Reviews, { game: this.state.game })
 	        )
 	      );
 	    }
@@ -33675,11 +33708,15 @@
 	            game.title
 	          )
 	        ),
-	        React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
+	        React.createElement('img', { className: 'game-image', src: game.image }),
 	        React.createElement(
-	          'p',
-	          { className: 'game-description' },
-	          game.description
+	          'div',
+	          { className: 'game-description-div' },
+	          React.createElement(
+	            'p',
+	            { className: 'game-description' },
+	            game.description
+	          )
 	        )
 	      );
 	    });
@@ -34264,14 +34301,10 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'nav-search' },
+	      'form',
+	      { onSubmit: this.searchGame },
 	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
-	      React.createElement(
-	        Link,
-	        { to: '/search', onClick: this.searchGame },
-	        'search'
-	      )
+	      React.createElement('input', { type: 'submit', value: 'search' })
 	    );
 	  }
 	});
@@ -34536,9 +34569,9 @@
 	              null,
 	              'play time: ',
 	              this.state.game.playtime
-	            ),
-	            React.createElement(AddGameToShelfForm, { game: this.state.game })
-	          )
+	            )
+	          ),
+	          React.createElement(AddGameToShelfForm, { game: this.state.game })
 	        ),
 	        React.createElement(
 	          'div',

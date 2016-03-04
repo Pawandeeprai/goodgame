@@ -1,5 +1,5 @@
 .game-list-item-img{
-  width: 50px;
+  width: 100px;
   height: auto;
 }
 
@@ -11,6 +11,9 @@
   margin-top: 5px;
 }
 
+.game-description-div{
+  overflow: scroll;
+}
 
 
 .favorites-div {

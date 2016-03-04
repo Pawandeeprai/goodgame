@@ -1,1 +1,1 @@
-json.array! @games, :id, :title, :console, :description, :coverimg_url
+json.array! @game, :id, :title, :description ,:image ,:bgg_id ,:minplayers, :maxplayers, :yearpublished, :playtime

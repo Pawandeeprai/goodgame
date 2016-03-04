@@ -48,8 +48,10 @@ var Games = React.createClass({
                     {game.title}
                   </Link>
                 </h3>
-                <img className="game-image" src={game.coverimg_url}/>
-                <p className="game-description">{game.description}</p>
+                <img className="game-image" src={game.image}/>
+                <div className="game-description-div">
+                  <p className="game-description">{game.description}</p>
+                </div>
               </div>
             );
           }

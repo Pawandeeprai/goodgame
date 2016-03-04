@@ -20,7 +20,9 @@ module.exports = React.createClass({
     }
   },
     componentWillUnmount: function(){
-      this.Listener.remove();
+      if (this.Listener){
+        this.Listener.remove();
+      }
     },
 
   //TODO: componentWillReceiveProps(newProps)
@@ -40,17 +42,25 @@ module.exports = React.createClass({
       return (
         <div>
           <div className="game-picture-div">
-            <img src={this.state.game.coverimg_url}/>
-            <AddGameToShelfForm game={this.state.game}/>
+            <img src={this.state.game.image}/>
+              <h4>{this.state.game.yearpublished}</h4>
+              <ul>
+                <li>minimum players: {this.state.game.minplayers}</li>
+                <li>maximum players: {this.state.game.maxplayers}</li>
+                <li>play time: {this.state.game.playtime}</li>
+              </ul>
+              <AddGameToShelfForm game={this.state.game}/>
           </div>
           <div className="game-info-div">
             <h1 className="game-info-title">{this.state.game.title}</h1>
             <p className="game-info-description">
               {this.state.game.description}
-              <AddFavorite game={this.state.game}/>
-              <UserReivew game={this.state.game}/>
-              <Reviews game={this.state.game}/>
             </p>
+            <div>
+              <AddFavorite game={this.state.game}/>
+            </div>
+            <UserReivew game={this.state.game}/>
+            <Reviews game={this.state.game}/>
           </div>
         </div>
       );
