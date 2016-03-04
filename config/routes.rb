@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
     resources :game_shelves
     resources :sessions, only: [:index, :create, :destroy]
-    resources :games, only: [:index, :show] do
+    resources :games, only: [:index, :show, :create] do
       resources :reviews
     end
     resources :owns, only: [:index, :show, :create, :destroy]

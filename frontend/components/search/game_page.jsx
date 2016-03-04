@@ -1,5 +1,6 @@
 var React = require('react');
 var SearchGameStore = require('../../stores/search_game');
+var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -33,6 +34,7 @@ module.exports = React.createClass({
               <li>minimum players: {this.state.game.minplayers}</li>
               <li>maximum players: {this.state.game.maxplayers}</li>
               <li>play time: {this.state.game.playtime}</li>
+              <AddGameToShelfForm game={this.state.game}/>
             </ul>
           </div>
           <div className="game-info-div">

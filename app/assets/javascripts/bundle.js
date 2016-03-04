@@ -24556,6 +24556,16 @@
 	        GamesActions.createOwned(game);
 	      }
 	    });
+	  },
+	  createGame: function (game, shelfId) {
+	    $.ajax({
+	      url: "api/games",
+	      type: "POST",
+	      data: { game: game, shelf_id: shelfId },
+	      success: function (message) {
+	        console.log(message);
+	      }
+	    });
 	  }
 	};
 	
@@ -32310,10 +32320,8 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
+	    debugger;
 	    ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
-	    this.setState({
-	      shelf_id: parseInt(nextProps.params.shelf_id)
-	    });
 	  },
 	
 	  _onChange: function () {
@@ -32569,6 +32577,7 @@
 	var Logout = __webpack_require__(246);
 	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
+	var SearchBar = __webpack_require__(434);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32617,6 +32626,11 @@
 	            { to: '/search' },
 	            'games'
 	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(SearchBar, null)
 	        ),
 	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
@@ -33060,9 +33074,9 @@
 	      options = this.state.shelves.map(function (shelf) {
 	        return React.createElement(
 	          'div',
-	          { onClick: this.toggleClicked },
+	          { onClick: that.toggleClicked },
 	          React.createElement(ShelfChoice, { key: shelf.id,
-	            gameid: that.props.game.id,
+	            game: that.props.game,
 	            shelf: shelf })
 	        );
 	      });
@@ -33092,10 +33106,15 @@
 	
 	  addToShelf: function (e) {
 	    e.preventDefault();
-	    GamesUtil.addGameToShelf({
-	      game_id: this.props.gameid,
-	      shelf_id: this.props.shelf.id
-	    });
+	    if (this.props.game.id) {
+	      GamesUtil.addGameToShelf({
+	        game_id: this.props.game.id,
+	        shelf_id: this.props.shelf.id
+	      });
+	    } else {
+	      console.log(this.props.game);
+	      GamesUtil.createGame(this.props.game, this.props.shelf.id);
+	    }
 	  },
 	
 	  render: function () {
@@ -34223,6 +34242,7 @@
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(239);
 	var SearchUtil = __webpack_require__(216);
+	var Link = __webpack_require__(159).Link;
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34243,10 +34263,14 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this.searchGame },
+	      'div',
+	      { className: 'nav-search' },
 	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
-	      React.createElement('input', { type: 'submit', value: 'search' })
+	      React.createElement(
+	        Link,
+	        { to: '/search', onClick: this.searchGame },
+	        'search'
+	      )
 	    );
 	  }
 	});
@@ -34454,6 +34478,7 @@
 
 	var React = __webpack_require__(1);
 	var SearchGameStore = __webpack_require__(439);
+	var AddGameToShelfForm = __webpack_require__(420);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34510,7 +34535,8 @@
 	              null,
 	              'play time: ',
 	              this.state.game.playtime
-	            )
+	            ),
+	            React.createElement(AddGameToShelfForm, { game: this.state.game })
 	          )
 	        ),
 	        React.createElement(

@@ -16,7 +16,10 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      render 'api/game/show'
+      @relation = GameShelf.new(game_id: @game.id, shelf_id: params[:shelf_id].to_i)
+      if @relation.save
+        render json: {message: "success"}
+      end
     else
       render json: {status: "missing some information"}
     end
@@ -34,6 +37,8 @@ class Api::GamesController < ApplicationController
 
   private
   def game_params
-    params.require(:game).permit(:title, :console, :description, :coverimg_url)
+    params.require(:game).permit(
+    :title, :description, :image, :bgg_id, :minplayers, :maxplayers, :yearpublished, :playtime
+    )
   end
 end

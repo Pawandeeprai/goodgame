@@ -98,6 +98,16 @@ var GamesUtil = {
         GamesActions.createOwned(game);
       }
     });
+  },
+  createGame: function(game, shelfId){
+    $.ajax({
+      url: "api/games",
+      type: "POST",
+      data: {game: game, shelf_id: shelfId},
+      success: function(message){
+        console.log(message);
+      }
+    });
   }
 };
 

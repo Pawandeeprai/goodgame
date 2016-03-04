@@ -4,10 +4,15 @@ var GamesUtil = require('../../util/games');
 module.exports = React.createClass({
   addToShelf: function(e){
     e.preventDefault();
-    GamesUtil.addGameToShelf({
-      game_id: this.props.gameid,
-      shelf_id: this.props.shelf.id
-    });
+    if (this.props.game.id){
+      GamesUtil.addGameToShelf({
+        game_id: this.props.game.id,
+        shelf_id: this.props.shelf.id
+      });
+    } else {
+      console.log(this.props.game);
+      GamesUtil.createGame(this.props.game, this.props.shelf.id);
+    }
   },
 
   render: function () {

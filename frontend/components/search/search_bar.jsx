@@ -1,6 +1,8 @@
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var SearchUtil = require('../../util/search');
+var Link = require('react-router').Link;
+
 
 
 module.exports = React.createClass({
@@ -20,10 +22,10 @@ module.exports = React.createClass({
   },
   render: function () {
     return (
-      <form onSubmit={this.searchGame}>
+      <div className="nav-search">
         <input type="text" valueLink={this.linkState('query_string')}/>
-        <input type="submit" value="search"/>
-      </form>
+        <Link to="/search" onClick={this.searchGame}>search</Link>
+      </div>
     );
   }
 });

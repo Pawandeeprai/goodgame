@@ -4,6 +4,7 @@ var Link = require('react-router').Link;
 var Logout = require('./sessions/logout');
 var ShelvesStore = require('../stores/shelves');
 var ShelvesUtil = require('../util/shelves');
+var SearchBar = require('./search/search_bar');
 
 
 module.exports = React.createClass({
@@ -32,6 +33,9 @@ module.exports = React.createClass({
             <Link to="/search">
               games
             </Link>
+          </li>
+          <li>
+            <SearchBar />
           </li>
           <Logout className="navbar-logout"/>
         </ul>

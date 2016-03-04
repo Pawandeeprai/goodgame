@@ -11,3 +11,17 @@
   display: inline-block;
 
 }
+
+.nav-search {
+  height: 44px;
+  width: 400px;
+}
+.nav-search input {
+  display: inline-block;
+  float: left;
+}
+
+.nav-search a {
+  display: inline-block;
+  float: right;
+}

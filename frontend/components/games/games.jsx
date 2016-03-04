@@ -22,10 +22,8 @@ var Games = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    debugger;
     ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
-    this.setState({
-      shelf_id: parseInt(nextProps.params.shelf_id)
-    });
   },
 
   _onChange: function(){

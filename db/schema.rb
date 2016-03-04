@@ -37,13 +37,19 @@ ActiveRecord::Schema.define(version: 20160302180834) do
   add_index "game_shelves", ["shelf_id"], name: "index_game_shelves_on_shelf_id", using: :btree
 
   create_table "games", force: :cascade do |t|
-    t.string   "title",        null: false
-    t.string   "console",      null: false
-    t.text     "description",  null: false
-    t.string   "coverimg_url", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "title",         null: false
+    t.text     "description",   null: false
+    t.string   "image",         null: false
+    t.integer  "bgg_id",        null: false
+    t.integer  "minplayers"
+    t.integer  "maxplayers"
+    t.integer  "yearpublished"
+    t.integer  "playtime"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
+
+  add_index "games", ["bgg_id"], name: "index_games_on_bgg_id", using: :btree
 
   create_table "owns", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -74,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160302180834) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "shelves", ["user_id"], name: "index_shelves_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "username",                                                                                           null: false
     t.string   "name",                                                                                               null: false
@@ -83,5 +91,7 @@ ActiveRecord::Schema.define(version: 20160302180834) do
     t.datetime "created_at",                                                                                         null: false
     t.datetime "updated_at",                                                                                         null: false
   end
+
+  add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
 end
