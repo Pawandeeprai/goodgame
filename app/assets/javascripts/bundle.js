@@ -32320,7 +32320,6 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
-	    debugger;
 	    ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
 	  },
 	
@@ -32376,12 +32375,15 @@
 	              gameid: game.id,
 	              shelfid: that.state.shelf_id })
 	          ),
-	          React.createElement('img', { className: 'game-image', src: game.coverimg_url }),
-	          React.createElement('img', { className: 'console-logo', src: game.console }),
+	          React.createElement('img', { className: 'game-image', src: game.image }),
 	          React.createElement(
-	            'p',
-	            { className: 'game-description' },
-	            game.description
+	            'div',
+	            { className: 'game-description-div' },
+	            React.createElement(
+	              'p',
+	              { className: 'game-description' },
+	              game.description
+	            )
 	          )
 	        );
 	      });
@@ -33112,7 +33114,6 @@
 	        shelf_id: this.props.shelf.id
 	      });
 	    } else {
-	      console.log(this.props.game);
 	      GamesUtil.createGame(this.props.game, this.props.shelf.id);
 	    }
 	  },

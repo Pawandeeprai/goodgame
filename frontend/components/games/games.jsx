@@ -22,7 +22,6 @@ var Games = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    debugger;
     ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
   },
 
@@ -74,9 +73,10 @@ var Games = React.createClass({
                                 gameid={game.id}
                                 shelfid={that.state.shelf_id}/>
                   </h3>
-                  <img className="game-image" src={game.coverimg_url}/>
-                  <img className="console-logo" src={game.console}/>
-                  <p className="game-description">{game.description}</p>
+                  <img className="game-image" src={game.image}/>
+                  <div className="game-description-div">
+                    <p className="game-description">{game.description}</p>
+                  </div>
                 </div>
               );
             }

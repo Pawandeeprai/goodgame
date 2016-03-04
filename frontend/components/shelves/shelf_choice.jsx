@@ -10,7 +10,6 @@ module.exports = React.createClass({
         shelf_id: this.props.shelf.id
       });
     } else {
-      console.log(this.props.game);
       GamesUtil.createGame(this.props.game, this.props.shelf.id);
     }
   },
