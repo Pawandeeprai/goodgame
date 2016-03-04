@@ -31870,7 +31870,7 @@
 	        null,
 	        React.createElement(
 	          'form',
-	          { className: 'new-shelf-div', onSubmit: this.clicked },
+	          { className: 'add-shelf-button', onSubmit: this.clicked },
 	          React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
 	        )
 	      );
@@ -32575,16 +32575,17 @@
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
+	var History = __webpack_require__(159).History;
 	
 	var Logout = __webpack_require__(246);
 	var ShelvesStore = __webpack_require__(248);
 	var ShelvesUtil = __webpack_require__(214);
-	var SearchBar = __webpack_require__(434);
+	var NavSearchBar = __webpack_require__(441);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
-	
+	  mixins: [History],
 	  render: function () {
 	    console.log(this.state);
 	    return React.createElement(
@@ -32632,7 +32633,7 @@
 	        React.createElement(
 	          'li',
 	          null,
-	          React.createElement(SearchBar, null)
+	          React.createElement(NavSearchBar, null)
 	        ),
 	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
@@ -34236,7 +34237,8 @@
 	        React.createElement(
 	          'li',
 	          null,
-	          React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	          React.createElement(Rating, { className: 'rating',
+	            full: 'glyphicon glyphicon-star large',
 	            empty: 'glyphicon glyphicon-star-empty large',
 	            initialRate: this.state.review.rating })
 	        ),
@@ -34303,8 +34305,8 @@
 	    return React.createElement(
 	      'form',
 	      { onSubmit: this.searchGame },
-	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
-	      React.createElement('input', { type: 'submit', value: 'search' })
+	      React.createElement('input', { className: 'searchbar', type: 'text', valueLink: this.linkState('query_string') }),
+	      React.createElement('input', { className: 'button', type: 'submit', value: 'search' })
 	    );
 	  }
 	});
@@ -34591,6 +34593,44 @@
 	    } else {
 	      return React.createElement('div', null);
 	    }
+	  }
+	});
+
+/***/ },
+/* 441 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(239);
+	var SearchUtil = __webpack_require__(216);
+	var Link = __webpack_require__(159).Link;
+	var History = __webpack_require__(159).History;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin, History],
+	  getInitialState: function () {
+	    return {
+	      query_string: ""
+	    };
+	  },
+	  searchGame: function (e) {
+	    e.preventDefault();
+	    if (this.state.query_string) {
+	      SearchUtil.search({
+	        query_string: this.state.query_string
+	      });
+	      this.history.push("search/");
+	    }
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'nav-search', onSubmit: this.searchGame },
+	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
+	      React.createElement('input', { type: 'submit', value: 'search' })
+	    );
 	  }
 	});
 

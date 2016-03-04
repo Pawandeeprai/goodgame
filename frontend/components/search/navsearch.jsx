@@ -2,11 +2,12 @@ var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var SearchUtil = require('../../util/search');
 var Link = require('react-router').Link;
+var History = require('react-router').History;
 
 
 
 module.exports = React.createClass({
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
   getInitialState: function(){
     return {
       query_string: ""
@@ -18,13 +19,14 @@ module.exports = React.createClass({
       SearchUtil.search({
         query_string: this.state.query_string
       });
+      this.history.push("search/");
     }
   },
   render: function () {
     return (
-      <form  onSubmit={this.searchGame}>
-        <input className="searchbar" type="text" valueLink={this.linkState('query_string')}/>
-        <input className="button" type="submit" value="search" />
+      <form className="nav-search" onSubmit={this.searchGame}>
+        <input type="text" valueLink={this.linkState('query_string')}/>
+        <input type="submit" value="search" />
       </form>
     );
   }

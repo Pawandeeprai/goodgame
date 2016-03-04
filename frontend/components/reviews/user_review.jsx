@@ -57,7 +57,8 @@ module.exports = React.createClass({
       display = (
         <ul key={this.state.review.id}>
           <li>
-            <Rating full="glyphicon glyphicon-star large"
+            <Rating className="rating"
+                    full="glyphicon glyphicon-star large"
                     empty="glyphicon glyphicon-star-empty large"
                     initialRate={this.state.review.rating}/>
           </li>
