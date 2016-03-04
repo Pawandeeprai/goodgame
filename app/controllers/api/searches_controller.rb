@@ -1,5 +1,4 @@
 require 'bgg-api'
-require 'byebug'
 
 class Api::SearchesController < ApplicationController
   def index
@@ -15,7 +14,6 @@ class Api::SearchesController < ApplicationController
     else
       bgg = BggApi.new
       results = bgg.thing({id: params[:id]})
-      # debugger
       image_url = "http:" + results["item"][0]["image"][0]
       game = {
         title: results["item"][0]["name"][0]["value"],
