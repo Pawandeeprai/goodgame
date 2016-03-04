@@ -27,6 +27,9 @@ module.exports = React.createClass({
         <li>
           <form className="nav-search" onSubmit={this.searchGame}>
             <input type="text" valueLink={this.linkState('query_string')}/>
+            <label onClick={this.searchGame}>
+              search
+            </label>
           </form>
         </li>
     );

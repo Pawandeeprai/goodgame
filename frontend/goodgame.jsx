@@ -30,6 +30,7 @@ var FavoriteGames = require('./components/games/favorite_games');
 var FavoritesPage = require('./components/games/favorites_page');
 var SearchPage = require('./components/search/search_page');
 var SearchGamePage = require('./components/search/game_page');
+var SignInPage = require('./components/users/signin_page');
 
 var SessionsStore = require('./stores/sessions');
 var ShelvesStore = require('./stores/shelves');
@@ -40,9 +41,13 @@ var SearchGameStore = require('./stores/search_game');
 
 
 var routes = (
+
   <Route component={App} path="/">
     // TODO add index route
     <IndexRoute component={CurrentUser}/>
+    <Route component={SignInPage} path="/signin">
+
+    </Route>
 
     <Route component={CurrentUser} path="/user">
 

@@ -19,6 +19,8 @@ var AddReview = require('./reviews/add_review');
 var SearchBar = require('./search/search_bar');
 var SearchPage = require('./search/search_page');
 var SearchGamePage = require('./search/game_page');
+var SignInPage = require('./users/signin_page');
+
 
 
 var App = React.createClass({
@@ -55,15 +57,7 @@ var App = React.createClass({
       );
     } else {
       things = (
-        <div>
-          <div className="logo-div">
-            <img className="logo" src="assets/goodgamewhitelogo.png"/>
-          </div>
-          <div className="new-user-forms">
-            <NewUserForm/>
-            <NewSessionsForm/>
-          </div>
-        </div>
+        <SignInPage/>
       );
     }
 

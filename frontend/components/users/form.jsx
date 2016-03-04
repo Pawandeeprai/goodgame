@@ -9,20 +9,29 @@ var NewUserForm = React.createClass({
     return {
       username: '',
       name: '',
-      password: ''
+      password: '',
+      password2: '',
+      messages: ''
     };
   },
 
   createUser: function(e){
     e.preventDefault();
-    var user = this.state;
-    UsersUtil.createUser(user);
+    if (this.state.password === this.state.password2){
+      var user = this.state;
+      UsersUtil.createUser(user);
+    } else {
+      this.setState({
+        messages: "Passwords must match"
+      });
+    }
   },
 
   render: function(){
     return(
       <div className ="new-user-form-div">
         <h1 className="form-header">Sign Up</h1>
+        {this.state.messages}
         <form onSubmit={this.createUser}>
           <label className="form-text">Username:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
@@ -32,6 +41,9 @@ var NewUserForm = React.createClass({
           <br/>
           <label className="form-text">Password:</label><br/>
           <input type="password" valueLink={this.linkState('password')}/>
+          <br/>
+          <label className="form-text">Retype Password:</label><br/>
+          <input type="password" valueLink={this.linkState('password2')}/>
           <br/>
           <input className="button" type="submit" value="Sign Up"/>
         </form>
