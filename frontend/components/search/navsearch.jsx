@@ -24,10 +24,11 @@ module.exports = React.createClass({
   },
   render: function () {
     return (
-      <form className="nav-search" onSubmit={this.searchGame}>
-        <input type="text" valueLink={this.linkState('query_string')}/>
-        <input type="submit" value="search" />
-      </form>
+        <li>
+          <form className="nav-search" onSubmit={this.searchGame}>
+            <input type="text" valueLink={this.linkState('query_string')}/>
+          </form>
+        </li>
     );
   }
 });

@@ -35,7 +35,7 @@ module.exports = React.createClass({
       });
     }
     return (
-      <div>
+      <div className="search-results">
         <h1>Search</h1>
         <SearchBar/>
         <h4>generated {this.state.searchResults.total} items</h4>

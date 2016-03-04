@@ -24482,9 +24482,7 @@
 	      url: "/api/game_shelves",
 	      type: "POST",
 	      data: { shelf_game: data },
-	      success: function (game) {
-	        console.log(game);
-	      }
+	      success: function (game) {}
 	    });
 	  },
 	  removeGameFromShelf: function (data) {
@@ -24493,8 +24491,8 @@
 	      type: "DELETE",
 	      data: { shelf_game: data },
 	
-	      success: function (game) {
-	        GamesActions.removeGame(game);
+	      success: function (games) {
+	        GamesActions.receiveAllGames(games);
 	      }
 	    });
 	  },
@@ -32630,11 +32628,7 @@
 	            'games'
 	          )
 	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(NavSearchBar, null)
-	        ),
+	        React.createElement(NavSearchBar, null),
 	        React.createElement(Logout, { className: 'navbar-logout' })
 	      )
 	    );
@@ -34406,7 +34400,7 @@
 	    }
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'search-results' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -34626,10 +34620,13 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'form',
-	      { className: 'nav-search', onSubmit: this.searchGame },
-	      React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') }),
-	      React.createElement('input', { type: 'submit', value: 'search' })
+	      'li',
+	      null,
+	      React.createElement(
+	        'form',
+	        { className: 'nav-search', onSubmit: this.searchGame },
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') })
+	      )
 	    );
 	  }
 	});

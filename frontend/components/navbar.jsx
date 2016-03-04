@@ -35,9 +35,7 @@ module.exports = React.createClass({
               games
             </Link>
           </li>
-          <li>
-            <NavSearchBar />
-          </li>
+          <NavSearchBar />
           <Logout className="navbar-logout"/>
         </ul>
       </div>

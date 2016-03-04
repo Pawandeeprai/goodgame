@@ -28,7 +28,8 @@ class Api::GameShelvesController < ApplicationController
     @relation = GameShelf.find_by(shelf_params)
 
     if @relation.destroy
-      render json:{ game_id: @relation.game_id}
+      @shelf = Shelf.find_by_id(shelf_params[:shelf_id])
+      render :show
     else
       render json: {status: "something went wrong"}, status: 401
     end

@@ -26,7 +26,6 @@ var GamesUtil = {
       type: "POST",
       data: {shelf_game: data},
       success: function(game){
-        console.log(game);
       }
     });
   },
@@ -36,8 +35,8 @@ var GamesUtil = {
       type: "DELETE",
       data: {shelf_game: data},
 
-      success: function(game){
-        GamesActions.removeGame(game);
+      success: function(games){
+        GamesActions.receiveAllGames(games);
       }
     });
   },
