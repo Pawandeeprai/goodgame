@@ -17,7 +17,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [X] Users can create shelves
 - [x] Users can add games to shelves
 - [x] Users can move games from one shelf to another
-- [ ] Users can review games
+- [x] Users can review games
 
 ## Design Docs
 * [View Wireframes][views]
@@ -76,18 +76,18 @@ user interface.  You can search for games and add them to your shelves.
 **Objective:** Existing pages (including singup/signin) will look good.
 
 - [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
+- [x] position elements on the page
+- [x] add basic colors & styles
 
 ### Phase 5: Reviews (1 day)
 
 **Objective:** Reviews belong to Games, and can be viewed by clicking on a Game.
 
-- [ ] create `Review` model
+- [x] create `Review` model
 - build out API, Flux loop, and components for:
-  - [ ] Review CRUD
-  - [ ] adding reviews requires a game which is on one of a user's shelves
-  - [ ] viewing reviews by game
+  - [x] Review CRUD
+  - [x] adding reviews requires a game which is on one of a user's shelves
+  - [x] viewing reviews by game
 - Use CSS to style new views
 
 ### Phase 6: video game info API (1 day)
@@ -95,9 +95,9 @@ user interface.  You can search for games and add them to your shelves.
 **Objective:** Incorporate a videogame data API.  And save the data to the game DB if the user adds the game to one of their shelves.
 
 - Add an API which searches for games which aren't already in the db:
-  - [ ] display the searches
-  - [ ] display the specific game in the same view for the games
-  - [ ] add the game to the db if the user adds the game to a shelf
+  - [x] display the searches
+  - [x] display the specific game in the same view for the games
+  - [x] add the game to the db if the user adds the game to a shelf
 
 
 ### Phase 7: Styling Cleanup and Seeding (1 day)
@@ -111,7 +111,7 @@ user interface.  You can search for games and add them to your shelves.
 
 ### Bonus Features (TBD)
 - [ ] Users have friends and can see what's in their friend's shelves
-- [ ] Users can favorite games
+- [x] Users can favorite games
 
 
 [phase-one]: ./docs/phases/phase1.md

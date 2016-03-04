@@ -2,12 +2,14 @@ var React = require('react');
 var SessionsStore = require('../../stores/sessions');
 var UsersUtil = require('../../util/users');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var History = require('react-router').History;
+
 
 var Link = require('react-router').Link;
 
 
 module.exports = React.createClass({
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
   getInitialState: function() {
     return {
       username: SessionsStore.all().username,
@@ -18,6 +20,7 @@ module.exports = React.createClass({
   updateProfile: function(e){
     e.preventDefault();
     UsersUtil.editUser(this.state);
+    this.history.push("/");
   },
 
   render: function () {

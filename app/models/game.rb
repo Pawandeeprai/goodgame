@@ -19,4 +19,8 @@ class Game < ActiveRecord::Base
   validates :title,  :description, :image, :bgg_id, presence: true
 
   has_many :reviews
+
+  def rating
+    self.reviews.average(:rating)
+  end
 end

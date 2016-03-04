@@ -27,6 +27,8 @@ class Api::GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
+    rating = @game.rating
+
     render 'api/games/show'
   end
 

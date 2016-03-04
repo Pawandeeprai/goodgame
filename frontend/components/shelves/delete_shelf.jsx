@@ -11,7 +11,7 @@ module.exports = React.createClass({
     return (
       <img onClick={this.deleteShelf}
            className="delete-icon"
-           src="assets/delete-2-xxl.png"/>
+           src="http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png"/>
     );
   }
 });

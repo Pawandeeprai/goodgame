@@ -57,31 +57,31 @@
 	var GamesUtil = __webpack_require__(212);
 	var ShelvesUtil = __webpack_require__(214);
 	var SearchUtil = __webpack_require__(216);
-	var ReviewsUtil = __webpack_require__(217);
+	var ReviewsUtil = __webpack_require__(218);
 	
-	var App = __webpack_require__(219);
+	var App = __webpack_require__(220);
 	
-	var NewUsersForm = __webpack_require__(238);
-	var NewSessionForm = __webpack_require__(243);
-	var CurrentUser = __webpack_require__(245);
-	var EditUser = __webpack_require__(418);
+	var NewUsersForm = __webpack_require__(239);
+	var NewSessionForm = __webpack_require__(244);
+	var CurrentUser = __webpack_require__(246);
+	var EditUser = __webpack_require__(270);
 	
-	var Games = __webpack_require__(253);
-	var Shelves = __webpack_require__(247);
-	var Shelf = __webpack_require__(249);
-	var GameFullPage = __webpack_require__(419);
-	var EditShelves = __webpack_require__(427);
-	var FavoriteGames = __webpack_require__(251);
-	var FavoritesPage = __webpack_require__(430);
-	var SearchPage = __webpack_require__(437);
-	var SearchGamePage = __webpack_require__(440);
+	var Games = __webpack_require__(254);
+	var Shelves = __webpack_require__(248);
+	var Shelf = __webpack_require__(250);
+	var GameFullPage = __webpack_require__(271);
+	var EditShelves = __webpack_require__(279);
+	var FavoriteGames = __webpack_require__(252);
+	var FavoritesPage = __webpack_require__(282);
+	var SearchPage = __webpack_require__(263);
+	var SearchGamePage = __webpack_require__(266);
 	
-	var SessionsStore = __webpack_require__(220);
-	var ShelvesStore = __webpack_require__(248);
-	var FavoriteGamesStore = __webpack_require__(252);
-	var OwnedGamesStore = __webpack_require__(424);
-	var SearchFieldStore = __webpack_require__(436);
-	var SearchGameStore = __webpack_require__(439);
+	var SessionsStore = __webpack_require__(221);
+	var ShelvesStore = __webpack_require__(249);
+	var FavoriteGamesStore = __webpack_require__(253);
+	var OwnedGamesStore = __webpack_require__(274);
+	var SearchFieldStore = __webpack_require__(264);
+	var SearchGameStore = __webpack_require__(267);
 	
 	var routes = React.createElement(
 	  Route,
@@ -24366,9 +24366,7 @@
 	    $.ajax({
 	      url: "api/users",
 	      type: "GET",
-	      success: function (users) {
-	        console.log(users);
-	      }
+	      success: function (users) {}
 	    });
 	  },
 	  editUser: function (data) {
@@ -24732,7 +24730,7 @@
 /* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchesActions = __webpack_require__(435);
+	var SearchesActions = __webpack_require__(217);
 	
 	var SearchUtil = {
 	  search: function (data) {
@@ -24764,7 +24762,32 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ReviewsActions = __webpack_require__(218);
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchesActions = {
+	  receiveSearchResults: function (searchResults) {
+	    AppDispatcher.dispatch({
+	
+	      actionType: "SEARCH_RESULTS",
+	      searchResults: searchResults
+	    });
+	  },
+	  receiveGameResults: function (game) {
+	    AppDispatcher.dispatch({
+	      actionType: "SEARCH_GAME",
+	      game: game
+	    });
+	  }
+	
+	};
+	
+	module.exports = SearchesActions;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewsActions = __webpack_require__(219);
 	
 	var ReviewsUtil = {
 	  fetchGameReviews: function (data) {
@@ -24820,7 +24843,7 @@
 	window.ReviewsUtil = ReviewsUtil;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(205);
@@ -24861,29 +24884,29 @@
 	module.exports = ReviewsActions;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 	
-	var SessionsStore = __webpack_require__(220);
+	var SessionsStore = __webpack_require__(221);
 	var SessionsUtil = __webpack_require__(211);
 	
-	var NewUserForm = __webpack_require__(238);
-	var NewSessionsForm = __webpack_require__(243);
-	var NewShelfForm = __webpack_require__(244);
+	var NewUserForm = __webpack_require__(239);
+	var NewSessionsForm = __webpack_require__(244);
+	var NewShelfForm = __webpack_require__(245);
 	
-	var CurrentUser = __webpack_require__(245);
-	var Logout = __webpack_require__(246);
-	var Games = __webpack_require__(253);
-	var Shelves = __webpack_require__(247);
-	var NavBar = __webpack_require__(257);
-	var FavoriteGames = __webpack_require__(251);
-	var AddReview = __webpack_require__(258);
-	var SearchBar = __webpack_require__(434);
-	var SearchPage = __webpack_require__(437);
-	var SearchGamePage = __webpack_require__(440);
+	var CurrentUser = __webpack_require__(246);
+	var Logout = __webpack_require__(247);
+	var Games = __webpack_require__(254);
+	var Shelves = __webpack_require__(248);
+	var NavBar = __webpack_require__(258);
+	var FavoriteGames = __webpack_require__(252);
+	var AddReview = __webpack_require__(260);
+	var SearchBar = __webpack_require__(262);
+	var SearchPage = __webpack_require__(263);
+	var SearchGamePage = __webpack_require__(266);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24950,10 +24973,10 @@
 	module.exports = App;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(221).Store;
+	var Store = __webpack_require__(222).Store;
 	var AppDispatcher = __webpack_require__(205);
 	var SessionsUtil = __webpack_require__(211);
 	
@@ -24997,7 +25020,7 @@
 	module.exports = SessionsStore;
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25009,15 +25032,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(222);
-	module.exports.MapStore = __webpack_require__(225);
-	module.exports.Mixin = __webpack_require__(237);
-	module.exports.ReduceStore = __webpack_require__(226);
-	module.exports.Store = __webpack_require__(227);
+	module.exports.Container = __webpack_require__(223);
+	module.exports.MapStore = __webpack_require__(226);
+	module.exports.Mixin = __webpack_require__(238);
+	module.exports.ReduceStore = __webpack_require__(227);
+	module.exports.Store = __webpack_require__(228);
 
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25039,10 +25062,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(223);
+	var FluxStoreGroup = __webpack_require__(224);
 	
 	var invariant = __webpack_require__(208);
-	var shallowEqual = __webpack_require__(224);
+	var shallowEqual = __webpack_require__(225);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -25200,7 +25223,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25281,7 +25304,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports) {
 
 	/**
@@ -25336,7 +25359,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25357,8 +25380,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(226);
-	var Immutable = __webpack_require__(236);
+	var FluxReduceStore = __webpack_require__(227);
+	var Immutable = __webpack_require__(237);
 	
 	var invariant = __webpack_require__(208);
 	
@@ -25486,7 +25509,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25507,9 +25530,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(227);
+	var FluxStore = __webpack_require__(228);
 	
-	var abstractMethod = __webpack_require__(235);
+	var abstractMethod = __webpack_require__(236);
 	var invariant = __webpack_require__(208);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -25593,7 +25616,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25612,7 +25635,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(228);
+	var _require = __webpack_require__(229);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -25776,7 +25799,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25789,14 +25812,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(229)
+	  EventEmitter: __webpack_require__(230)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25815,11 +25838,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(230);
-	var EventSubscriptionVendor = __webpack_require__(232);
+	var EmitterSubscription = __webpack_require__(231);
+	var EventSubscriptionVendor = __webpack_require__(233);
 	
-	var emptyFunction = __webpack_require__(234);
-	var invariant = __webpack_require__(233);
+	var emptyFunction = __webpack_require__(235);
+	var invariant = __webpack_require__(234);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -25993,7 +26016,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26014,7 +26037,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(231);
+	var EventSubscription = __webpack_require__(232);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -26046,7 +26069,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/**
@@ -26100,7 +26123,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26119,7 +26142,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(233);
+	var invariant = __webpack_require__(234);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -26209,7 +26232,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26264,7 +26287,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports) {
 
 	/**
@@ -26306,7 +26329,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26333,7 +26356,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31320,7 +31343,7 @@
 	}));
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31337,7 +31360,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(223);
+	var FluxStoreGroup = __webpack_require__(224);
 	
 	var invariant = __webpack_require__(208);
 	
@@ -31443,12 +31466,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var UsersUtil = __webpack_require__(209);
-	var LinkedStateMixin = __webpack_require__(239);
+	var LinkedStateMixin = __webpack_require__(240);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
@@ -31515,13 +31538,13 @@
 	module.exports = NewUserForm;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(240);
+	module.exports = __webpack_require__(241);
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31538,8 +31561,8 @@
 	
 	'use strict';
 	
-	var ReactLink = __webpack_require__(241);
-	var ReactStateSetters = __webpack_require__(242);
+	var ReactLink = __webpack_require__(242);
+	var ReactStateSetters = __webpack_require__(243);
 	
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -31562,7 +31585,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31636,7 +31659,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports) {
 
 	/**
@@ -31745,12 +31768,12 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var SessionsUtil = __webpack_require__(211);
-	var LinkedStateMixin = __webpack_require__(239);
+	var LinkedStateMixin = __webpack_require__(240);
 	
 	var NewSessionForm = React.createClass({
 	  displayName: 'NewSessionForm',
@@ -31808,11 +31831,11 @@
 	module.exports = NewSessionForm;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(239);
+	var LinkedStateMixin = __webpack_require__(240);
 	var ShelvesUtil = __webpack_require__(214);
 	
 	var NewShelfForm = React.createClass({
@@ -31879,15 +31902,15 @@
 	module.exports = NewShelfForm;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var SessionsStore = __webpack_require__(220);
-	var Logout = __webpack_require__(246);
-	var Shelves = __webpack_require__(247);
-	var FavoriteGames = __webpack_require__(251);
+	var SessionsStore = __webpack_require__(221);
+	var Logout = __webpack_require__(247);
+	var Shelves = __webpack_require__(248);
+	var FavoriteGames = __webpack_require__(252);
 	
 	var CurrentUser = React.createClass({
 	  displayName: 'CurrentUser',
@@ -31933,7 +31956,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'current-user-name' },
-	          this.state.user.username,
+	          this.state.user.name,
 	          React.createElement(
 	            Link,
 	            { className: 'user-edit-link', to: 'users/edit' },
@@ -31957,7 +31980,7 @@
 	module.exports = CurrentUser;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31988,15 +32011,15 @@
 	module.exports = Logout;
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(248);
+	var ShelvesStore = __webpack_require__(249);
 	var ShelvesUtil = __webpack_require__(214);
-	var Shelf = __webpack_require__(249);
-	var DeleteShelf = __webpack_require__(250);
-	var NewShelfForm = __webpack_require__(244);
+	var Shelf = __webpack_require__(250);
+	var DeleteShelf = __webpack_require__(251);
+	var NewShelfForm = __webpack_require__(245);
 	var Link = __webpack_require__(159).Link;
 	
 	var Shelves = React.createClass({
@@ -32064,10 +32087,10 @@
 	module.exports = Shelves;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(221).Store;
+	var Store = __webpack_require__(222).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
 	var ShelvesStore = new Store(AppDispatcher);
@@ -32114,11 +32137,11 @@
 	module.exports = ShelvesStore;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(248);
+	var ShelvesStore = __webpack_require__(249);
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
 	
@@ -32135,7 +32158,7 @@
 	});
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32151,16 +32174,16 @@
 	  render: function () {
 	    return React.createElement('img', { onClick: this.deleteShelf,
 	      className: 'delete-icon',
-	      src: 'assets/delete-2-xxl.png' });
+	      src: 'http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png' });
 	  }
 	});
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(252);
+	var FavoriteGamesStore = __webpack_require__(253);
 	var GamesUtil = __webpack_require__(212);
 	var Link = __webpack_require__(159).Link;
 	
@@ -32221,10 +32244,10 @@
 	});
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(221).Store;
+	var Store = __webpack_require__(222).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
 	var FavoriteGamesStore = new Store(AppDispatcher);
@@ -32291,17 +32314,17 @@
 	module.exports = FavoriteGamesStore;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var GamesStore = __webpack_require__(254);
+	var GamesStore = __webpack_require__(255);
 	var GamesUtil = __webpack_require__(212);
 	var ShelvesUtil = __webpack_require__(214);
 	var Link = __webpack_require__(159).Link;
-	var ShelvesSidebar = __webpack_require__(255);
-	var RemoveGame = __webpack_require__(256);
+	var ShelvesSidebar = __webpack_require__(256);
+	var RemoveGame = __webpack_require__(257);
 	
 	var Games = React.createClass({
 	  displayName: 'Games',
@@ -32402,10 +32425,10 @@
 	module.exports = Games;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(221).Store;
+	var Store = __webpack_require__(222).Store;
 	var AppDispatcher = __webpack_require__(205);
 	
 	var GamesStore = new Store(AppDispatcher);
@@ -32461,16 +32484,16 @@
 	module.exports = GamesStore;
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(248);
+	var ShelvesStore = __webpack_require__(249);
 	var ShelvesUtil = __webpack_require__(214);
-	var Shelf = __webpack_require__(249);
-	var NewShelfForm = __webpack_require__(244);
+	var Shelf = __webpack_require__(250);
+	var NewShelfForm = __webpack_require__(245);
 	var Link = __webpack_require__(159).Link;
-	var DeleteShelf = __webpack_require__(250);
+	var DeleteShelf = __webpack_require__(251);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32535,7 +32558,7 @@
 	});
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32568,24 +32591,23 @@
 	});
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 	var History = __webpack_require__(159).History;
 	
-	var Logout = __webpack_require__(246);
-	var ShelvesStore = __webpack_require__(248);
+	var Logout = __webpack_require__(247);
+	var ShelvesStore = __webpack_require__(249);
 	var ShelvesUtil = __webpack_require__(214);
-	var NavSearchBar = __webpack_require__(441);
+	var NavSearchBar = __webpack_require__(259);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	  mixins: [History],
 	  render: function () {
-	    console.log(this.state);
 	    return React.createElement(
 	      'div',
 	      { id: 'cssmenu' },
@@ -32636,13 +32658,54 @@
 	});
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Rating = __webpack_require__(431);
-	var LinkedStateMixin = __webpack_require__(239);
-	var ReviewsUtil = __webpack_require__(217);
+	var LinkedStateMixin = __webpack_require__(240);
+	var SearchUtil = __webpack_require__(216);
+	var Link = __webpack_require__(159).Link;
+	var History = __webpack_require__(159).History;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin, History],
+	  getInitialState: function () {
+	    return {
+	      query_string: ""
+	    };
+	  },
+	  searchGame: function (e) {
+	    e.preventDefault();
+	    if (this.state.query_string) {
+	      SearchUtil.search({
+	        query_string: this.state.query_string
+	      });
+	      this.history.push("search/");
+	    }
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      React.createElement(
+	        'form',
+	        { className: 'nav-search', onSubmit: this.searchGame },
+	        React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Rating = __webpack_require__(261);
+	var LinkedStateMixin = __webpack_require__(240);
+	var ReviewsUtil = __webpack_require__(218);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -32709,1033 +32772,7 @@
 	});
 
 /***/ },
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */,
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */,
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */,
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SessionsStore = __webpack_require__(220);
-	var UsersUtil = __webpack_require__(209);
-	var LinkedStateMixin = __webpack_require__(239);
-	
-	var Link = __webpack_require__(159).Link;
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	  getInitialState: function () {
-	    return {
-	      username: SessionsStore.all().username,
-	      name: SessionsStore.all().name
-	    };
-	  },
-	
-	  updateProfile: function (e) {
-	    e.preventDefault();
-	    UsersUtil.editUser(this.state);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Profile Settings'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.updateProfile, className: 'user-edit-form' },
-	        React.createElement(
-	          'label',
-	          null,
-	          'username',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'name',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', valueLink: this.linkState('name') })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit profile' })
-	      ),
-	      React.createElement('img', { className: 'profile-edit-picture',
-	        src: SessionsStore.all().picture_url })
-	    );
-	  }
-	});
-
-/***/ },
-/* 419 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GamesStore = __webpack_require__(254);
-	var AddGameToShelfForm = __webpack_require__(420);
-	var GamesUtil = __webpack_require__(212);
-	var AddFavorite = __webpack_require__(422);
-	var AddOwn = __webpack_require__(423);
-	var Reviews = __webpack_require__(425);
-	var UserReivew = __webpack_require__(433);
-	// add remove game from shelf.. and find in all shelves might have to hit data base again
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return { game: GamesStore.game(parseInt(this.props.params.game_id)) };
-	  },
-	
-	  componentDidMount: function () {
-	    if (this.state.game === undefined) {
-	      this.Listener = GamesStore.addListener(this._onChange);
-	      GamesUtil.fetchGame(this.props.params.game_id);
-	    }
-	  },
-	  componentWillUnmount: function () {
-	    if (this.Listener) {
-	      this.Listener.remove();
-	    }
-	  },
-	
-	  //TODO: componentWillReceiveProps(newProps)
-	  //DONT USEE this.props in this function
-	
-	  _onChange: function () {
-	    this.setState({
-	      game: GamesStore.game(parseInt(this.props.params.game_id))
-	    });
-	  },
-	
-	  render: function () {
-	    if (this.state.game === undefined) {
-	      return React.createElement('div', null);
-	    } else {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'div',
-	          { className: 'game-picture-div' },
-	          React.createElement('img', { src: this.state.game.image }),
-	          React.createElement(
-	            'h4',
-	            null,
-	            this.state.game.yearpublished
-	          ),
-	          React.createElement(
-	            'ul',
-	            null,
-	            React.createElement(
-	              'li',
-	              null,
-	              'minimum players: ',
-	              this.state.game.minplayers
-	            ),
-	            React.createElement(
-	              'li',
-	              null,
-	              'maximum players: ',
-	              this.state.game.maxplayers
-	            ),
-	            React.createElement(
-	              'li',
-	              null,
-	              'play time: ',
-	              this.state.game.playtime
-	            )
-	          ),
-	          React.createElement(AddGameToShelfForm, { game: this.state.game })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'game-info-div' },
-	          React.createElement(
-	            'h1',
-	            { className: 'game-info-title' },
-	            this.state.game.title
-	          ),
-	          React.createElement(
-	            'p',
-	            { className: 'game-info-description' },
-	            this.state.game.description
-	          ),
-	          React.createElement(
-	            'div',
-	            null,
-	            React.createElement(AddFavorite, { game: this.state.game })
-	          ),
-	          React.createElement(UserReivew, { game: this.state.game }),
-	          React.createElement(Reviews, { game: this.state.game })
-	        )
-	      );
-	    }
-	  }
-	});
-
-/***/ },
-/* 420 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(248);
-	var LinkedStateMixin = __webpack_require__(239);
-	var ShelvesUtil = __webpack_require__(214);
-	var GamesUtil = __webpack_require__(212);
-	var ShelfChoice = __webpack_require__(421);
-	
-	// TODO change this to use <ul> and li
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      shelves: this.getStateFromStore(),
-	      shelf_id: "",
-	      clicked: false
-	    };
-	  },
-	
-	  getStateFromStore: function () {
-	    return ShelvesStore.all();
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = ShelvesStore.addListener(this._onChange);
-	    ShelvesUtil.fetchShelves();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ shelves: this.getStateFromStore() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  addToShelf: function (e) {
-	    e.preventDefault();
-	    GamesUtil.addGameToShelf({
-	      shelf_id: parseInt(this.state.shelf_id),
-	      game_id: this.props.game.id
-	    });
-	  },
-	  toggleClicked: function (e) {
-	    e.preventDefault();
-	    if (this.state.clicked) {
-	      this.setState({ clicked: false });
-	    } else {
-	      this.setState({ clicked: true });
-	    }
-	  },
-	
-	  render: function () {
-	    var options = "";
-	    var that = this;
-	    if (this.state.clicked === true) {
-	      options = this.state.shelves.map(function (shelf) {
-	        return React.createElement(
-	          'div',
-	          { onClick: that.toggleClicked },
-	          React.createElement(ShelfChoice, { key: shelf.id,
-	            game: that.props.game,
-	            shelf: shelf })
-	        );
-	      });
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'add-game-dropdown' },
-	      React.createElement(
-	        'h4',
-	        { onClick: this.toggleClicked },
-	        'add to shelf'
-	      ),
-	      options
-	    );
-	  }
-	});
-
-/***/ },
-/* 421 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  addToShelf: function (e) {
-	    e.preventDefault();
-	    if (this.props.game.id) {
-	      GamesUtil.addGameToShelf({
-	        game_id: this.props.game.id,
-	        shelf_id: this.props.shelf.id
-	      });
-	    } else {
-	      GamesUtil.createGame(this.props.game, this.props.shelf.id);
-	    }
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'li',
-	      { onClick: this.addToShelf },
-	      this.props.shelf.title
-	    );
-	  }
-	});
-
-/***/ },
-/* 422 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(252);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	
-	    return {
-	      favorite: this.isFavorite(this.props.game.id)
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchFavoriteGames();
-	    this.setState({
-	      favorite: this.isFavorite(this.props.game.id)
-	    });
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      favorite: this.isFavorite(this.props.game.id)
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  isFavorite: function (gameId) {
-	    return FavoriteGamesStore.isFavorite(gameId);
-	  },
-	
-	  toggleFavorite: function (e) {
-	    e.preventDefault();
-	    if (this.state.favorite) {
-	      GamesUtil.removeFavorite(this.props.game.id);
-	    } else {
-	      GamesUtil.createFavorite(this.props.game.id);
-	    }
-	  },
-	
-	  render: function () {
-	    var display;
-	    if (this.state.favorite) {
-	      display = "remove from favorites";
-	    } else {
-	      display = "add to favorites";
-	    }
-	    return React.createElement(
-	      'button',
-	      { onClick: this.toggleFavorite, className: 'button' },
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 423 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var OwnedGamesStore = __webpack_require__(424);
-	var GamesUtil = __webpack_require__(212);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {
-	      owned: this.isOwned(this.props.game.id)
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = OwnedGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchOwnedGames();
-	    this.setState({
-	      owned: this.isOwned(this.props.game.id)
-	    });
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      owned: this.isOwned(this.props.game.id)
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  isOwned: function (gameId) {
-	    return OwnedGamesStore.isOwned(gameId);
-	  },
-	
-	  toggleOwns: function (e) {
-	    e.preventDefault();
-	    if (this.state.owned) {
-	      GamesUtil.removeOwned(this.props.game.id);
-	    } else {
-	      GamesUtil.createOwned(this.props.game.id);
-	    }
-	  },
-	
-	  render: function () {
-	    var display;
-	    if (this.state.owned) {
-	      display = "remove from owned games";
-	    } else {
-	      display = "add to owned games";
-	    }
-	    return React.createElement(
-	      'button',
-	      { onClick: this.toggleOwns, className: 'button' },
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 424 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(221).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var OwnedGamesStore = new Store(AppDispatcher);
-	
-	var _games = [];
-	
-	var updateGames = function (games) {
-	  _games = games;
-	};
-	
-	var addGame = function (game) {
-	  _games.push(game);
-	};
-	
-	var removeGame = function (gameId) {
-	  _games.forEach(function (game, idx) {
-	    if (game.id === parseInt(gameId.game_id)) {
-	      _games.splice(idx);
-	    }
-	  });
-	};
-	
-	OwnedGamesStore.all = function () {
-	  return _games;
-	};
-	
-	OwnedGamesStore.game = function (id) {
-	  var theGame;
-	  _games.forEach(function (game) {
-	    if (game.id === id) {
-	      theGame = game;
-	    }
-	  });
-	  return theGame;
-	};
-	
-	OwnedGamesStore.isOwned = function (gameId) {
-	  var owned = false;
-	  _games.forEach(function (game) {
-	    if (game.id === gameId) {
-	      owned = true;
-	    }
-	  });
-	  return owned;
-	};
-	
-	OwnedGamesStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "OWNED_GAMES":
-	      updateGames(payload.games);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	    case "NEW_OWNED_GAME":
-	      addGame(payload.game);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	    case "REMOVE_OWNED_GAME":
-	      removeGame(payload.gameId);
-	      OwnedGamesStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	module.exports = OwnedGamesStore;
-
-/***/ },
-/* 425 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Rating = __webpack_require__(431);
-	var React = __webpack_require__(1);
-	var ReviewsStore = __webpack_require__(426);
-	var ReviewsUtil = __webpack_require__(217);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {};
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = ReviewsStore.addListener(this._onChange);
-	    ReviewsUtil.fetchGameReviews(this.props.game.id);
-	    this.setState({
-	      reviews: ReviewsStore.all()
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      reviews: ReviewsStore.all()
-	    });
-	  },
-	
-	  render: function () {
-	    var display;
-	    if (this.state.reviews) {
-	      display = this.state.reviews.map(function (review) {
-	        return React.createElement(
-	          'ul',
-	          { key: review.id },
-	          React.createElement(
-	            'li',
-	            null,
-	            React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
-	              empty: 'glyphicon glyphicon-star-empty large',
-	              initialRate: review.rating })
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            review.review_text
-	          )
-	        );
-	      });
-	    } else {
-	      display = "No Reviews Yet";
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'reviews' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'All Reviews of ',
-	        this.props.game.title
-	      ),
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 426 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(221).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var ReviewsStore = new Store(AppDispatcher);
-	
-	var _reviews = [];
-	
-	var updateReviews = function (reviews) {
-	  _reviews = reviews;
-	};
-	
-	ReviewsStore.all = function () {
-	  return _reviews;
-	};
-	
-	ReviewsStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "ALL_REVIEWS":
-	      updateReviews(payload.reviews);
-	      ReviewsStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	module.exports = ReviewsStore;
-
-/***/ },
-/* 427 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ShelvesStore = __webpack_require__(248);
-	var ShelvesUtil = __webpack_require__(214);
-	var DeleteShelf = __webpack_require__(250);
-	var ShelfEdit = __webpack_require__(428);
-	var NewShelf = __webpack_require__(429);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return { shelves: ShelvesStore.all() };
-	  },
-	
-	  getStateFromStore: function () {
-	    return { shelves: ShelvesStore.all() };
-	  },
-	
-	  _onChange: function () {
-	    this.setState(this.getStateFromStore());
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = ShelvesStore.addListener(this._onChange);
-	    ShelvesUtil.fetchShelves();
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  render: function () {
-	    var display = this.state.shelves.map(function (shelf) {
-	      return React.createElement(
-	        'div',
-	        { key: shelf.id, className: 'edit-div-item' },
-	        React.createElement(ShelfEdit, { key: shelf.id,
-	          shelf: shelf }),
-	        React.createElement(DeleteShelf, { shelf: shelf })
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      { className: 'edit-div' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Edit Shelves'
-	      ),
-	      React.createElement(NewShelf, null),
-	      React.createElement(
-	        'div',
-	        { className: 'shelfedit-label-div' },
-	        React.createElement(
-	          'label',
-	          { className: 'shelfedit-label' },
-	          'Shelf'
-	        ),
-	        React.createElement(
-	          'label',
-	          { className: 'editdelete-label' },
-	          'Delete'
-	        ),
-	        React.createElement(
-	          'label',
-	          { className: 'edit-label' },
-	          'Edit'
-	        )
-	      ),
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 428 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(239);
-	var ShelvesUtil = __webpack_require__(214);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      clicked: false,
-	      title: this.props.shelf.title
-	    };
-	  },
-	
-	  clicked: function () {
-	    this.setState({
-	      clicked: true
-	    });
-	  },
-	
-	  updateShelf: function (e) {
-	    e.preventDefault();
-	    ShelvesUtil.editShelf({
-	      shelf_id: this.props.shelf.id,
-	      shelf: { title: this.state.title }
-	    });
-	    this.setState({
-	      clicked: false
-	    });
-	  },
-	
-	  render: function () {
-	    var that = this;
-	    if (this.state.clicked) {
-	      return React.createElement(
-	        'form',
-	        { className: 'shelf-edit-form', onSubmit: this.updateShelf },
-	        React.createElement('input', { type: 'text',
-	          valueLink: this.linkState('title') }),
-	        React.createElement('input', { type: 'submit', value: 'rename shelf' })
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'li',
-	          { className: 'edit-shelf-title' },
-	          this.props.shelf.title,
-	          React.createElement('img', { src: 'assets/edit-xxl.png',
-	            className: 'delete-icon edit-icon',
-	            onClick: that.clicked })
-	        )
-	      );
-	    }
-	  }
-	});
-
-/***/ },
-/* 429 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(239);
-	var ShelvesUtil = __webpack_require__(214);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      clicked: false,
-	      title: "add a shelf"
-	    };
-	  },
-	
-	  createShelf: function (e) {
-	    e.preventDefault();
-	    var shelf = this.state;
-	    ShelvesUtil.createShelf(shelf);
-	    this.setState(function () {
-	      return { clicked: false };
-	    });
-	  },
-	
-	  emptyValue: function (e) {
-	    if (this.state.title === "add a shelf") {
-	      this.setState({ title: "" });
-	    }
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'add-self-edit' },
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.createShelf },
-	        React.createElement('input', { type: 'text',
-	          onClick: this.emptyValue,
-	          id: 'field-topsearch',
-	          valueLink: this.linkState('title') }),
-	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 430 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FavoriteGamesStore = __webpack_require__(252);
-	
-	var GamesUtil = __webpack_require__(212);
-	var Link = __webpack_require__(159).Link;
-	
-	var Games = React.createClass({
-	  displayName: 'Games',
-	
-	  getInitialState: function () {
-	    return {
-	      games: FavoriteGamesStore.all()
-	    };
-	  },
-	
-	  getStateFromStore: function () {
-	    return { games: FavoriteGamesStore.all() };
-	  },
-	
-	  _onChange: function () {
-	    this.setState(this.getStateFromStore());
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
-	    GamesUtil.fetchFavoriteGames();
-	    this.setState({
-	      games: FavoriteGamesStore.all()
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	
-	  render: function () {
-	    var display;
-	    var that = this;
-	    display = this.state.games.map(function (game) {
-	      return React.createElement(
-	        'div',
-	        { className: 'game-div', key: game.id },
-	        React.createElement(
-	          'h3',
-	          { className: 'game-title' },
-	          React.createElement(
-	            Link,
-	            { to: "/games/" + game.id },
-	            game.title
-	          )
-	        ),
-	        React.createElement('img', { className: 'game-image', src: game.image }),
-	        React.createElement(
-	          'div',
-	          { className: 'game-description-div' },
-	          React.createElement(
-	            'p',
-	            { className: 'game-description' },
-	            game.description
-	          )
-	        )
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Favorite Games'
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        display
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Games;
-
-/***/ },
-/* 431 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! react-rating - 0.2.0 | (c) 2015, 2016  dreyescat | MIT | https://github.com/dreyescat/react-rating */
@@ -34094,187 +33131,11 @@
 	;
 
 /***/ },
-/* 432 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(221).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var UserReviewsStore = new Store(AppDispatcher);
-	
-	var _reviews = [];
-	
-	var updateReviews = function (reviews) {
-	  _reviews = reviews;
-	};
-	
-	var addReview = function (review) {
-	  _reviews.push(review);
-	};
-	
-	var removeReview = function (userReview) {
-	  _reviews.forEach(function (review, idx) {
-	    if (review.id === parseInt(userReview.id)) {
-	      _reviews.splice(idx);
-	    }
-	  });
-	};
-	
-	var updateReview = function (newReview) {
-	  _reviews.forEach(function (review, idx) {
-	    if (review.id === parseInt(newReview.id)) {
-	      _reviews.splice(idx);
-	    }
-	  });
-	  _reviews.push(newReview);
-	};
-	
-	UserReviewsStore.all = function () {
-	  return _reviews;
-	};
-	
-	UserReviewsStore.findReview = function (gameId) {
-	  var userReivew;
-	  _reviews.forEach(function (review) {
-	    if (review.game_id === parseInt(gameId)) {
-	      userReivew = review;
-	    }
-	  });
-	  return userReivew;
-	};
-	
-	UserReviewsStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "USER_REVIEWS":
-	      updateReviews(payload.reviews);
-	      UserReviewsStore.__emitChange();
-	      break;
-	    case "NEW_USER_REVIEW":
-	      addReview(payload.review);
-	      UserReviewsStore.__emitChange();
-	      break;
-	    case "REMOVE_REVIEW":
-	      removeReview(payload.review);
-	      UserReviewsStore.__emitChange();
-	      break;
-	    case "UPDATE_REVIEW":
-	      updateReview(payload.review);
-	      UserReviewsStore.__emitChange();
-	      break;
-	  }
-	};
-	module.exports = UserReviewsStore;
-
-/***/ },
-/* 433 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var UserReviewsStore = __webpack_require__(432);
-	var AddReview = __webpack_require__(258);
-	var ReviewsUtil = __webpack_require__(217);
-	var Rating = __webpack_require__(431);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    return {
-	      review: false,
-	      reviewed: false
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.Listener = UserReviewsStore.addListener(this._onChange);
-	    ReviewsUtil.fetchUserReivews(this.props.game.id);
-	  },
-	
-	  _onChange: function () {
-	    this.setState({
-	      review: this.getStateFromStore()
-	    });
-	    if (this.state.review) {
-	      this.setState({
-	        reviewed: true
-	      });
-	    }
-	  },
-	
-	  getStateFromStore: function () {
-	    return UserReviewsStore.findReview(this.props.game.id);
-	  },
-	  componentWillUnmount: function () {
-	    this.Listener.remove();
-	  },
-	  removeReview: function (e) {
-	    e.preventDefault();
-	    ReviewsUtil.deleteReview(this.state.review.id);
-	    this.setState({
-	      reviewed: false
-	    });
-	  },
-	  editReview: function (e) {
-	    e.preventDefault();
-	    this.setState({
-	      reviewed: false
-	    });
-	  },
-	
-	  render: function () {
-	    var display;
-	    var that = this;
-	    if (this.state.reviewed) {
-	      display = React.createElement(
-	        'ul',
-	        { key: this.state.review.id },
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(Rating, { className: 'rating',
-	            full: 'glyphicon glyphicon-star large',
-	            empty: 'glyphicon glyphicon-star-empty large',
-	            initialRate: this.state.review.rating })
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          this.state.review.review_text
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          React.createElement('img', { src: 'assets/delete-2-xxl.png',
-	            className: 'icon',
-	            onClick: that.removeReview }),
-	          React.createElement('img', { src: 'assets/edit-xxl.png',
-	            className: 'icon',
-	            onClick: that.editReview })
-	        )
-	      );
-	    } else {
-	      display = React.createElement(AddReview, { review: this.state.review, game: this.props.game });
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'reviews' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Your Review for ',
-	        this.props.game.title
-	      ),
-	      display
-	    );
-	  }
-	});
-
-/***/ },
-/* 434 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(239);
+	var LinkedStateMixin = __webpack_require__(240);
 	var SearchUtil = __webpack_require__(216);
 	var Link = __webpack_require__(159).Link;
 	
@@ -34306,69 +33167,14 @@
 	});
 
 /***/ },
-/* 435 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(205);
-	
-	var SearchesActions = {
-	  receiveSearchResults: function (searchResults) {
-	    AppDispatcher.dispatch({
-	
-	      actionType: "SEARCH_RESULTS",
-	      searchResults: searchResults
-	    });
-	  },
-	  receiveGameResults: function (game) {
-	    AppDispatcher.dispatch({
-	      actionType: "SEARCH_GAME",
-	      game: game
-	    });
-	  }
-	
-	};
-	
-	module.exports = SearchesActions;
-
-/***/ },
-/* 436 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(221).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var SearchStore = new Store(AppDispatcher);
-	
-	var _searchItems = {};
-	
-	var newSearch = function (searchResults) {
-	  _searchItems = searchResults;
-	};
-	
-	SearchStore.all = function () {
-	  return _searchItems;
-	};
-	
-	SearchStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "SEARCH_RESULTS":
-	      newSearch(payload.searchResults);
-	      SearchStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	module.exports = SearchStore;
-
-/***/ },
-/* 437 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchFieldStore = __webpack_require__(436);
-	var SearchBar = __webpack_require__(434);
+	var SearchFieldStore = __webpack_require__(264);
+	var SearchBar = __webpack_require__(262);
 	var SearchUtil = __webpack_require__(216);
-	var SearchItem = __webpack_require__(438);
+	var SearchItem = __webpack_require__(265);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34420,7 +33226,37 @@
 	});
 
 /***/ },
-/* 438 */
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(222).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchStore = new Store(AppDispatcher);
+	
+	var _searchItems = {};
+	
+	var newSearch = function (searchResults) {
+	  _searchItems = searchResults;
+	};
+	
+	SearchStore.all = function () {
+	  return _searchItems;
+	};
+	
+	SearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SEARCH_RESULTS":
+	      newSearch(payload.searchResults);
+	      SearchStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = SearchStore;
+
+/***/ },
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34471,44 +33307,12 @@
 	});
 
 /***/ },
-/* 439 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(221).Store;
-	var AppDispatcher = __webpack_require__(205);
-	
-	var SearchGameStore = new Store(AppDispatcher);
-	
-	var _searchGame = {};
-	
-	var newGame = function (game) {
-	  _searchGame = game;
-	};
-	
-	SearchGameStore.all = function () {
-	  if (_searchGame !== {}) {
-	    return _searchGame;
-	  }
-	};
-	
-	SearchGameStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "SEARCH_GAME":
-	      newGame(payload.game);
-	      SearchGameStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	module.exports = SearchGameStore;
-
-/***/ },
-/* 440 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var SearchGameStore = __webpack_require__(439);
-	var AddGameToShelfForm = __webpack_require__(420);
+	var SearchGameStore = __webpack_require__(267);
+	var AddGameToShelfForm = __webpack_require__(268);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34591,14 +33395,165 @@
 	});
 
 /***/ },
-/* 441 */
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(222).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var SearchGameStore = new Store(AppDispatcher);
+	
+	var _searchGame = {};
+	
+	var newGame = function (game) {
+	  _searchGame = game;
+	};
+	
+	SearchGameStore.all = function () {
+	  if (_searchGame !== {}) {
+	    return _searchGame;
+	  }
+	};
+	
+	SearchGameStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SEARCH_GAME":
+	      newGame(payload.game);
+	      SearchGameStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = SearchGameStore;
+
+/***/ },
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(239);
-	var SearchUtil = __webpack_require__(216);
-	var Link = __webpack_require__(159).Link;
+	var ShelvesStore = __webpack_require__(249);
+	var LinkedStateMixin = __webpack_require__(240);
+	var ShelvesUtil = __webpack_require__(214);
+	var GamesUtil = __webpack_require__(212);
+	var ShelfChoice = __webpack_require__(269);
+	
+	// TODO change this to use <ul> and li
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      shelves: this.getStateFromStore(),
+	      shelf_id: "",
+	      clicked: false
+	    };
+	  },
+	
+	  getStateFromStore: function () {
+	    return ShelvesStore.all();
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ shelves: this.getStateFromStore() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  addToShelf: function (e) {
+	    e.preventDefault();
+	    GamesUtil.addGameToShelf({
+	      shelf_id: parseInt(this.state.shelf_id),
+	      game_id: this.props.game.id
+	    });
+	  },
+	  toggleClicked: function (e) {
+	    e.preventDefault();
+	    if (this.state.clicked) {
+	      this.setState({ clicked: false });
+	    } else {
+	      this.setState({ clicked: true });
+	    }
+	  },
+	
+	  render: function () {
+	    var options = "";
+	    var that = this;
+	    if (this.state.clicked === true) {
+	      options = this.state.shelves.map(function (shelf) {
+	        return React.createElement(
+	          'div',
+	          { onClick: that.toggleClicked },
+	          React.createElement(ShelfChoice, { key: shelf.id,
+	            game: that.props.game,
+	            shelf: shelf })
+	        );
+	      });
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'add-game-dropdown' },
+	      React.createElement(
+	        'h4',
+	        { onClick: this.toggleClicked },
+	        'add to shelf'
+	      ),
+	      options
+	    );
+	  }
+	});
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  addToShelf: function (e) {
+	    e.preventDefault();
+	    if (this.props.game.id) {
+	      GamesUtil.addGameToShelf({
+	        game_id: this.props.game.id,
+	        shelf_id: this.props.shelf.id
+	      });
+	    } else {
+	      GamesUtil.createGame(this.props.game, this.props.shelf.id);
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { onClick: this.addToShelf },
+	      this.props.shelf.title
+	    );
+	  }
+	});
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SessionsStore = __webpack_require__(221);
+	var UsersUtil = __webpack_require__(209);
+	var LinkedStateMixin = __webpack_require__(240);
 	var History = __webpack_require__(159).History;
+	
+	var Link = __webpack_require__(159).Link;
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34606,30 +33561,922 @@
 	  mixins: [LinkedStateMixin, History],
 	  getInitialState: function () {
 	    return {
-	      query_string: ""
+	      username: SessionsStore.all().username,
+	      name: SessionsStore.all().name
 	    };
 	  },
-	  searchGame: function (e) {
+	
+	  updateProfile: function (e) {
 	    e.preventDefault();
-	    if (this.state.query_string) {
-	      SearchUtil.search({
-	        query_string: this.state.query_string
-	      });
-	      this.history.push("search/");
-	    }
+	    UsersUtil.editUser(this.state);
+	    this.history.push("/");
 	  },
+	
 	  render: function () {
 	    return React.createElement(
-	      'li',
+	      'div',
 	      null,
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Profile Settings'
+	      ),
+	      React.createElement(
 	        'form',
-	        { className: 'nav-search', onSubmit: this.searchGame },
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('query_string') })
+	        { onSubmit: this.updateProfile, className: 'user-edit-form' },
+	        React.createElement(
+	          'label',
+	          null,
+	          'username',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          'name',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('name') })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'edit profile' })
+	      ),
+	      React.createElement('img', { className: 'profile-edit-picture',
+	        src: SessionsStore.all().picture_url })
+	    );
+	  }
+	});
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var GamesStore = __webpack_require__(255);
+	var AddGameToShelfForm = __webpack_require__(268);
+	var GamesUtil = __webpack_require__(212);
+	var Rating = __webpack_require__(261);
+	var AddFavorite = __webpack_require__(272);
+	var AddOwn = __webpack_require__(273);
+	var Reviews = __webpack_require__(275);
+	var UserReivew = __webpack_require__(277);
+	// add remove game from shelf.. and find in all shelves might have to hit data base again
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { game: GamesStore.game(parseInt(this.props.params.game_id)) };
+	  },
+	
+	  componentDidMount: function () {
+	    if (this.state.game === undefined) {
+	      this.Listener = GamesStore.addListener(this._onChange);
+	      GamesUtil.fetchGame(this.props.params.game_id);
+	    }
+	  },
+	  componentWillUnmount: function () {
+	    if (this.Listener) {
+	      this.Listener.remove();
+	    }
+	  },
+	
+	  //TODO: componentWillReceiveProps(newProps)
+	  //DONT USEE this.props in this function
+	
+	  _onChange: function () {
+	    this.setState({
+	      game: GamesStore.game(parseInt(this.props.params.game_id))
+	    });
+	  },
+	
+	  render: function () {
+	
+	    if (this.state.game === undefined) {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'game-picture-div' },
+	          React.createElement('img', { src: this.state.game.image }),
+	          React.createElement(
+	            'h4',
+	            null,
+	            this.state.game.yearpublished
+	          ),
+	          React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	            empty: 'glyphicon glyphicon-star-empty large',
+	            initialRate: this.state.game.rating,
+	            readonly: 'true' }),
+	          React.createElement(
+	            'ul',
+	            null,
+	            React.createElement(
+	              'li',
+	              null,
+	              'minimum players: ',
+	              this.state.game.minplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'maximum players: ',
+	              this.state.game.maxplayers
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              'play time: ',
+	              this.state.game.playtime
+	            )
+	          ),
+	          React.createElement(AddGameToShelfForm, { game: this.state.game })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'game-info-div' },
+	          React.createElement(
+	            'h1',
+	            { className: 'game-info-title' },
+	            this.state.game.title
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'game-info-description' },
+	            this.state.game.description
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(AddFavorite, { game: this.state.game })
+	          ),
+	          React.createElement(UserReivew, { game: this.state.game }),
+	          React.createElement(Reviews, { game: this.state.game })
+	        )
+	      );
+	    }
+	  }
+	});
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(253);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	
+	    return {
+	      favorite: this.isFavorite(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      favorite: this.isFavorite(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isFavorite: function (gameId) {
+	    return FavoriteGamesStore.isFavorite(gameId);
+	  },
+	
+	  toggleFavorite: function (e) {
+	    e.preventDefault();
+	    if (this.state.favorite) {
+	      GamesUtil.removeFavorite(this.props.game.id);
+	    } else {
+	      GamesUtil.createFavorite(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.favorite) {
+	      display = "remove from favorites";
+	    } else {
+	      display = "add to favorites";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleFavorite, className: 'button' },
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var OwnedGamesStore = __webpack_require__(274);
+	var GamesUtil = __webpack_require__(212);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      owned: this.isOwned(this.props.game.id)
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = OwnedGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchOwnedGames();
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      owned: this.isOwned(this.props.game.id)
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  isOwned: function (gameId) {
+	    return OwnedGamesStore.isOwned(gameId);
+	  },
+	
+	  toggleOwns: function (e) {
+	    e.preventDefault();
+	    if (this.state.owned) {
+	      GamesUtil.removeOwned(this.props.game.id);
+	    } else {
+	      GamesUtil.createOwned(this.props.game.id);
+	    }
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.owned) {
+	      display = "remove from owned games";
+	    } else {
+	      display = "add to owned games";
+	    }
+	    return React.createElement(
+	      'button',
+	      { onClick: this.toggleOwns, className: 'button' },
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(222).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var OwnedGamesStore = new Store(AppDispatcher);
+	
+	var _games = [];
+	
+	var updateGames = function (games) {
+	  _games = games;
+	};
+	
+	var addGame = function (game) {
+	  _games.push(game);
+	};
+	
+	var removeGame = function (gameId) {
+	  _games.forEach(function (game, idx) {
+	    if (game.id === parseInt(gameId.game_id)) {
+	      _games.splice(idx);
+	    }
+	  });
+	};
+	
+	OwnedGamesStore.all = function () {
+	  return _games;
+	};
+	
+	OwnedGamesStore.game = function (id) {
+	  var theGame;
+	  _games.forEach(function (game) {
+	    if (game.id === id) {
+	      theGame = game;
+	    }
+	  });
+	  return theGame;
+	};
+	
+	OwnedGamesStore.isOwned = function (gameId) {
+	  var owned = false;
+	  _games.forEach(function (game) {
+	    if (game.id === gameId) {
+	      owned = true;
+	    }
+	  });
+	  return owned;
+	};
+	
+	OwnedGamesStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "OWNED_GAMES":
+	      updateGames(payload.games);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "NEW_OWNED_GAME":
+	      addGame(payload.game);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	    case "REMOVE_OWNED_GAME":
+	      removeGame(payload.gameId);
+	      OwnedGamesStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = OwnedGamesStore;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Rating = __webpack_require__(261);
+	var React = __webpack_require__(1);
+	var ReviewsStore = __webpack_require__(276);
+	var ReviewsUtil = __webpack_require__(218);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {};
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchGameReviews(this.props.game.id);
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      reviews: ReviewsStore.all()
+	    });
+	  },
+	
+	  render: function () {
+	    var display;
+	    if (this.state.reviews) {
+	      display = this.state.reviews.map(function (review) {
+	        return React.createElement(
+	          'ul',
+	          { key: review.id },
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(Rating, { full: 'glyphicon glyphicon-star large',
+	              empty: 'glyphicon glyphicon-star-empty large',
+	              initialRate: review.rating,
+	              readonly: true })
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            review.review_text
+	          )
+	        );
+	      });
+	    } else {
+	      display = "No Reviews Yet";
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'reviews' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'All Reviews of ',
+	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(222).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var ReviewsStore = new Store(AppDispatcher);
+	
+	var _reviews = [];
+	
+	var updateReviews = function (reviews) {
+	  _reviews = reviews;
+	};
+	
+	ReviewsStore.all = function () {
+	  return _reviews;
+	};
+	
+	ReviewsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ALL_REVIEWS":
+	      updateReviews(payload.reviews);
+	      ReviewsStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	module.exports = ReviewsStore;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UserReviewsStore = __webpack_require__(278);
+	var AddReview = __webpack_require__(260);
+	var ReviewsUtil = __webpack_require__(218);
+	var Rating = __webpack_require__(261);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return {
+	      review: false,
+	      reviewed: false
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = UserReviewsStore.addListener(this._onChange);
+	    ReviewsUtil.fetchUserReivews(this.props.game.id);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({
+	      review: this.getStateFromStore()
+	    });
+	    if (this.state.review) {
+	      this.setState({
+	        reviewed: true
+	      });
+	    }
+	  },
+	
+	  getStateFromStore: function () {
+	    return UserReviewsStore.findReview(this.props.game.id);
+	  },
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	  removeReview: function (e) {
+	    e.preventDefault();
+	    ReviewsUtil.deleteReview(this.state.review.id);
+	    this.setState({
+	      reviewed: false
+	    });
+	  },
+	  editReview: function (e) {
+	    e.preventDefault();
+	    this.setState({
+	      reviewed: false
+	    });
+	  },
+	
+	  render: function () {
+	    var display;
+	    var that = this;
+	    if (this.state.reviewed) {
+	      display = React.createElement(
+	        'ul',
+	        { key: this.state.review.id },
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(Rating, { className: 'rating',
+	            full: 'glyphicon glyphicon-star large',
+	            empty: 'glyphicon glyphicon-star-empty large',
+	            initialRate: this.state.review.rating })
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          this.state.review.review_text
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png',
+	            className: 'icon',
+	            onClick: that.removeReview }),
+	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/edit-xxl.png',
+	            className: 'icon',
+	            onClick: that.editReview })
+	        )
+	      );
+	    } else {
+	      display = React.createElement(AddReview, { review: this.state.review, game: this.props.game });
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'reviews' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Your Review for ',
+	        this.props.game.title
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(222).Store;
+	var AppDispatcher = __webpack_require__(205);
+	
+	var UserReviewsStore = new Store(AppDispatcher);
+	
+	var _reviews = [];
+	
+	var updateReviews = function (reviews) {
+	  _reviews = reviews;
+	};
+	
+	var addReview = function (review) {
+	  _reviews.push(review);
+	};
+	
+	var removeReview = function (userReview) {
+	  _reviews.forEach(function (review, idx) {
+	    if (review.id === parseInt(userReview.id)) {
+	      _reviews.splice(idx);
+	    }
+	  });
+	};
+	
+	var updateReview = function (newReview) {
+	  _reviews.forEach(function (review, idx) {
+	    if (review.id === parseInt(newReview.id)) {
+	      _reviews.splice(idx);
+	    }
+	  });
+	  _reviews.push(newReview);
+	};
+	
+	UserReviewsStore.all = function () {
+	  return _reviews;
+	};
+	
+	UserReviewsStore.findReview = function (gameId) {
+	  var userReivew;
+	  _reviews.forEach(function (review) {
+	    if (review.game_id === parseInt(gameId)) {
+	      userReivew = review;
+	    }
+	  });
+	  return userReivew;
+	};
+	
+	UserReviewsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "USER_REVIEWS":
+	      updateReviews(payload.reviews);
+	      UserReviewsStore.__emitChange();
+	      break;
+	    case "NEW_USER_REVIEW":
+	      addReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
+	    case "REMOVE_REVIEW":
+	      removeReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
+	    case "UPDATE_REVIEW":
+	      updateReview(payload.review);
+	      UserReviewsStore.__emitChange();
+	      break;
+	  }
+	};
+	module.exports = UserReviewsStore;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ShelvesStore = __webpack_require__(249);
+	var ShelvesUtil = __webpack_require__(214);
+	var DeleteShelf = __webpack_require__(251);
+	var ShelfEdit = __webpack_require__(280);
+	var NewShelf = __webpack_require__(281);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { shelves: ShelvesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = ShelvesStore.addListener(this._onChange);
+	    ShelvesUtil.fetchShelves();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display = this.state.shelves.map(function (shelf) {
+	      return React.createElement(
+	        'div',
+	        { key: shelf.id, className: 'edit-div-item' },
+	        React.createElement(ShelfEdit, { key: shelf.id,
+	          shelf: shelf }),
+	        React.createElement(DeleteShelf, { shelf: shelf })
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-div' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Edit Shelves'
+	      ),
+	      React.createElement(NewShelf, null),
+	      React.createElement(
+	        'div',
+	        { className: 'shelfedit-label-div' },
+	        React.createElement(
+	          'label',
+	          { className: 'shelfedit-label' },
+	          'Shelf'
+	        ),
+	        React.createElement(
+	          'label',
+	          { className: 'editdelete-label' },
+	          'Delete'
+	        ),
+	        React.createElement(
+	          'label',
+	          { className: 'edit-label' },
+	          'Edit'
+	        )
+	      ),
+	      display
+	    );
+	  }
+	});
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(240);
+	var ShelvesUtil = __webpack_require__(214);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      clicked: false,
+	      title: this.props.shelf.title
+	    };
+	  },
+	
+	  clicked: function () {
+	    this.setState({
+	      clicked: true
+	    });
+	  },
+	
+	  updateShelf: function (e) {
+	    e.preventDefault();
+	    ShelvesUtil.editShelf({
+	      shelf_id: this.props.shelf.id,
+	      shelf: { title: this.state.title }
+	    });
+	    this.setState({
+	      clicked: false
+	    });
+	  },
+	
+	  render: function () {
+	    var that = this;
+	    if (this.state.clicked) {
+	      return React.createElement(
+	        'form',
+	        { className: 'shelf-edit-form', onSubmit: this.updateShelf },
+	        React.createElement('input', { type: 'text',
+	          valueLink: this.linkState('title') }),
+	        React.createElement('input', { type: 'submit', value: 'rename shelf' })
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'li',
+	          { className: 'edit-shelf-title' },
+	          this.props.shelf.title,
+	          React.createElement('img', { src: 'http://www.iconsdb.com/icons/preview/gray/edit-xxl.png',
+	            className: 'delete-icon edit-icon',
+	            onClick: that.clicked })
+	        )
+	      );
+	    }
+	  }
+	});
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(240);
+	var ShelvesUtil = __webpack_require__(214);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      clicked: false,
+	      title: "add a shelf"
+	    };
+	  },
+	
+	  createShelf: function (e) {
+	    e.preventDefault();
+	    var shelf = this.state;
+	    ShelvesUtil.createShelf(shelf);
+	    this.setState(function () {
+	      return { clicked: false };
+	    });
+	  },
+	
+	  emptyValue: function (e) {
+	    if (this.state.title === "add a shelf") {
+	      this.setState({ title: "" });
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'add-self-edit' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.createShelf },
+	        React.createElement('input', { type: 'text',
+	          onClick: this.emptyValue,
+	          id: 'field-topsearch',
+	          valueLink: this.linkState('title') }),
+	        React.createElement('input', { className: 'button', type: 'submit', value: 'add shelf' })
 	      )
 	    );
 	  }
 	});
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FavoriteGamesStore = __webpack_require__(253);
+	
+	var GamesUtil = __webpack_require__(212);
+	var Link = __webpack_require__(159).Link;
+	
+	var Games = React.createClass({
+	  displayName: 'Games',
+	
+	  getInitialState: function () {
+	    return {
+	      games: FavoriteGamesStore.all()
+	    };
+	  },
+	
+	  getStateFromStore: function () {
+	    return { games: FavoriteGamesStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentDidMount: function () {
+	    this.Listener = FavoriteGamesStore.addListener(this._onChange);
+	    GamesUtil.fetchFavoriteGames();
+	    this.setState({
+	      games: FavoriteGamesStore.all()
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.Listener.remove();
+	  },
+	
+	  render: function () {
+	    var display;
+	    var that = this;
+	    display = this.state.games.map(function (game) {
+	      return React.createElement(
+	        'div',
+	        { className: 'game-div', key: game.id },
+	        React.createElement(
+	          'h3',
+	          { className: 'game-title' },
+	          React.createElement(
+	            Link,
+	            { to: "/games/" + game.id },
+	            game.title
+	          )
+	        ),
+	        React.createElement('img', { className: 'game-image', src: game.image }),
+	        React.createElement(
+	          'div',
+	          { className: 'game-description-div' },
+	          React.createElement(
+	            'p',
+	            { className: 'game-description' },
+	            game.description
+	          )
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Favorite Games'
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        display
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Games;
 
 /***/ }
 /******/ ]);

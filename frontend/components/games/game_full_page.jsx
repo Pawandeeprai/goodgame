@@ -2,6 +2,7 @@ var React = require('react');
 var GamesStore = require('../../stores/games');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
 var GamesUtil = require('../../util/games');
+var Rating = require('react-rating');
 var AddFavorite = require('./add_favorite');
 var AddOwn = require('./add_own');
 var Reviews = require('../reviews/reviews');
@@ -36,6 +37,7 @@ module.exports = React.createClass({
 
 
   render: function () {
+
     if (this.state.game === undefined){
       return <div></div>;
     } else {
@@ -44,6 +46,10 @@ module.exports = React.createClass({
           <div className="game-picture-div">
             <img src={this.state.game.image}/>
               <h4>{this.state.game.yearpublished}</h4>
+                <Rating full="glyphicon glyphicon-star large"
+                  empty="glyphicon glyphicon-star-empty large"
+                  initialRate={this.state.game.rating}
+                  readonly="true"/>
               <ul>
                 <li>minimum players: {this.state.game.minplayers}</li>
                 <li>maximum players: {this.state.game.maxplayers}</li>

@@ -11,7 +11,6 @@ var NavSearchBar = require('./search/navsearch');
 module.exports = React.createClass({
   mixins: [History],
   render: function () {
-    console.log(this.state);
     return (
       <div id="cssmenu">
         <ul>

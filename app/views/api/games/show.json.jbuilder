@@ -1,1 +1,1 @@
-json.extract! @game, :id, :title, :description ,:image ,:bgg_id ,:minplayers, :maxplayers, :yearpublished, :playtime
+json.extract! @game, :id, :title, :description ,:image ,:bgg_id ,:minplayers, :maxplayers, :yearpublished, :playtime, :rating

@@ -42,7 +42,7 @@ var CurrentUser = React.createClass({
                  src={this.state.user.picture_url}/>
           </div>
           <div className="current-user-name">
-            {this.state.user.username}
+            {this.state.user.name}
             <Link className="user-edit-link" to="users/edit">
               (edit profile)
             </Link>

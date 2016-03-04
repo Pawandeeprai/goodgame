@@ -19,7 +19,7 @@ class Api::SearchesController < ApplicationController
       image_url = "http:" + results["item"][0]["image"][0]
       game = {
         title: results["item"][0]["name"][0]["value"],
-        description: results["item"][0]["description"][0],
+        description: CGI.unescapeHTML(results["item"][0]["description"][0]),
         image: image_url,
         bgg_id: results["item"][0]["id"],
         minplayers: results["item"][0]["minplayers"][0]["value"],

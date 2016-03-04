@@ -36,7 +36,8 @@ module.exports = React.createClass({
             <li>
               <Rating full="glyphicon glyphicon-star large"
                       empty="glyphicon glyphicon-star-empty large"
-                      initialRate={review.rating}/>
+                      initialRate={review.rating}
+                      readonly={true}/>
             </li>
             <li>{review.review_text}</li>
           </ul>

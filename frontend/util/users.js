@@ -16,7 +16,7 @@ var UsersUtil = {
       url: "api/users",
       type: "GET",
       success: function (users) {
-        console.log(users);
+        
       }
     });
   },

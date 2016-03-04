@@ -66,10 +66,10 @@ module.exports = React.createClass({
             {this.state.review.review_text}
           </li>
           <div>
-            <img src="assets/delete-2-xxl.png"
+            <img src="http://www.iconsdb.com/icons/preview/gray/delete-2-xxl.png"
               className="icon"
               onClick={that.removeReview}/>
-            <img src="assets/edit-xxl.png"
+            <img src="http://www.iconsdb.com/icons/preview/gray/edit-xxl.png"
               className="icon"
               onClick={that.editReview}/>
           </div>
