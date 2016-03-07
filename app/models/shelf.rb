@@ -18,11 +18,9 @@ class Shelf < ActiveRecord::Base
   # TODO reafactor this later
   def self.generate_shelves(user)
     new_user = User.find_by_username(user.username)
-    shelf_one = Shelf.new(user_id: new_user.id, title: "currently playing")
+    shelf_one = Shelf.new(user_id: new_user.id, title: "played")
     shelf_one.save
-    shelf_two = Shelf.new(user_id: new_user.id, title: "played")
+    shelf_two = Shelf.new(user_id: new_user.id, title: "want to play")
     shelf_two.save
-    shelf_three = Shelf.new(user_id: new_user.id, title: "want to play")
-    shelf_three.save
   end
 end

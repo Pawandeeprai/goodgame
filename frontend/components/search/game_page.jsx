@@ -1,8 +1,11 @@
 var React = require('react');
 var SearchGameStore = require('../../stores/search_game');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
+var History = require('react-router').History;
+
 
 module.exports = React.createClass({
+  mixins: [History],
   getInitialState: function(){
     return {game: SearchGameStore.all()};
   },
@@ -16,6 +19,9 @@ module.exports = React.createClass({
     this.setState({
       game: SearchGameStore.all()
     });
+    if (this.state.game.id){
+      this.history.push("/games/" + this.state.game.id);
+    }
   },
 
   componentWillUnmount: function(){

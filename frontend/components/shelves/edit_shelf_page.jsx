@@ -43,10 +43,10 @@ module.exports = React.createClass({
       <div className="edit-div">
         <h1>Edit Shelves</h1>
         <NewShelf/>
-        <div className="shelfedit-label-div">
-          <label className="shelfedit-label">Shelf</label>
-          <label className="editdelete-label">Delete</label>
-          <label className="edit-label">Edit</label>
+        <div className="edit-content">
+          <div id="edit-shelf-label">shelf</div>
+          <div>edit</div>
+          <div>delete</div>
         </div>
         {display}
       </div>

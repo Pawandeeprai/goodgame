@@ -20,34 +20,8 @@
 
 .edit-div-item {
   height: 40px;
-
 }
 
-.shelfedit-label-div{
-  width: 400px;
-  border-bottom: 1px solid black;
-  height: 50px;
-}
-
-.edit-label{
-  float: right;
-  margin: 5px;
-  font-size: 20px
-}
-
-.editdelete-label{
-  float: right;
-  margin: 5px;
-  font-size: 20px
-
-}
-
-.shelfedit-label {
-  font-size: 20px;
-  margin: 5px;
-  float: left;
-
-}
 
 .edit-shelf-title{
   display: inline-block;
@@ -56,6 +30,23 @@
 .shelf-edit-form {
   display: inline-block;
   width: 345px
+}
+
+.edit-content {
+  margin-top: 20px;
+  height: 30px;
+  border-bottom: 1px solid black;
+}
+
+.edit-content div {
+  display: inline-block;
+  float: right;
+  font-size: 20px;
+  margin: 5px
+}
+
+#edit-shelf-label{
+  float: left;
 }
 
 

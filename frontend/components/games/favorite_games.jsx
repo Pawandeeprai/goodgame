@@ -27,17 +27,22 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var display = this.state.games.map(
-      function(game){
-        var link = "games/" + game.id;
-        return (
-          <li key={game.id} className="game-list-item">
-            <Link to={link}>
-              <img className="game-list-item-img" src={game.image} />
-            </Link>
-          </li>
-        );
-    });
+    var display;
+    if (this.state.games.length > 0){
+      display = this.state.games.map(
+        function(game){
+          var link = "games/" + game.id;
+          return (
+            <li key={game.id} className="game-list-item">
+              <Link to={link}>
+                <img className="game-list-item-img" src={game.image} />
+              </Link>
+            </li>
+          );
+        });
+    } else {
+      display = <h4><Link to="/search">find games to add to favorites</Link></h4>
+    }
     return (
       <div className="favorites-div">
         <ul className="favorites-ul"> <h3>Favorite Games</h3>

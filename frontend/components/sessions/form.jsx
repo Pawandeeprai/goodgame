@@ -1,9 +1,11 @@
 var React = require('react');
 var SessionsUtil = require('../../util/sessions');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var History = require('react-router').History;
+
 
 var NewSessionForm = React.createClass({
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
 
   getInitialState: function(){
     return {
@@ -16,6 +18,7 @@ var NewSessionForm = React.createClass({
     e.preventDefault();
     var user = this.state;
     SessionsUtil.createSession(user);
+    this.history.push("/");
   },
 
   render: function(){

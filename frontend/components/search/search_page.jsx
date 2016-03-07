@@ -8,7 +8,7 @@ var SearchItem = require('./search_item');
 module.exports = React.createClass({
   getInitialState: function(){
     return {
-      searchResults: {total: 0}
+      searchResults: SearchFieldStore.all()
     };
   },
   componentDidMount: function(){

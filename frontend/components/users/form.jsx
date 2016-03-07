@@ -1,9 +1,11 @@
 var React = require('react');
 var UsersUtil = require('../../util/users');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var History = require('react-router').History;
+
 
 var NewUserForm = React.createClass({
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
 
   getInitialState: function(){
     return {
@@ -20,6 +22,7 @@ var NewUserForm = React.createClass({
     if (this.state.password === this.state.password2){
       var user = this.state;
       UsersUtil.createUser(user);
+      this.history.push("/");
     } else {
       this.setState({
         messages: "Passwords must match"

@@ -16,7 +16,7 @@ module.exports = React.createClass({
         <form onSubmit={this.removeGame}>
           <input type="submit"
                  className="button"
-                 value="remove game from shelf"/>
+                 value="remove from shelf"/>
         </form>
 
       </div>

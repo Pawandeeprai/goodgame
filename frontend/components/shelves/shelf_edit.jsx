@@ -45,7 +45,7 @@ module.exports = React.createClass({
         <div>
           <li className="edit-shelf-title">
             {this.props.shelf.title}
-            <img src="http://www.iconsdb.com/icons/preview/gray/edit-xxl.png"
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Edit_icon.svg"
               className="delete-icon edit-icon"
               onClick={that.clicked}/>
           </li>
