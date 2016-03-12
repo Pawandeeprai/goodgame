@@ -64,23 +64,21 @@ var Games = React.createClass({
           this.state.games.map(
             function(game){
               return (
-                <div className="game-div" key={game.id}>
-                  <h3 className="game-title">
-                    <Link to={"/games/" + game.id}>
-                      {game.title}
-                    </Link>
-                    <RemoveGame key={game.id}
-                                gameid={game.id}
-                                shelfid={that.props.params.shelf_id}/>
-                  </h3>
+                <div key={game.id} className="game-div" key={game.id}>
                   <Link to={"/games/" + game.id}>
-                  <img className="game-image" src={game.image}/>
+                    <img className="game-image" src={game.image}/>
                   </Link>
-                  <div className="game-description-div">
-                    <p className="game-description">
-                      {game.description.slice(0,500) + "..."}
-                    </p>
-                  </div>
+                  <h3 className="game-title">
+                    <div className="game-title-div">
+                      <Link to={"/games/" + game.id}>
+                        {game.title}
+                      </Link>
+                    </div>
+                    <p>{game.description.slice(0,300)}</p>
+                  </h3>
+                  <RemoveGame key={game.id}
+                    gameid={game.id}
+                    shelfid={that.props.params.shelf_id}/>
                 </div>
               );
             }

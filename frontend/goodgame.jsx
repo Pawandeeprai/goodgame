@@ -72,7 +72,7 @@ var routes = (
     </Route>
     <Route component={SearchPage} path="/search">
     </Route>
-    <Route component={SearchGamePage} path="/game">
+    <Route component={SearchGamePage} path="/game/:bgg_id">
 
     </Route>
 

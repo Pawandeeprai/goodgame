@@ -1,78 +1,36 @@
-// Place all the styles related to the games controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.game-div img {
+  height: 170px;
+  width: 170px;
+  margin-right: 15px;
+}
+
+.game-div input {
+  width: 170px;
+}
+
+.game-div h3 {
+  display: inline-block;
+  width: 500px;
+
+}
+
+.game-div h3 a {
+  color: white;
+}
 
 .game-div {
-  border: 1px solid #c9c9c9;
-  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.game-div h3 p {
+  margin-top: 5px;
   display: inline-block;
-  position: relative;
-  width: 799px;
-  margin-bottom: 15px;
-  margin-left: 15px;
-  text-align: center;
-}
-.game-description-div{
-  width: 601px;
-  overflow: scroll;
-}
-
-.game-image {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 2px;
-  float: left;
-  display: inline-block;
-  width: 100px;
-  height: auto;
-}
-.game-title {
-  font-size: 30px;
-  background-color: #9ad3de;
-  float: left;
-  display: inline-block;
-  width: 100%;
-  border: 0px;
-  margin: 0px;
-  padding-bottom: 5px;
-  padding-top: 3px;
-  color: white;
-
-}
-
-.game-title a {
-  color: white;
-}
-
-.game-description {
-  float: left;
-  display: inline-block;
-  width: 600px;
-  height: 100px;
-}
-
-.console-logo{
-  width: 40px;
-  height: auto;
-  float: left;
-}
-
-
-
-.empty-self-header{
+  font-size: 12px;
   display: block;
-  margin-left: 50px;
 }
 
-.remove-from-shelf-div {
-  display: inline-block;
-  float: right;
-}
-
-.remove-from-shelf-div .button {
-  border: 1px solid #89bdd3;
-}
-
-.game-picture-div img{
-  width: 329px;
+.game-title-div{
+  width: 500px;
+  height: 33px;
+  background-color: #9ad3de;
 }

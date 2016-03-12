@@ -1,6 +1,7 @@
 var React = require('react');
 var SearchGameStore = require('../../stores/search_game');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
+var SearchUtil = require('../../util/search');
 var History = require('react-router').History;
 
 
@@ -12,6 +13,7 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     this.Listener = SearchGameStore.addListener(this._onChange);
+    SearchUtil.getGameInfo(this.props.params.bgg_id);
   },
 
 

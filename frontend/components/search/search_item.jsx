@@ -15,6 +15,7 @@ module.exports = React.createClass({
     SearchUtil.getGameInfo(this.props.info.id);
   },
   render: function () {
+    var link = "/game/" + this.props.info.id;
     var published;
     if (this.props.info.yearpublished){
       published = this.props.info.yearpublished[0].value;
@@ -26,7 +27,7 @@ module.exports = React.createClass({
       <div>
           <li onClick={that.handleClick}>
             <h5>
-              <Link to="/game">
+              <Link to={link}>
               {that.props.info.name[0].value} ({published})
               </Link>
             </h5>

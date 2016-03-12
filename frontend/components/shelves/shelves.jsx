@@ -46,12 +46,12 @@ var Shelves = React.createClass({
     return (
     <div className="shelves-div">
       <div className="shelves-header">
-        <h2 className="shelves-header-text">
+        <h3 className="shelves-header-text">
           Shelves
           <Link to="shelves/edit" className="shelves-edit-label">
             (edit)
           </Link>
-        </h2>
+        </h3>
       </div>
       <div className="shelf-names-div">
         {display}
