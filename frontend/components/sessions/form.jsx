@@ -24,7 +24,6 @@ var NewSessionForm = React.createClass({
   render: function(){
     return(
       <div className="signin-form-div">
-        <h1 className="form-header">Sign In</h1>
         <form className="signin-form"onSubmit={this.createUser}>
           <label className="form-text">Username:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
@@ -34,6 +33,7 @@ var NewSessionForm = React.createClass({
           <br/>
           <input className="button" type="submit" value="Sign In"/>
         </form>
+
       </div>
     );
   }

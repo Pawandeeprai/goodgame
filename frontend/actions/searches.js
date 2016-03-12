@@ -13,6 +13,11 @@ var SearchesActions = {
       actionType: "SEARCH_GAME",
       game: game
     });
+  },
+  clearSearch: function(){
+    AppDispatcher.dispatch({
+      actionType: "CLEAR_SEARCH"
+    });
   }
 
 };

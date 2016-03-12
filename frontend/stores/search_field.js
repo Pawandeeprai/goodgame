@@ -9,9 +9,15 @@ var newSearch = function(searchResults){
   _searchItems = searchResults;
 };
 
+var clearSearch = function(){
+  _searchItems = [];
+};
+
 SearchStore.all = function(){
   return _searchItems;
 };
+
+
 
 SearchStore.__onDispatch = function(payload){
   switch (payload.actionType) {
@@ -19,7 +25,10 @@ SearchStore.__onDispatch = function(payload){
       newSearch(payload.searchResults);
       SearchStore.__emitChange();
       break;
-
+    case "CLEAR_SEARCH":
+      clearSearch();
+      SearchStore.__emitChange();
+      break;
   }
 };
 module.exports = SearchStore;

@@ -34,11 +34,15 @@ module.exports = React.createClass({
         );
       });
     }
+    var generated;
+    if (this.state.searchResults.total > 0){
+      generated = <h4>generated {this.state.searchResults.total} items</h4>;
+    }
     return (
       <div className="search-results">
         <h1>Search</h1>
         <SearchBar/>
-        <h4>generated {this.state.searchResults.total} items</h4>
+        {generated}
         {display}
       </div>
     );

@@ -4,7 +4,7 @@ var NewSessionsForm = require('../sessions/form');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {status: "blank"};
+    return {status: "signin"};
   },
 
   signin: function(e){
@@ -22,26 +22,30 @@ module.exports = React.createClass({
   },
   render: function () {
     var display;
-    if (this.state.status === "blank"){
+    if (this.state.status === "signin") {
       display = (
-        <div className="splash-blank" >
-          <h2>search</h2><br/>
-          <h2>shelve</h2><br/>
-          <h2>play</h2>
+        <div className="already-user">
+          <NewSessionsForm/>
+          Not already a user?
+          <a onClick={this.signup}>Create an account.</a>
         </div>
       );
-    } else if (this.state.status === "signin") {
-      display = <NewSessionsForm/>;
     } else {
-      display = <NewUserForm/>;
+      display = (
+        <div className="already-user">
+          <NewUserForm/>
+          Already a user?
+          <a onClick={this.signin}>login.</a>
+        </div>
+      );
+
     }
     return (
       <div>
-        <div className="sign-in-buttons">
-          <h3 onClick={this.signin}>sign in</h3>
-          <h3 onClick={this.signup}>sign up</h3>
-        </div>
         {display}
+        <h2>search</h2><h3>⚅</h3>
+        <h2>shelve</h2><h3>⚅</h3>
+        <h2>play</h2>
       </div>
     );
   }

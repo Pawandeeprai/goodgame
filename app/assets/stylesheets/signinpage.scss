@@ -1,33 +1,28 @@
-.signin-div-right{
-  width: 70%;
-  height: 700px;
-  text-align: right;
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/A_Game_Of_Thrones_board_game_detail.jpg);
-  background-size: 1300px;
+
+
+.signin-create-div{
+  color: black;
+  text-align: center;
+}
+
+.signin-create-div h2{
   color: white;
-  float: left;
+  text-align: left;
   display: inline-block;
+  font-size: 40px;
+  margin-left: 10px;
+  margin-right: 20px
 }
 
-
-.signin-div-left {
-width: 29%;
-float: left;
-height: 700px;
-display: inline-block;
-background-image: url(http://www.hideoconcert.com/blog/wp-content/uploads/2013/03/P1020094-optimized_for_web.jpg);
-background-size: 950px
+.signin-create-div h3 {
+  display: inline-block;
+  color: white
 }
 
-.signin-div-right h1{
-  font-size: 120px;
-  margin-top: 100px;
-  margin-right: 10px;
-}
-.signin-div-right h3{
-  font-size: 50px;
-  margin-right: 10px;
-
+.center-div {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sign-in-buttons h3{
@@ -50,3 +45,36 @@ background-size: 950px
   margin: 20px;
   font-size: 60px;
 }
+
+.signin-form-div{
+  display: inline-block;
+  align-self: center;
+  text-align: center;
+  float: right;
+  background: white;
+  width: 100%;
+}
+
+.new-user-form-div{
+  display: inline-block;
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  float: right;
+  background: white;
+}
+
+.not-selected{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;}

@@ -33,7 +33,6 @@ var NewUserForm = React.createClass({
   render: function(){
     return(
       <div className ="new-user-form-div">
-        <h1 className="form-header">Sign Up</h1>
         {this.state.messages}
         <form onSubmit={this.createUser}>
           <label className="form-text">Username:</label><br/>

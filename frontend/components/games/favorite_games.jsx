@@ -41,12 +41,17 @@ module.exports = React.createClass({
           );
         });
     } else {
-      display = <h4><Link to="/search">find games to add to favorites</Link></h4>
+      display = (
+        <h4><Link to="/search">find games to add to favorites</Link></h4>
+      );
     }
     return (
       <div className="favorites-div">
         <ul className="favorites-ul"> <h3>Favorite Games</h3>
         {display}
+        <div>
+          <Link className="find-more" to="/search">find more games...</Link>
+        </div>
       </ul>
       </div>
     );
