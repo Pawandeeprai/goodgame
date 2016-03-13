@@ -8,7 +8,6 @@ var Logout = React.createClass({
   },
 
   render: function(){
-    console.log(this.props);
     return (
       <li className="navbar-logout" onClick={this.logout}>
         <a href="#">

@@ -38,7 +38,6 @@ var Shelves = React.createClass({
         return (
           <div key={shelf.id} className="shelf-div">
             <Shelf key={shelf.id} shelf={shelf} />
-            <DeleteShelf shelf={shelf}/>
           </div>
         );
       }
@@ -48,14 +47,13 @@ var Shelves = React.createClass({
       <div className="shelves-header">
         <h3 className="shelves-header-text">
           Shelves
-          <Link to="shelves/edit" className="shelves-edit-label">
-            (edit)
-          </Link>
         </h3>
       </div>
       <div className="shelf-names-div">
         {display}
-        <NewShelfForm/>
+        <div>
+          <Link className="edit-link" to="shelves/edit">edit shelves...</Link>
+        </div>
       </div>
     </div>);
   }

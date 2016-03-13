@@ -5,34 +5,40 @@
 }
 
 .edit-div {
-  width: 400px;
+  width: 800px;
   height: auto;
   margin: 30px;
-  margin-left: 25%
+  margin-left: 5%;
+}
+
+#field-topsearch {
+  width: 500px;
 }
 
 .edit-shelf-title{
   float: left;
   display: inline-block;
-  width: 345px;
+  width: 675px;
   font-size: 20px;
 }
 
 .edit-div-item {
   height: 40px;
+  width: 740px;
 }
 
-
-.edit-shelf-title{
-  display: inline-block;
-}
 
 .shelf-edit-form {
   display: inline-block;
-  width: 345px
+  width: 645px
+}
+
+.shelf-edit-form input{
+  margin-right: 10px
 }
 
 .edit-content {
+  width: 92%;
   margin-top: 20px;
   height: 30px;
   border-bottom: 1px solid black;

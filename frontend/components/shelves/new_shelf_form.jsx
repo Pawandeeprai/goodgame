@@ -47,7 +47,7 @@ var NewShelfForm = React.createClass({
       return (
         <div >
           <form className="add-shelf-button" onSubmit={this.clicked}>
-            <input className="button" type="submit" value="add shelf"/>
+            <input id="side-button" className="button" type="submit" value="add shelf"/>
           </form>
         </div>
       );

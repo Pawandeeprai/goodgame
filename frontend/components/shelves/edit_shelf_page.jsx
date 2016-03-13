@@ -45,8 +45,8 @@ module.exports = React.createClass({
         <NewShelf/>
         <div className="edit-content">
           <div id="edit-shelf-label">shelf</div>
-          <div>edit</div>
           <div>delete</div>
+          <div className="edit-shelf-title-label">edit</div>
         </div>
         {display}
       </div>

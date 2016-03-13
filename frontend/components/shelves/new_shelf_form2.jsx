@@ -37,7 +37,7 @@ module.exports = React.createClass({
                  onClick={this.emptyValue}
                  id="field-topsearch"
                  valueLink={this.linkState('title')}/>
-          <input className="button" type="submit" value="add shelf"/>
+               <input className="button" type="submit" value="add shelf"/>
         </form>
       </div>
     );
