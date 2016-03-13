@@ -6,6 +6,7 @@ var ShelvesUtil = require('../../util/shelves');
 var Link = require('react-router').Link;
 var ShelvesSidebar = require('../shelves/shelves_sidebar');
 var RemoveGame = require('./remove_game');
+var ShelvesStore = require('../../stores/shelves');
 
 
 
@@ -23,6 +24,7 @@ var Games = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
+    this.setState({shelf_id: nextProps.params.shelf_id});
   },
 
   _onChange: function(){
@@ -85,8 +87,15 @@ var Games = React.createClass({
           )
         );
     }
+    var shelfName = "";
+    if (this.state.shelf_id){
+      shelfName = ShelvesStore.findShelfName(this.state.shelf_id);
+    }
     return (
       <div>
+        <div>
+          <h1>My Games: {shelfName}</h1>
+        </div>
         <ShelvesSidebar className="shelf-sidebar"/>
         <div className="game-displays">
           {display}

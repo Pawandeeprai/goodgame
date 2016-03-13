@@ -25,6 +25,17 @@ ShelvesStore.all = function(){
   return _shelves;
 };
 
+ShelvesStore.findShelfName = function(shelfId){
+  var shelfName = "";
+  _shelves.forEach(function(shelf){
+    if (shelf.id === parseInt(shelfId)){
+      shelfName = shelf.title;
+    }
+  });
+
+  return shelfName;
+};
+
 ShelvesStore.__onDispatch = function(payload){
   switch (payload.actionType) {
     case "ALL_SHELVES":

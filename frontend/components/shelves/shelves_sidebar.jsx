@@ -37,8 +37,8 @@ module.exports = React.createClass({
     var display = this.state.shelves.map(
       function(shelf){
         return (
-          <div className="shelf-item-sidebar-div">
-            <Shelf className="shelf-item-sidebar" key={shelf.id} shelf={shelf}/>
+          <div key={shelf.id} className="shelf-item-sidebar-div">
+            <Shelf className="shelf-item-sidebar" shelf={shelf}/>
             <DeleteShelf shelf={shelf}/>
           </div>
         );
