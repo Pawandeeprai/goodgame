@@ -59,8 +59,8 @@ module.exports = React.createClass({
       options = this.state.shelves.map(
         function(shelf) {
           return (
-            <div onClick={that.toggleClicked}>
-              <ShelfChoice key={shelf.id}
+            <div key={shelf.id} onClick={that.toggleClicked}>
+              <ShelfChoice
                 game={that.props.game}
                 shelf={shelf}/>
             </div>

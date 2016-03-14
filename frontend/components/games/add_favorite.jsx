@@ -50,7 +50,7 @@ module.exports = React.createClass({
       display = "add to favorites";
     }
     return (
-      <button onClick={this.toggleFavorite} className="button">
+      <button onClick={this.toggleFavorite} className="button favorte-button">
         {display}
       </button>
     );

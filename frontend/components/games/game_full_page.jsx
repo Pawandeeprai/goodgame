@@ -45,6 +45,7 @@ module.exports = React.createClass({
         <div>
           <div className="game-picture-div">
             <img src={this.state.game.image}/>
+            <AddFavorite game={this.state.game}/>
               <h4>{this.state.game.yearpublished}</h4>
                 <Rating full="glyphicon glyphicon-star large"
                   empty="glyphicon glyphicon-star-empty large"
@@ -63,7 +64,6 @@ module.exports = React.createClass({
               {this.state.game.description}
             </p>
             <div>
-              <AddFavorite game={this.state.game}/>
             </div>
             <UserReivew game={this.state.game}/>
             <Reviews game={this.state.game}/>

@@ -26,16 +26,14 @@ module.exports = React.createClass({
       display = (
         <div className="already-user">
           <NewSessionsForm/>
-          Not already a user?
-          <a onClick={this.signup}>Create an account.</a>
+          Not already a user? <a onClick={this.signup}>Create an account.</a>
         </div>
       );
     } else {
       display = (
         <div className="already-user">
           <NewUserForm/>
-          Already a user?
-          <a onClick={this.signin}>login.</a>
+          Already a user? <a onClick={this.signin}>login.</a>
         </div>
       );
 
@@ -43,8 +41,8 @@ module.exports = React.createClass({
     return (
       <div>
         {display}
-        <h2>search</h2><h3>⚅</h3>
-        <h2>shelve</h2><h3>⚅</h3>
+        <h2>search</h2><h2>⚅</h2>
+        <h2>shelve</h2><h2>⚅</h2>
         <h2>play</h2>
       </div>
     );
