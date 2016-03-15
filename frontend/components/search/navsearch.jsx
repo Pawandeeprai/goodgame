@@ -24,12 +24,11 @@ module.exports = React.createClass({
   },
   render: function () {
     return (
-        <li>
+        <li id="search-li">
           <form className="nav-search" onSubmit={this.searchGame}>
             <input type="text" valueLink={this.linkState('query_string')}/>
-            <label onClick={this.searchGame}>
-              search
-            </label>
+            <img src="http://www.clker.com/cliparts/n/U/H/1/H/u/search-icon-white-one-hi.png"
+                 onClick={this.searchGame}/>
           </form>
         </li>
     );

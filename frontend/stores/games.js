@@ -34,6 +34,16 @@ GamesStore.game = function(id){
   return theGame;
 };
 
+GamesStore.bggIdSearch = function(bggId){
+  var theGame;
+  _games.forEach(function(game){
+    if (game.bgg_id === bggId){
+      theGame = game;
+    }
+  });
+  return theGame;
+};
+
 
 GamesStore.__onDispatch = function(payload){
   switch (payload.actionType) {

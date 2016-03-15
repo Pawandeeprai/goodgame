@@ -22,7 +22,13 @@ class Api::ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.game_id = params[:game_id]
+
+    if params[:bgg_id]
+      @game = Game.find_by_bgg_id(params[:bgg_id])
+      @review.game_id = @game.id
+    else
+      @review.game_id = params[:game_id]
+    end
     @review.user_id = current_user.id
     if @review.save
       render json: @review

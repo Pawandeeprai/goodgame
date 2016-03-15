@@ -40,6 +40,9 @@ var CurrentUser = React.createClass({
           <div className="current-user-img-div">
             <img className="current-user-img"
                  src={this.state.user.picture_url}/>
+           <Link to="users/edit">
+             (edit profile)
+           </Link>
           </div>
           <div className="current-user-name">
             <h3>{this.state.user.name}
@@ -49,8 +52,7 @@ var CurrentUser = React.createClass({
             </h3>
             <br/>
             <label className="member-since-label">
-              Member Since:
-              {this.memberSince()}
+              Member Since:      {this.memberSince()}
             </label>
           </div >
         </div>

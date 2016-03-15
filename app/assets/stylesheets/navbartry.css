@@ -118,3 +118,13 @@
     display: none;
   }
 }
+
+#search-li img{
+  width: 20px;
+  height: auto;
+  margin-left: 10px;
+}
+
+#search-li img:hover{
+  cursor: pointer;
+}

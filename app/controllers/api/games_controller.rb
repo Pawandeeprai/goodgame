@@ -16,9 +16,13 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      @relation = GameShelf.new(game_id: @game.id, shelf_id: params[:shelf_id].to_i)
-      if @relation.save
-        render json: {message: "success"}
+      if params[:shelf_id]
+        @relation = GameShelf.new(game_id: @game.id, shelf_id: params[:shelf_id].to_i)
+        if @relation.save
+          render json: {message: "success"}
+        end
+      else
+        render json:{game: @game}
       end
     else
       render json: {status: "missing some information"}
@@ -29,7 +33,7 @@ class Api::GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
     rating = @game.rating
     shelves = @game.shelves
-    
+
     render 'api/games/show'
   end
 

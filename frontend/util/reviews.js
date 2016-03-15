@@ -20,6 +20,13 @@ var ReviewsUtil = {
       }
     });
   },
+  createReviewUsingBggId: function(bggId, data){
+    $.ajax({
+      url: "api/games/1/reviews",
+      type: "POST",
+      data: {review: data, bgg_id: bggId}
+    });
+  },
   fetchUserReivews: function(gameId){
     $.ajax({
       url: "api/games/" + gameId + "/reviews/1",

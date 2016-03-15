@@ -17,3 +17,21 @@
 .user-edit-form .button{
   margin-top: 10px
 }
+
+.upload-image {
+  display: inline-block;
+  width: 300px;
+  float: right;
+}
+
+.upload-image input {
+  float: left;
+  display: block;
+  width: 200px;
+  margin-top: 2px;
+}
+
+.upload-image img {
+  float: left;
+  display: inline-block;
+}

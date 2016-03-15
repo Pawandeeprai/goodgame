@@ -2,10 +2,14 @@ var React = require('react');
 var Rating = require('react-rating');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ReviewsUtil = require('../../util/reviews');
+var GamesUtil = require('../../util/games');
+var GamesStore = require('../../stores/games');
+var History = require('react-router').History;
+
 
 
 module.exports = React.createClass({
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
 
   getInitialState: function(){
     return {
@@ -23,12 +27,14 @@ module.exports = React.createClass({
 
   createReview: function(e){
     e.preventDefault();
-    debugger;
     if (this.props.game.id){
       ReviewsUtil.createReview(this.props.game.id, this.state);
     } else {
-      
+      GamesUtil.createGame(this.props.game);
+      ReviewsUtil.createReviewUsingBggId(this.props.game.bgg_id, this.state);
+
     }
+    window.location.reload();
   },
 
   editReview: function(e){

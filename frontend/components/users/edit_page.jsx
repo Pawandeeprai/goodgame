@@ -56,12 +56,14 @@ module.exports = React.createClass({
           <br/>
           <input className="button" type="submit" value="save changes"/>
         </form>
-        <img className="profile-edit-picture"
-             src={this.state.picture_url}/>
-           <input className="button"
-                  type="submit"
-                  onClick={this.uploadImage}
-                  value="upload image"/>
+        <div className="upload-image">
+          <img className="profile-edit-picture"
+            src={this.state.picture_url}/>
+          <input className="button"
+            type="submit"
+            onClick={this.uploadImage}
+            value="upload image"/>
+        </div>
       </div>
     );
   }
