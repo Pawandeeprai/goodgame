@@ -55,7 +55,6 @@ module.exports = React.createClass({
   render: function () {
     var options="";
     var that = this;
-    if (this.state.clicked === true){
       options = this.state.shelves.map(
         function(shelf) {
           return (
@@ -67,10 +66,8 @@ module.exports = React.createClass({
           );
         }
       );
-    }
     return (
       <div className="add-game-dropdown">
-        <h4 onClick={this.toggleClicked}>add to shelf</h4>
         {options}
       </div>
     );

@@ -40,6 +40,17 @@ var GamesUtil = {
       }
     });
   },
+  removeGameFromShelfSoftly: function(data){
+    $.ajax({
+      url: "/api/game_shelves/1",
+      type: "DELETE",
+      data: {shelf_game: data},
+
+      success: function(games){
+        
+      }
+    });
+  },
   fetchFavoriteGames: function(){
     $.ajax({
       url: "/api/favorites",

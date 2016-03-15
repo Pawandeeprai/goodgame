@@ -1,7 +1,15 @@
 
 class Api::GameShelvesController < ApplicationController
   def index
-
+    @shelf = Shelf.find_by_id(params[:shelf_id])
+    @games = @shelf.games
+    @relation = false
+    @games.each do |game|
+      if game.id == params[:game_id].to_i
+        @relation = true
+      end
+    end
+    render json: {status: @relation}
   end
 
   def show

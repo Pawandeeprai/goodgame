@@ -23,6 +23,7 @@ var Games = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+
     ShelvesUtil.fetchShelfGames(parseInt(nextProps.params.shelf_id));
     this.setState({shelf_id: nextProps.params.shelf_id});
   },
@@ -32,7 +33,6 @@ var Games = React.createClass({
   },
 
   componentDidMount: function(){
-    // GamesUtil.fetchGames();
     this.Listener = GamesStore.addListener(this._onChange);
     ShelvesUtil.fetchShelfGames(parseInt(this.props.params.shelf_id));
     this.setState({

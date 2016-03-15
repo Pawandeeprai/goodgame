@@ -14,7 +14,11 @@ class Api::SearchesController < ApplicationController
     else
       bgg = BggApi.new
       results = bgg.thing({id: params[:id]})
-      image_url = "http:" + results["item"][0]["image"][0]
+      if results["item"][0]["image"]
+        image_url = "http:" + results["item"][0]["image"][0]
+      else
+        image_url = "https://www.drphillipscenter.org/resources/images/default.jpg"
+      end
       game = {
         title: results["item"][0]["name"][0]["value"],
         description: CGI.unescapeHTML(results["item"][0]["description"][0]),

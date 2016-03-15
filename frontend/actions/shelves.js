@@ -18,6 +18,12 @@ var ShelvesActions = {
       actionType: "EDIT_SHELF",
       shelf: shelf
     });
+  },
+  relation : function(message){
+    AppDispatcher.dispatch({
+      actionType: "NEW_MESSAGE",
+      message: message
+    });
   }
 };
 

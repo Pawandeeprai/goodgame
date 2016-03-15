@@ -27,7 +27,9 @@ module.exports = React.createClass({
   },
 
   componentWillUnmount: function(){
-    this.Listener.remove();
+    if (this.Listener){
+      this.Listener.remove();
+    }
   },
 
 

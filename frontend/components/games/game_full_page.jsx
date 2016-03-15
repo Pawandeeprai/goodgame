@@ -14,6 +14,7 @@ module.exports = React.createClass({
     return {game: GamesStore.game(parseInt(this.props.params.game_id))};
   },
 
+
   componentDidMount: function(){
     if (this.state.game === undefined){
       this.Listener = GamesStore.addListener(this._onChange);

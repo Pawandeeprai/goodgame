@@ -1,5 +1,6 @@
 var ShelvesActions = require('../actions/shelves');
 var GamesActions = require('../actions/games');
+var ShelfActions = require('../actions/shelf');
 
 var ShelvesUtil = {
   fetchShelves: function(){
@@ -49,6 +50,7 @@ var ShelvesUtil = {
       }
     });
   }
+
 };
 
 module.exports = ShelvesUtil;
