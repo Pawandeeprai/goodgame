@@ -10,8 +10,14 @@ var NavSearchBar = require('./search/navsearch');
 
 module.exports = React.createClass({
   mixins: [History],
+  componentDidMount: function(){
+    ShelvesUtil.fetchShelves();
+  },
+  linkToShelf: function(e){
+    e.preventDefault();
+    this.history.push("/shelves/" + ShelvesStore.all()[0].id);
+  },
   render: function () {
-
     return (
       <div id="cssmenu">
         <ul>
@@ -21,9 +27,9 @@ module.exports = React.createClass({
             </Link>
           </li>
           <li>
-            <Link to="/shelves/0">
+            <a onClick={this.linkToShelf}>
               shelves
-            </Link>
+            </a>
           </li>
           <li>
             <Link to="/favorites">

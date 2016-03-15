@@ -3,6 +3,7 @@ var SearchGameStore = require('../../stores/search_game');
 var AddGameToShelfForm = require('../shelves/add_game_to_shelf.jsx');
 var SearchUtil = require('../../util/search');
 var History = require('react-router').History;
+var UserReview = require('../reviews/user_review');
 
 
 module.exports = React.createClass({
@@ -31,7 +32,10 @@ module.exports = React.createClass({
       this.Listener.remove();
     }
   },
-
+  redirect: function(e){
+    e.preventdefault();
+    debugger;
+  },
 
   render: function () {
     if (this.state.game){
@@ -45,7 +49,7 @@ module.exports = React.createClass({
               <li>maximum players: {this.state.game.maxplayers}</li>
               <li>play time: {this.state.game.playtime}</li>
             </ul>
-            <AddGameToShelfForm game={this.state.game}/>
+            <AddGameToShelfForm onClick={this.redirect} game={this.state.game}/>
           </div>
           <div className="game-info-div">
             <h1 className="game-info-title">
@@ -54,6 +58,7 @@ module.exports = React.createClass({
             <p className="game-info-description">
               {this.state.game.description}
             </p>
+            <UserReview game={this.state.game}/>
           </div>
         </div>
       );

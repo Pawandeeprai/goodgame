@@ -53,4 +53,5 @@ ShelvesStore.__onDispatch = function(payload){
   }
 };
 
+window.ShelvesStore = ShelvesStore;
 module.exports = ShelvesStore;

@@ -13,7 +13,8 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       username: SessionsStore.all().username,
-      name: SessionsStore.all().name
+      name: SessionsStore.all().name,
+      picture_url: SessionsStore.all().picture_url
     };
   },
 
@@ -21,6 +22,21 @@ module.exports = React.createClass({
     e.preventDefault();
     UsersUtil.editUser(this.state);
     this.history.push("/");
+  },
+
+  uploadImage: function(e){
+    e.preventDefault();
+    var that = this;
+    var image = cloudinary.openUploadWidget(
+      {cloud_name: "dnsrynhjb",
+      upload_preset: "daftljdm",
+      theme: "minimal" },
+      function(error, result){
+        if (result){
+          that.setState({picture_url: result[0].secure_url});
+        }
+      }
+    );
   },
 
   render: function () {
@@ -38,10 +54,14 @@ module.exports = React.createClass({
             <input type="text" valueLink={this.linkState('name')}/>
           </label>
           <br/>
-          <input className="button" type="submit" value="edit profile"/>
+          <input className="button" type="submit" value="save changes"/>
         </form>
         <img className="profile-edit-picture"
-             src={SessionsStore.all().picture_url}/>
+             src={this.state.picture_url}/>
+           <input className="button"
+                  type="submit"
+                  onClick={this.uploadImage}
+                  value="upload image"/>
       </div>
     );
   }

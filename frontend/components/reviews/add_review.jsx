@@ -23,7 +23,12 @@ module.exports = React.createClass({
 
   createReview: function(e){
     e.preventDefault();
-    ReviewsUtil.createReview(this.props.game.id, this.state);
+    debugger;
+    if (this.props.game.id){
+      ReviewsUtil.createReview(this.props.game.id, this.state);
+    } else {
+      
+    }
   },
 
   editReview: function(e){
