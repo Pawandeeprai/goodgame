@@ -16,10 +16,9 @@ module.exports = React.createClass({
 
 
   componentDidMount: function(){
-    if (this.state.game === undefined){
-      this.Listener = GamesStore.addListener(this._onChange);
-      GamesUtil.fetchGame(this.props.params.game_id);
-    }
+    this.Listener = GamesStore.addListener(this._onChange);
+    GamesUtil.fetchGame(this.props.params.game_id);
+
   },
     componentWillUnmount: function(){
       if (this.Listener){
@@ -27,6 +26,11 @@ module.exports = React.createClass({
       }
     },
 
+    componentWillReceiveProps: function(nextProps){
+      this.setState({
+        game: GamesStore.game(parseInt(this.props.params.game_id))
+      });
+    },
   //TODO: componentWillReceiveProps(newProps)
   //DONT USEE this.props in this function
 
