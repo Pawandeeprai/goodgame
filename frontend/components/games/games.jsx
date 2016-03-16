@@ -49,17 +49,10 @@ var Games = React.createClass({
     var display;
     var that = this;
     if (this.state.games.length === 0 ){
-      if (this.props.params.shelf_id === "0") {
-        display =
-        <h2 className="empty-self-header">
-          Select a shelf
-        </h2>;
-      } else {
-        display =
-        <h2 className="empty-self-header">
-          Selected shelf is empty
-        </h2>;
-      }
+      display =
+      <h2 className="empty-self-header">
+        Selected shelf is empty
+      </h2>;
     } else {
       display =
         (

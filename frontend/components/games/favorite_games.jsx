@@ -22,6 +22,10 @@ module.exports = React.createClass({
     });
   },
 
+  componentWillUnmount: function(){
+    this.Listener.remove();
+  },
+
   getStateFromStore: function(){
     return FavoriteGamesStore.all();
   },

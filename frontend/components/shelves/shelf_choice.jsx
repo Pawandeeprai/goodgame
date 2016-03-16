@@ -5,7 +5,20 @@ var GamesStore = require('../../stores/games');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {on_shelf: false};
+    return {on_shelf: this.onShelf()};
+  },
+
+  onShelf: function(){
+    var that = this;
+    var onShelf = false;
+    if (this.props.game.shelves){
+      this.props.game.shelves.forEach(function(shelf){
+        if (shelf.id === that.props.shelf.id){
+          onShelf = true;
+        }
+      });
+    }
+    return onShelf;
   },
 
   componentDidMount: function(){
