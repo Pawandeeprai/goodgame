@@ -30,9 +30,9 @@ module.exports = React.createClass({
   render: function () {
     var display;
     if (this.state.reviews){
-      display = this.state.reviews.map(function(review){
+      display = this.state.reviews.map(function(review, key){
         return(
-          <ul key={review.id}>
+          <ul key={key}>
             <li>
               <Rating full="glyphicon glyphicon-star large"
                       empty="glyphicon glyphicon-star-empty large"
