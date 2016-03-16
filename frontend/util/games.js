@@ -47,7 +47,7 @@ var GamesUtil = {
       data: {shelf_game: data},
 
       success: function(games){
-        
+
       }
     });
   },
@@ -114,8 +114,8 @@ var GamesUtil = {
       url: "api/games",
       type: "POST",
       data: {game: game, shelf_id: shelfId},
-      success: function(message){
-        console.log(message);
+      success: function(newGame){
+        GamesActions.receiveOneGame(newGame);
       }
     });
   }
