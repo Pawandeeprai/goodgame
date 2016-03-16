@@ -32,9 +32,8 @@ module.exports = React.createClass({
     } else {
       GamesUtil.createGame(this.props.game);
       ReviewsUtil.createReviewUsingBggId(this.props.game.bgg_id, this.state);
-
+      window.location.reload();
     }
-    window.location.reload();
   },
 
   editReview: function(e){
