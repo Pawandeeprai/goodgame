@@ -1,10 +1,28 @@
 var React = require('react');
 var NewUserForm = require('./form');
 var NewSessionsForm = require('../sessions/form');
+var MessagesStore = require('../../stores/messages');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {status: "signin"};
+    return {
+      status: "signin",
+      message: ""
+    };
+  },
+
+  componentDidMount: function(){
+    this.Listener = MessagesStore.addListener(this._onChange);
+  },
+
+  _onChange: function(){
+    this.setState({
+      message: MessagesStore.all()[0]
+    });
+  },
+
+  componentWillUnmount: function(){
+    this.Listener.remove();
   },
 
   signin: function(e){
@@ -22,10 +40,11 @@ module.exports = React.createClass({
   },
   render: function () {
     var display;
+    var that = this;
     if (this.state.status === "signin") {
       display = (
         <div className="already-user">
-          <NewSessionsForm/>
+          <NewSessionsForm message={that.state.message}/>
           Not already a user? <a onClick={this.signup}>Create an account.</a>
         </div>
       );

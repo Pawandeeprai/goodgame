@@ -32,10 +32,6 @@ module.exports = React.createClass({
       this.Listener.remove();
     }
   },
-  redirect: function(e){
-    e.preventdefault();
-    debugger;
-  },
 
   render: function () {
     if (this.state.game){

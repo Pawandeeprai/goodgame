@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
     sessions_params[:password]
     )
     if @user == nil
-      render json: ["Wrong username/password combo"], status: 401
+      render json: "Wrong username/password combo", status: 401
     else
       sign_in(@user)
       render "api/users/show"
@@ -18,7 +18,7 @@ class Api::SessionsController < ApplicationController
       @current_user = current_user
       render 'api/users/show'
     else
-      render json: { status: "not logged in" }, status: 401
+      render json: "not logged in" , status: 401
     end
   end
 

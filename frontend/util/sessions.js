@@ -1,4 +1,5 @@
 var SessionsActions = require('../actions/sessions');
+var MessagesActions = require('../actions/messages');
 
 var SessionsUtil = {
   createSession: function(data){
@@ -8,6 +9,9 @@ var SessionsUtil = {
       data: { user: data },
       success: function (user) {
         SessionsActions.receiveCurrentUser(user);
+      },
+      error: function(message){
+        MessagesActions.receiveNewMessage(message);
       }
     });
   },
@@ -19,7 +23,7 @@ var SessionsUtil = {
       success: function (user) {
         SessionsActions.receiveCurrentUser(user);
       },
-      error: function(responce){
+      error: function(response){
       }
     });
   },
