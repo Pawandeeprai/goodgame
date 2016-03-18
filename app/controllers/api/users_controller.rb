@@ -14,16 +14,16 @@ class Api::UsersController < ApplicationController
       )
       if @user.save
         8.times do |i|
-          favorite = Favorite.new(user_id: @user.id, game_id: i + 4)
+          favorite = Favorite.new(user_id: @user.id, game_id: i + 9)
           favorite.save
         end
         shelves = Shelf.generate_shelves(@user)
         5.times do |i|
-          relation = GameShelf.new(shelf_id: shelves[0].id, game_id: i + 5)
+          relation = GameShelf.new(shelf_id: shelves[0].id, game_id: i + 9)
           relation.save
         end
         5.times do |i|
-          relation = GameShelf.new(shelf_id: shelves[1].id, game_id: i + 10)
+          relation = GameShelf.new(shelf_id: shelves[1].id, game_id: i + 20)
           relation.save
         end
         sign_in(@user)
