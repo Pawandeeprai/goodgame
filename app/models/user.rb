@@ -21,10 +21,11 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   has_many :reviews
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorite_games, through: :favorites
   has_many :owns
   has_many :owned_games, through: :owns
+  has_many :shelves, dependent: :destroy
 
 
 

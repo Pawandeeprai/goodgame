@@ -23,8 +23,14 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    sign_out!
-    render json: {}
+    if current_user.username[0..4] == "guest"
+      @current_user = current_user
+      @current_user.destroy
+      render json: {}
+    else
+      sign_out!
+      render json: {}
+    end
   end
 
   def sessions_params

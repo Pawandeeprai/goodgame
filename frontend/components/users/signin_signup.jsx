@@ -2,6 +2,8 @@ var React = require('react');
 var NewUserForm = require('./form');
 var NewSessionsForm = require('../sessions/form');
 var MessagesStore = require('../../stores/messages');
+var UsersUtil = require('../../util/users');
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -38,6 +40,12 @@ module.exports = React.createClass({
       status: "signup"
     });
   },
+  guestUserLogin: function(e){
+    e.preventDefault();
+    UsersUtil.createUser(
+      {username: "guest"}
+    );
+  },
   render: function () {
     var display;
     var that = this;
@@ -45,14 +53,16 @@ module.exports = React.createClass({
       display = (
         <div className="already-user">
           <NewSessionsForm message={that.state.message}/>
-          Not already a user? <a onClick={this.signup}>Create an account.</a>
+          Don't have an account? <a onClick={this.signup}>Create an account.</a><br/>
+          Want to check things out? <a onClick={this.guestUserLogin}>guest login</a>
         </div>
       );
     } else {
       display = (
         <div className="already-user">
           <NewUserForm/>
-          Already a user? <a onClick={this.signin}>login.</a>
+          Have an account? <a onClick={this.signin}>login.</a><br/>
+          Want to check things out? <a onClick={this.guestUserLogin}>guest login</a>
         </div>
       );
 

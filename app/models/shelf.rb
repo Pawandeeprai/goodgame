@@ -22,5 +22,6 @@ class Shelf < ActiveRecord::Base
     shelf_one.save
     shelf_two = Shelf.new(user_id: new_user.id, title: "want to play")
     shelf_two.save
+    [shelf_one, shelf_two]
   end
 end
