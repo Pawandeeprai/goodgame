@@ -13,8 +13,8 @@ class Api::UsersController < ApplicationController
       password: "passwordpassword"
       )
       if @user.save
-        10.times do |i|
-          favorite = Favorite.new(user_id: @user.id, game_id: i)
+        8.times do |i|
+          favorite = Favorite.new(user_id: @user.id, game_id: i + 4)
           favorite.save
         end
         shelves = Shelf.generate_shelves(@user)
