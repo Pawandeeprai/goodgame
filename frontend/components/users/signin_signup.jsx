@@ -70,9 +70,6 @@ module.exports = React.createClass({
     return (
       <div>
         {display}
-        <h2>search</h2><h2>⚅</h2>
-        <h2>shelve</h2><h2>⚅</h2>
-        <h2>play</h2>
       </div>
     );
   }

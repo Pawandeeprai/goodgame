@@ -11,7 +11,15 @@
 html {
   padding: 0px;
   margin: 0px;
+  background-color: #e3e3e3;
+
 }
+
+.total-content {
+  background-color: #e3e3e3;
+}
+
+
 
 body {
   background-color: #e3e3e3;
@@ -27,7 +35,8 @@ a:hover {
 }
 
 .current-content {
-  width: 1080px;
+  background-color: white;
+  width: 1000px;
   margin-left: 10%;
 }
 
@@ -49,6 +58,8 @@ a:hover {
   display: inline-block;
   width: 120px;
   height: auto;
+  margin-left: 32px;
+  margin-top: 15px
 }
 
 .current-user-img-div{
@@ -58,7 +69,10 @@ a:hover {
   float: left;
 }
 
+
+
 .current-user-name {
+  margin-top: 15px;
   width: 600px;
   float:left;
   font-size: 25px;
@@ -73,11 +87,16 @@ a:hover {
   padding: 0px;
 }
 
+current-content div {
+  background-color: white;
+}
+
 
 .game-displays {
   height: auto;
   display:inline-block;
   float: right;
-  width: 870px;
+  width: 780px;
   margin-top: 15px;
+  background-color: white;
 }

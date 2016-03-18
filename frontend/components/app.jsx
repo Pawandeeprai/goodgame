@@ -62,7 +62,7 @@ var App = React.createClass({
     }
 
     return (
-      <div>
+      <div className="total-content">
         {things}
       </div>
     );

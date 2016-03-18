@@ -3,9 +3,11 @@
 .signin-create-div{
   color: black;
   text-align: center;
+  max-width: 500px;
+  margin: auto;
 }
 
-.signin-create-div h2{
+.words-div h2{
   color: white;
   text-align: left;
   display: inline-block;
@@ -53,6 +55,7 @@
   float: right;
   background: white;
   width: 100%;
+  border-radius: 4px;
 }
 
 .new-user-form-div{

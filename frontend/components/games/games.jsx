@@ -85,13 +85,13 @@ var Games = React.createClass({
       shelfName = ShelvesStore.findShelfName(this.state.shelf_id);
     }
     return (
-      <div>
-        <div>
+      <div className="shelves-div-div">
+        <div className="shelves-div-div">
           <h1>My Games: {shelfName}</h1>
-        </div>
-        <ShelvesSidebar className="shelf-sidebar"/>
-        <div className="game-displays">
-          {display}
+          <ShelvesSidebar className="shelf-sidebar"/>
+          <div className="game-displays">
+            {display}
+          </div>
         </div>
       </div>
       );

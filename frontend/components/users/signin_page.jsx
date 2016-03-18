@@ -10,6 +10,11 @@ module.exports = React.createClass({
           <div className="signin-create-div">
             <SigninControl/>
           </div>
+          <div className="words-div">
+            <h2>search</h2><h2>⚅</h2>
+            <h2>shelve</h2><h2>⚅</h2>
+            <h2>play</h2>
+          </div>
         </div>
       </div>
     );
