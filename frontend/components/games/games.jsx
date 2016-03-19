@@ -60,20 +60,24 @@ var Games = React.createClass({
             function(game){
               return (
                 <div key={game.id} className="game-div" key={game.id}>
-                  <Link to={"/games/" + game.id}>
-                    <img className="game-image" src={game.image}/>
-                  </Link>
-                  <h3 className="game-title">
-                    <div className="game-title-div">
+                  <div className="game-div-inner">
+                    <div className="remove-from">
                       <Link to={"/games/" + game.id}>
-                        {game.title}
+                        <img className="game-image" src={game.image}/>
                       </Link>
+                      <RemoveGame key={game.id}
+                        gameid={game.id}
+                        shelfid={that.props.params.shelf_id}/>
                     </div>
-                    <p>{game.description.slice(0,300)}</p>
-                  </h3>
-                  <RemoveGame key={game.id}
-                    gameid={game.id}
-                    shelfid={that.props.params.shelf_id}/>
+                    <div className="game-desc">
+                      <h3 className="game-title">
+                        <Link to={"/games/" + game.id}>
+                          {game.title}
+                        </Link>
+                      </h3>
+                      <p>{game.description.slice(0,300)}</p>
+                    </div>
+                  </div>
                 </div>
               );
             }
@@ -86,13 +90,9 @@ var Games = React.createClass({
     }
     return (
       <div className="shelves-div-div">
-        <div className="shelves-div-div">
-          <h1>My Games: {shelfName}</h1>
-          <ShelvesSidebar className="shelf-sidebar"/>
-          <div className="game-displays">
-            {display}
-          </div>
-        </div>
+        <h1>My Games: {shelfName}</h1>
+        <ShelvesSidebar className="shelf-sidebar"/>
+          {display}
       </div>
       );
   }

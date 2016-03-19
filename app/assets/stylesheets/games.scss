@@ -2,6 +2,7 @@
   height: 170px;
   width: 170px;
   margin-right: 15px;
+  margin-left: 5px;
 }
 
 .shelves-div-div {
@@ -11,25 +12,52 @@
 
 .shelves-div-div h1 {
   background-color: white;
+  margin: 0px;
+  padding-top: 15px;
+  margin-bottom: 20px;
 }
 
 .game-div input {
   width: 170px;
 }
 
+.game-desc {
+  width: 600px;
+  float:right;
+  height: 203px;
+}
+
 .game-div h3 {
   display: inline-block;
-  width: 500px;
+  width: 600px;
+  background-color: #9ad3de;
+  margin:0px;
+}
 
+.game-div input {
+  margin-left: 5px;
 }
 
 .game-div h3 a {
   color: white;
 }
 
+.remove-from {
+  display: inline-block;
+  width: 200px;
+}
+
 .game-div {
   margin-bottom: 20px;
   background-color: white;
+  height: 220px;
+}
+
+
+.game-div-inner {
+  width: 800px;
+  display: inline-block;
+  float: right;
 }
 
 .game-div h3 p {

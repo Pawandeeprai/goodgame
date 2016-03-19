@@ -3,9 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .searchbar {
   width: 800px;
-  margin: 5px;
+  margin: 10px;
+  margin-left: 70px;
 }
 
 .search-results {
   list-style: none;
+}
+
+.search-results h1{
+  color: #89bdd3;
+  margin-top: 0px;
+  padding-top: 15px;
+  margin-left: 15px;
 }
