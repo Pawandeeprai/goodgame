@@ -44,16 +44,18 @@ var Games = React.createClass({
             return (
               <div key={game.id} className="game-div" key={game.id}>
                 <Link to={"/games/" + game.id}>
-                  <img className="game-image" src={game.image}/>
+                  <img id="game-favs" src={game.image}/>
                 </Link>
-                <h3 className="game-title">
-                  <div className="game-title-div">
-                    <Link to={"/games/" + game.id}>
-                      {game.title}
-                    </Link>
-                  </div>
+                <div className="game-desc-fav">
+                  <h3 className="game-title">
+                    <div id="game-title-fav" className="game-title-div">
+                      <Link to={"/games/" + game.id}>
+                        {game.title}
+                      </Link>
+                    </div>
+                  </h3>
                   <p>{game.description.slice(0,300)}</p>
-                </h3>
+                </div>
               </div>
             );
           }
