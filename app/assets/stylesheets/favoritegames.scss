@@ -1,11 +1,10 @@
 .game-list-item-img{
-  width: 100px;
-  height: auto;
+  width: auto;
+  height: 200px;
 }
 
 .game-list-item {
   display: inline-block;
-  width: 100px;
   font-size: 15px;
   margin-left: 10px;
   margin-top: 5px;
@@ -30,8 +29,9 @@
   margin-top: 15px;
   width: 1000px;
   text-align: center;
-  height: 150px;
-  margin-bottom: 10px
+  max-height: 490px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
 }
 
 .find-more {

@@ -48,7 +48,7 @@ module.exports = React.createClass({
             <AddGameToShelfForm game={this.state.game}/>
           </div>
           <div className="game-info-div">
-            <h1 className="game-info-title">
+            <h1 id="game-info-title">
               {this.state.game.title}
             </h1>
             <p className="game-info-description">
