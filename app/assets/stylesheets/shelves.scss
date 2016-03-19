@@ -11,6 +11,7 @@
 
 .edit-link {
   float: right;
+  margin-right: 10px
 }
 
 #edit-rename{
@@ -31,9 +32,23 @@
 
 
 .shelf-link {
-  width: 75%;
+  width: 100%;
   display: inline-block;
   color: black;
+  font-size: 24px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  color: white;
+  background-color: #89bdd3;
+  border: 1px solid #9ad3de;
+  border-radius: 3px;
+  font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  padding: 9px 13px;
 }
 .shelf-link:link {
   text-decoration: none;
@@ -50,6 +65,9 @@
   margin: 0px;
   border: 0px;
   padding: 0px;
+  padding-left: 15px;
+  font-size: 32px;
+  height: 38px;
   text-transform: uppercase;
   text-align: left;
 }

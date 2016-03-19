@@ -39,7 +39,6 @@ module.exports = React.createClass({
         return (
           <div key={shelf.id} className="shelf-item-sidebar-div">
             <Shelf className="shelf-item-sidebar" shelf={shelf}/>
-            <DeleteShelf shelf={shelf}/>
           </div>
         );
       }

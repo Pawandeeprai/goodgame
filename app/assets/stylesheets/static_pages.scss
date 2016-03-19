@@ -78,8 +78,9 @@ a:hover {
   float: left;
 }
 
-
-
+.current-user-img-div a{
+  margin-left: 32px;
+}
 .current-user-name {
   margin-top: 15px;
   width: 600px;
@@ -94,6 +95,9 @@ a:hover {
   margin: 0px;
   border: 0px;
   padding: 0px;
+  padding-left: 32px;
+  height: 40px;
+  font-size: 32px;
 }
 
 current-content div {

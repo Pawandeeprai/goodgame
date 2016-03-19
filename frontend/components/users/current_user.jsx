@@ -21,7 +21,7 @@ var CurrentUser = React.createClass({
   },
 
   componentDidMount: function () {
-  this.Listener = SessionsStore.addListener(this._onChange);
+    this.Listener = SessionsStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function(){
@@ -30,7 +30,26 @@ var CurrentUser = React.createClass({
   },
 
   memberSince: function(){
-    return this.state.user.created_at.slice(0,4);
+    var year =  this.state.user.created_at.slice(0,4);
+    var mm = this.state.user.created_at.slice(5,7);
+    var dd = this.state.user.created_at.slice(8,10);
+    var today = dd + "/" + mm + "/" + year;
+    return today;
+  },
+  dateToday: function(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd < 10){
+        dd ='0'+dd;
+    }
+    if (mm < 10){
+        mm ='0'+mm;
+    }
+      today = dd+'/'+mm+'/'+yyyy;
+      return today;
   },
 
   render: function(){
@@ -51,9 +70,24 @@ var CurrentUser = React.createClass({
               </Link>
             </h3>
             <br/>
-            <label className="member-since-label">
-              Member Since:      {this.memberSince()}
-            </label>
+            <h4 id="top-info" className="member-info" >
+              <label className="">
+                Member Since:
+              </label>
+              {this.memberSince()}
+            </h4>
+            <h4 className="member-info" >
+              <label className="">
+                Last Login:
+              </label>
+              {this.dateToday()}
+            </h4>
+            <h4 className="member-info" >
+              <label className="">
+                Reviews:
+              </label>
+              {this.state.user.reviews.length}
+            </h4>
           </div >
         </div>
         <FavoriteGames/>

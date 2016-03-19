@@ -7,8 +7,15 @@
   font-size: 50%
 }
 
-.member-since-label{
-  font-size: 15px;
+.member-info {
+  width: 585px;
+  text-align: right;
+}
+
+.member-info label {
+  display: inline-block;
+  float: left;
+  margin-left: 32px;
 }
 
 .edit-icon{
@@ -32,5 +39,8 @@
   display: inline-block;
   width: 120px;
   text-align: center;
-  margin-left: 32px;
+}
+
+#top-info {
+  margin-top: -28px;
 }
