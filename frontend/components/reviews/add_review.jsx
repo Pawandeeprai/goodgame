@@ -60,14 +60,15 @@ module.exports = React.createClass({
     } else {
       return (
         <form className="new-review" onSubmit={this.createReview}>
-          <Rating full="glyphicon glyphicon-star large"
-            empty="glyphicon glyphicon-star-empty large"
-            initialRate={this.state.rating}
-            onChange={this.handleRating}/>
+          <div className="user-rating">
+            <Rating full="glyphicon glyphicon-star large"
+              empty="glyphicon glyphicon-star-empty large"
+              initialRate={this.state.rating}
+              onChange={this.handleRating}/>
+          </div>
           <br/>
-          <input className="text-box"
-            valueLink={this.linkState('review_text')}
-            type="text-box"/>
+          <textarea className="text-box"
+            valueLink={this.linkState('review_text')}/>
           <br/>
           <input className="button" type="submit" value="add review"/>
         </form>

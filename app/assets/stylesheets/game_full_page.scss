@@ -7,8 +7,9 @@
 }
 
 .game-picture-div img {
-  width: 329px;
+  width: 320px;
   height: auto;
+  margin-left: 5px
 }
 
 .game-info-div {
@@ -54,4 +55,20 @@
 
 .game-picture-div li {
   list-style-type: none;
+  margin-left: 5px;
+}
+
+.average-rating{
+  width: 290px;
+  margin-left: 39px;
+}
+
+.user-rating {
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: -25px;
+}
+
+.reviews {
+  margin-left: 15px;
 }

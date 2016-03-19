@@ -58,9 +58,9 @@ module.exports = React.createClass({
         <ul key={this.state.review.id}>
           <li>
             <Rating className="rating"
-                    full="glyphicon glyphicon-star large"
-                    empty="glyphicon glyphicon-star-empty large"
-                    initialRate={this.state.review.rating}/>
+              full="glyphicon glyphicon-star large"
+              empty="glyphicon glyphicon-star-empty large"
+              initialRate={this.state.review.rating}/>
           </li>
           <li>
             {this.state.review.review_text}
@@ -76,7 +76,8 @@ module.exports = React.createClass({
         </ul>
       );
     } else {
-      display = <AddReview review={this.state.review} game={this.props.game} />;
+      display =
+        <AddReview review={this.state.review} game={this.props.game} />;
     }
     return (
       <div className="reviews">

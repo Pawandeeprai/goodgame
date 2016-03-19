@@ -51,20 +51,24 @@ module.exports = React.createClass({
           <div className="game-picture-div">
             <img src={this.state.game.image}/>
             <AddFavorite game={this.state.game}/>
-              <h4>{this.state.game.yearpublished}</h4>
+              <h4></h4>
+              <div className="average-rating">
                 <Rating full="glyphicon glyphicon-star large"
                   empty="glyphicon glyphicon-star-empty large"
                   initialRate={parseInt(this.state.game.rating)}
                   readonly={true}/>
+              </div>
               <ul>
                 <li>minimum players: {this.state.game.minplayers}</li>
                 <li>maximum players: {this.state.game.maxplayers}</li>
-                <li>play time: {this.state.game.playtime}</li>
+                <li>play time: {this.state.game.playtime} mins</li>
               </ul>
               <AddGameToShelfForm game={this.state.game}/>
           </div>
           <div className="game-info-div">
-            <h1 id="game-info-title">{this.state.game.title}</h1>
+            <h1 id="game-info-title">
+              {this.state.game.title} ({this.state.game.yearpublished})
+            </h1>
             <p className="game-info-description">
               {this.state.game.description}
             </p>
