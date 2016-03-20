@@ -72,8 +72,8 @@ module.exports = React.createClass({
             <p className="game-info-description">
               {this.state.game.description}
             </p>
-            <div>
-            </div>
+          </div>
+          <div className="full-review-div">
             <UserReivew game={this.state.game}/>
             <Reviews game={this.state.game}/>
           </div>
