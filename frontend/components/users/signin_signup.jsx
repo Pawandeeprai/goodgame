@@ -3,9 +3,11 @@ var NewUserForm = require('./form');
 var NewSessionsForm = require('../sessions/form');
 var MessagesStore = require('../../stores/messages');
 var UsersUtil = require('../../util/users');
+var History = require('react-router').History;
 
 
 module.exports = React.createClass({
+  mixins: [History],
   getInitialState: function(){
     return {
       status: "signin",
@@ -45,6 +47,7 @@ module.exports = React.createClass({
     UsersUtil.createUser(
       {username: "guest"}
     );
+    this.history.push("/");
   },
   render: function () {
     var display;
