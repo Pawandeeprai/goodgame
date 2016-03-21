@@ -47,7 +47,6 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    console.log(this.state.message);
     return (
       <div>
         <h1>Profile Settings</h1>
