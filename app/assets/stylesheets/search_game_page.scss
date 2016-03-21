@@ -61,3 +61,17 @@
     height: 5em;
   }
 }
+
+.new-game-loading {
+  height: 600px;
+  display: block;
+  background-color: white;
+  margin-top: -80px;
+  text-align: center;
+}
+
+.inside-loader {
+  margin-top: 10%;
+  display: inline-block;
+  background-color: white;
+}

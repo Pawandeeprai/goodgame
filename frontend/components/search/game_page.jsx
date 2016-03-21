@@ -66,8 +66,10 @@ module.exports = React.createClass({
       );
     } else {
       return (
-        <div className="new-game">
-          <div className="loader">Loading...</div>
+        <div className="new-game-loading">
+          <div className="inside-loader">
+            <div className="loader">Loading...</div>
+          </div>
         </div>);
     }
   }
