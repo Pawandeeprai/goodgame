@@ -47,7 +47,7 @@ module.exports = React.createClass({
       return <div></div>;
     } else {
       return (
-        <div>
+        <div className="game-full-div">
           <div className="game-picture-div">
             <img src={this.state.game.image}/>
             <AddFavorite game={this.state.game}/>
