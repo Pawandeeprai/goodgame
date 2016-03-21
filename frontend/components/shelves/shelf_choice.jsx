@@ -60,9 +60,9 @@ module.exports = React.createClass({
         <li>
           {this.props.shelf.title}
           <input onClick={this.removeFromShelf}
-            className="button"
+            className="button plus"
             type="submit"
-            value="Remove"/>
+            value="-"/>
         </li>
       );
     } else {
@@ -72,7 +72,7 @@ module.exports = React.createClass({
           <input onClick={this.addToShelf}
             className="button"
             type="submit"
-            value="Add"/>
+            value="+"></input>
         </li>
       );
     }

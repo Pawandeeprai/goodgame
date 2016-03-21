@@ -26,7 +26,7 @@ var NewSessionForm = React.createClass({
       <div className="signin-form-div">
         {this.props.message}
         <form className="signin-form"onSubmit={this.createUser}>
-          <label className="form-text">Username:</label><br/>
+          <label className="form-text">Email:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
           <br/>
           <label className="form-text">Password:</label><br/>

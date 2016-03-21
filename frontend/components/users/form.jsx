@@ -35,7 +35,7 @@ var NewUserForm = React.createClass({
       <div className ="new-user-form-div">
         {this.state.messages}
         <form onSubmit={this.createUser}>
-          <label className="form-text">Username:</label><br/>
+          <label className="form-text">Email:</label><br/>
           <input type="text" valueLink={this.linkState('username')}/>
           <br/>
           <label className="form-text">Name:</label><br/>
