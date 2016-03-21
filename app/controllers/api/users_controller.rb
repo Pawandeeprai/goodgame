@@ -12,8 +12,8 @@ class Api::UsersController < ApplicationController
       picture_url: "https://cdn3.iconfinder.com/data/icons/brain-games/1042/Board-Games-grey.png",
       password: "passwordpassword"
       )
-      fav_seed = [38,32,16,53,31,15,41,46]
-      played_seed = [38,54,16,15,41,53]
+      fav_seed = [1,32,16,53,31,15,41,46]
+      played_seed = [1,54,16,15,41,53]
       want_to_play_seed = [52,51,49,47]
       if @user.save
         8.times do |i|

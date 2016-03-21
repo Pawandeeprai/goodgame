@@ -1,3 +1,5 @@
+require 'bgg-api'
+
 # == Schema Information
 #
 # Table name: games
@@ -33,7 +35,8 @@ class Api::GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
     rating = @game.rating
     shelves = @game.shelves
-
+    description = @game.description.split("&mdash;")
+    @game.description = description.join
     render 'api/games/show'
   end
 
