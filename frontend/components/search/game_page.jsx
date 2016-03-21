@@ -9,10 +9,16 @@ var UserReview = require('../reviews/user_review');
 module.exports = React.createClass({
   mixins: [History],
   getInitialState: function(){
-    return {game: SearchGameStore.all()};
+    return {
+      game: SearchGameStore.all(),
+      loading: false
+    };
   },
 
   componentDidMount: function(){
+    if (this.state.game.bgg_id !== this.props.params.bgg_id){
+      this.setState({loading: true});
+    }
     this.Listener = SearchGameStore.addListener(this._onChange);
     SearchUtil.getGameInfo(this.props.params.bgg_id);
   },
@@ -22,6 +28,7 @@ module.exports = React.createClass({
     this.setState({
       game: SearchGameStore.all()
     });
+    this.setState({loading: false});
     if (this.state.game.id){
       this.history.push("/games/" + this.state.game.id);
     }
@@ -34,7 +41,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    if (this.state.game){
+    if (this.state.game && this.state.loading === false){
       return (
         <div className="new-game">
           <div className="game-picture-div">
@@ -58,7 +65,10 @@ module.exports = React.createClass({
         </div>
       );
     } else {
-      return <div></div>;
+      return (
+        <div className="new-game">
+          <div className="loader">Loading...</div>
+        </div>);
     }
   }
 });
