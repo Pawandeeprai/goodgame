@@ -14,14 +14,21 @@ module.exports = React.createClass({
     return {
       username: SessionsStore.all().username,
       name: SessionsStore.all().name,
-      picture_url: SessionsStore.all().picture_url
+      picture_url: SessionsStore.all().picture_url,
+      message: ""
     };
   },
 
   updateProfile: function(e){
     e.preventDefault();
-    UsersUtil.editUser(this.state);
-    this.history.push("/");
+    if (this.state.username === ""){
+      this.setState({message: "email can't be blank"});
+    } else if (this.state.name === "") {
+      this.setState({message: "name can't be blank"});
+    } else {
+      UsersUtil.editUser(this.state);
+      this.history.push("/");
+    }
   },
 
   uploadImage: function(e){
@@ -40,11 +47,13 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    console.log(this.state.message);
     return (
       <div>
         <h1>Profile Settings</h1>
         <form onSubmit={this.updateProfile} className="user-edit-form">
-          <label>username
+          {this.state.message}<br/>
+          <label>email
             <br/>
             <input type="text" valueLink={this.linkState('username')}/>
           </label>
