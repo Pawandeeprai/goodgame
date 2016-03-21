@@ -32,8 +32,7 @@ var CurrentUser = React.createClass({
   memberSince: function(){
     var year =  this.state.user.created_at.slice(0,4);
     var mm = this.state.user.created_at.slice(5,7);
-    var dd = this.state.user.created_at.slice(8,10);
-    var today = dd + "/" + mm + "/" + year;
+    var today =  mm + "/" + year;
     return today;
   },
   dateToday: function(){
