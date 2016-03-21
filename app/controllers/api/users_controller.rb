@@ -12,18 +12,21 @@ class Api::UsersController < ApplicationController
       picture_url: "https://cdn3.iconfinder.com/data/icons/brain-games/1042/Board-Games-grey.png",
       password: "passwordpassword"
       )
+      fav_seed = [1,32,16,53,31,15,41,46]
+      played_seed = [1,54,16,15,41,53]
+      want_to_play_seed = [52,51,49,47]
       if @user.save
         8.times do |i|
-          favorite = Favorite.new(user_id: @user.id, game_id: i + 10)
+          favorite = Favorite.new(user_id: @user.id, game_id: fav_seed[i - 1])
           favorite.save
         end
         shelves = Shelf.generate_shelves(@user)
-        7.times do |i|
-          relation = GameShelf.new(shelf_id: shelves[0].id, game_id: i + 10)
+        6.times do |i|
+          relation = GameShelf.new(shelf_id: shelves[0].id, game_id: played_seed[i - 1])
           relation.save
         end
-        5.times do |i|
-          relation = GameShelf.new(shelf_id: shelves[1].id, game_id: i + 20)
+        4.times do |i|
+          relation = GameShelf.new(shelf_id: shelves[1].id, game_id: want_to_play_seed[i - 1])
           relation.save
         end
         sign_in(@user)
