@@ -1,7 +1,7 @@
 # goodGame
 
 [goodgamez.herokuapp.com][goodGame]
-[goodGame]: http://www.goodgamez.herokuapp.com
+[goodGame]: http://goodgamez.herokuapp.com
 
 GoodGame is a web-app I developed to help users track board games using multiple shelves they've created. It was developed using Ruby on Rails and React.js.
 
