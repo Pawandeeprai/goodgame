@@ -5,6 +5,8 @@ class Api::GameShelvesController < ApplicationController
     @games = @shelf.games
     @relation = false
     @games.each do |game|
+      description = game.description.split("&mdash;")
+      game.description = description.join
       if game.id == params[:game_id].to_i
         @relation = true
       end

@@ -37,6 +37,7 @@ class Api::GamesController < ApplicationController
     shelves = @game.shelves
     description = @game.description.split("&mdash;")
     @game.description = description.join
+    @game.save
     render 'api/games/show'
   end
 
