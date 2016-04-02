@@ -47,6 +47,10 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var display = <input type="text" valueLink={this.linkState('username')}/>;
+    if (this.state.username.slice(0,5) === "guest"){
+      display = <input type="text" value="can't change guest acccount email"/>;
+    }
     return (
       <div>
         <h1>Profile Settings</h1>
@@ -54,7 +58,7 @@ module.exports = React.createClass({
           {this.state.message}<br/>
           <label>email
             <br/>
-            <input type="text" valueLink={this.linkState('username')}/>
+            {display}
           </label>
           <br/>
           <label>name
