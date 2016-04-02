@@ -12,9 +12,9 @@ class Api::UsersController < ApplicationController
       picture_url: "https://cdn3.iconfinder.com/data/icons/brain-games/1042/Board-Games-grey.png",
       password: "passwordpassword"
       )
-      fav_seed = [1,32,16,53,31,15,41,46]
-      played_seed = [1,54,16,15,41,53]
-      want_to_play_seed = [52,51,49,47]
+      fav_seed = [1,32,16,53,31,34,15,41,46,64]
+      played_seed = [1,54,16,15,41,53,64]
+      want_to_play_seed = [52,51,49,47,34]
       if @user.save
         8.times do |i|
           favorite = Favorite.new(user_id: @user.id, game_id: fav_seed[i - 1])
