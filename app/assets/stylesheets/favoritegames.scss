@@ -5,14 +5,19 @@
 
 .game-list-item-img:hover{
   width: auto;
-  height: 210px;
+  height: 205px;
   position:relative;
+  margin: 0px;
 }
 
+.game-list-item:hover {
+  margin: 0px;
+}
 .game-list-item {
   display: inline-block;
   font-size: 15px;
   margin-left: 5px;
+  margin-right: 5px;
   margin-top: 5px;
   height: 210px;
 }
