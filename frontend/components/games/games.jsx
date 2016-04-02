@@ -75,7 +75,7 @@ var Games = React.createClass({
                           {game.title}
                         </Link>
                       </h3>
-                      <p>{game.description.slice(0,300)}</p>
+                      <p>{game.description.slice(0,600)}</p>
                     </div>
                   </div>
                 </div>

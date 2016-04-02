@@ -16,16 +16,16 @@ class Api::UsersController < ApplicationController
       played_seed = [1,54,16,15,41,53,64]
       want_to_play_seed = [52,51,49,47,34]
       if @user.save
-        8.times do |i|
+        10.times do |i|
           favorite = Favorite.new(user_id: @user.id, game_id: fav_seed[i - 1])
           favorite.save
         end
         shelves = Shelf.generate_shelves(@user)
-        6.times do |i|
+        7.times do |i|
           relation = GameShelf.new(shelf_id: shelves[0].id, game_id: played_seed[i - 1])
           relation.save
         end
-        4.times do |i|
+        5.times do |i|
           relation = GameShelf.new(shelf_id: shelves[1].id, game_id: want_to_play_seed[i - 1])
           relation.save
         end
