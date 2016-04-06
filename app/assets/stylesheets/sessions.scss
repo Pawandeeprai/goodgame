@@ -5,15 +5,16 @@
 .signin-div-right{
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/A_Game_Of_Thrones_board_game_detail.jpg);
   background-size: 1500px;
-  height: 800px;
-  // height: 100%;
+  height: 100vh;
+  background-size: cover;
 }
 
 .signin-div-right h1 {
   font-family: 'Lobster', cursive;
   margin-top: 0px;
   color: white;
-  font-size: 145px
+  font-size: 145px;
+  text-shadow: 3px 3px black;
 }
 .signin-form {
   margin-top: 20px;
