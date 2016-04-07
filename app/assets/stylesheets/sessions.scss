@@ -55,8 +55,8 @@
     -webkit-appearance: none;
     display: inline-block;
     color: white;
-    background-color: #89bdd3;
-    border: 1px solid #9ad3de;
+    background-color: #9ad3de;
+    border: 0;
     border-radius: 3px;
     font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
     font-weight: bold;
@@ -65,6 +65,10 @@
     cursor: pointer;
     line-height: 1;
     padding: 9px 13px;
+}
+
+.button:hover {
+  background-color: #89bdd3;
 }
 
 .already-user {
