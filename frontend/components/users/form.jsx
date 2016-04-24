@@ -23,6 +23,10 @@ var NewUserForm = React.createClass({
       var user = this.state;
       UsersUtil.createUser(user);
       this.history.push("/");
+    } else if (this.state.username.indexOf("@") === -1) {
+      this.setState({
+        messages: "Must enter a valid email"
+      });
     } else {
       this.setState({
         messages: "Passwords must match"
