@@ -30,6 +30,8 @@ var NewUserForm = React.createClass({
     } else {
       this.setState({
         messages: "Passwords must match"
+
+        
       });
     }
   },
